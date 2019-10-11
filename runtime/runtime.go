@@ -836,5 +836,5 @@ type NakamaModule interface {
 	GroupUsersList(ctx context.Context, id string, limit int, state *int, cursor string) ([]*api.GroupUserList_GroupUser, error)
 	UserGroupsList(ctx context.Context, userID string, limit int, state *int, cursor string) ([]*api.UserGroupList_UserGroup, error)
 
-	Event(ctx context.Context, evt *api.Event)
+	Event(ctx context.Context, evt *api.Event) error
 }

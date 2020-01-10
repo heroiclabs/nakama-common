@@ -19,7 +19,7 @@ The game server includes support to develop native code in Go with the plugin pa
 It's used to enable compiled shared objects to be loaded by the game server at startup.
 
 The Go runtime support can be used to develop authoritative multiplayer match handlers,
-RPC functions, hook into messages processed by the server, and extend the server withany other custom logic.
+RPC functions, hook into messages processed by the server, and extend the server with any other custom logic.
 It offers the same capabilities as the Lua runtime support but has the advantage that any package from the Go ecosystem can be used.
 
 Here's the smallest example of a Go module written with the server runtime.
@@ -344,6 +344,12 @@ type Initializer interface {
 
 	// RegisterAfterAuthenticateFacebook can be used to perform after successful authentication checks.
 	RegisterAfterAuthenticateFacebook(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.Session, in *api.AuthenticateFacebookRequest) error) error
+
+	// RegisterBeforeAuthenticateFacebookInstantGame can be used to perform pre-authentication checks.
+	RegisterBeforeAuthenticateFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AuthenticateFacebookInstantGameRequest) (*api.AuthenticateFacebookInstantGameRequest, error)) error
+
+	// RegisterAfterAuthenticateFacebookInstantGame can be used to perform after successful authentication checks.
+	RegisterAfterAuthenticateFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.Session, in *api.AuthenticateFacebookInstantGameRequest) error) error
 
 	// RegisterBeforeAuthenticateGameCenter can be used to perform pre-authentication checks.
 	RegisterBeforeAuthenticateGameCenter(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AuthenticateGameCenterRequest) (*api.AuthenticateGameCenterRequest, error)) error

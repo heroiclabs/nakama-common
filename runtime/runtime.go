@@ -525,6 +525,12 @@ type Initializer interface {
 	// RegisterAfterLinkFacebook can be used to perform additional logic after linking Facebook to an account.
 	RegisterAfterLinkFacebook(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.LinkFacebookRequest) error) error
 
+	// RegisterBeforeLinkFacebookInstantGame can be used to perform additional logic before linking Facebook Instant Game profile to an account.
+	RegisterBeforeLinkFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.LinkFacebookInstantGameRequest) (*api.LinkFacebookInstantGameRequest, error)) error
+
+	// RegisterAfterLinkFacebookInstantGame can be used to perform additional logic after linking Facebook Instant Game profile to an account.
+	RegisterAfterLinkFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.LinkFacebookInstantGameRequest) error) error
+
 	// RegisterBeforeLinkGameCenter can be used to perform additional logic before linking GameCenter to an account.
 	RegisterBeforeLinkGameCenter(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AccountGameCenter) (*api.AccountGameCenter, error)) error
 
@@ -638,6 +644,12 @@ type Initializer interface {
 
 	// RegisterAfterUnlinkFacebook can be used to perform additional logic after Facebook is unlinked from an account.
 	RegisterAfterUnlinkFacebook(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AccountFacebook) error) error
+
+	// RegisterBeforeUnlinkFacebookInstantGame can be used to perform additional logic before Facebook Instant Game profile is unlinked from an account.
+	RegisterBeforeUnlinkFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AccountFacebookInstantGame) (*api.AccountFacebookInstantGame, error)) error
+
+	// RegisterAfterUnlinkFacebookInstantGame can be used to perform additional logic after Facebook Instant Game profile is unlinked from an account.
+	RegisterAfterUnlinkFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AccountFacebookInstantGame) error) error
 
 	// RegisterBeforeUnlinkGameCenter can be used to perform additional logic before GameCenter is unlinked from an account.
 	RegisterBeforeUnlinkGameCenter(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AccountGameCenter) (*api.AccountGameCenter, error)) error

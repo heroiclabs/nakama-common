@@ -526,10 +526,10 @@ type Initializer interface {
 	RegisterAfterLinkFacebook(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.LinkFacebookRequest) error) error
 
 	// RegisterBeforeLinkFacebookInstantGame can be used to perform additional logic before linking Facebook Instant Game profile to an account.
-	RegisterBeforeLinkFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.LinkFacebookInstantGameRequest) (*api.LinkFacebookInstantGameRequest, error)) error
+	RegisterBeforeLinkFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AccountFacebookInstantGame) (*api.AccountFacebookInstantGame, error)) error
 
 	// RegisterAfterLinkFacebookInstantGame can be used to perform additional logic after linking Facebook Instant Game profile to an account.
-	RegisterAfterLinkFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.LinkFacebookInstantGameRequest) error) error
+	RegisterAfterLinkFacebookInstantGame(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AccountFacebookInstantGame) error) error
 
 	// RegisterBeforeLinkGameCenter can be used to perform additional logic before linking GameCenter to an account.
 	RegisterBeforeLinkGameCenter(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.AccountGameCenter) (*api.AccountGameCenter, error)) error
@@ -791,6 +791,7 @@ type NakamaModule interface {
 	AuthenticateDevice(ctx context.Context, id, username string, create bool) (string, string, bool, error)
 	AuthenticateEmail(ctx context.Context, email, password, username string, create bool) (string, string, bool, error)
 	AuthenticateFacebook(ctx context.Context, token string, importFriends bool, username string, create bool) (string, string, bool, error)
+	AuthenticateFacebookInstantGame(ctx context.Context, appSecret string, signedPlayerInfo string, username string, create bool) (string, string, bool, error)
 	AuthenticateGameCenter(ctx context.Context, playerID, bundleID string, timestamp int64, salt, signature, publicKeyUrl, username string, create bool) (string, string, bool, error)
 	AuthenticateGoogle(ctx context.Context, token, username string, create bool) (string, string, bool, error)
 	AuthenticateSteam(ctx context.Context, token, username string, create bool) (string, string, bool, error)

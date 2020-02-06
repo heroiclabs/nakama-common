@@ -534,12 +534,6 @@ message LinkFacebookRequest {
   google.protobuf.BoolValue sync = 4;
 }
 
-// Link Facebook Instant Game ID to the current user's account.
-message LinkFacebookInstantGameRequest {
-  // The Facebook Instant Game account details.
-  AccountFacebookInstantGame account = 1;
-}
-
 // List a channel's message history.
 message ListChannelMessagesRequest {
   // The channel ID to list from.
@@ -964,6 +958,8 @@ message User {
   google.protobuf.Timestamp create_time = 15;
   // The UNIX time when the user was last updated.
   google.protobuf.Timestamp update_time = 16;
+  // The Facebook Instant Game id in the user's account.
+  string facebook_instant_game_id = 17;
 }
 
 // A list of groups belonging to a user, along with the user's role in each group.

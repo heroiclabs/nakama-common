@@ -43,8 +43,10 @@ To build the codebase and generate all sources use these steps.
 2. Compile protocol buffers files.
 
     ```shell
-    ./generate_proto_gocode
+    env PATH="$HOME/go/bin:$PATH" GOPATH="$HOME/go" ./generate_proto_gocode
     ```
+
+    NOTE: This script only works if the code is checked out into the old GOPATH layout.
 
 The `generate_proto_gocode` script contains detailed commands to build protobuf source files for both the `api` and `rtapi` packages.
 

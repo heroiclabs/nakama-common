@@ -5907,7 +5907,9 @@ func init() {
 	proto.RegisterType((*WriteTournamentRecordRequest_TournamentRecordWrite)(nil), "nakama.api.WriteTournamentRecordRequest.TournamentRecordWrite")
 }
 
-func init() { proto.RegisterFile("api/api.proto", fileDescriptor_1b40cafcd4234784) }
+func init() {
+	proto.RegisterFile("api/api.proto", fileDescriptor_1b40cafcd4234784)
+}
 
 var fileDescriptor_1b40cafcd4234784 = []byte{
 	// 3689 bytes of a gzipped FileDescriptorProto

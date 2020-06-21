@@ -770,7 +770,7 @@ type NotificationSend struct {
 
 type WalletUpdate struct {
 	UserID    string
-	Changeset map[string]interface{}
+	Changeset map[string]int64
 	Metadata  map[string]interface{}
 }
 
@@ -779,7 +779,7 @@ type WalletLedgerItem interface {
 	GetUserID() string
 	GetCreateTime() int64
 	GetUpdateTime() int64
-	GetChangeset() map[string]interface{}
+	GetChangeset() map[string]int64
 	GetMetadata() map[string]interface{}
 }
 
@@ -871,7 +871,7 @@ type NakamaModule interface {
 	NotificationSend(ctx context.Context, userID, subject string, content map[string]interface{}, code int, sender string, persistent bool) error
 	NotificationsSend(ctx context.Context, notifications []*NotificationSend) error
 
-	WalletUpdate(ctx context.Context, userID string, changeset, metadata map[string]interface{}, updateLedger bool) error
+	WalletUpdate(ctx context.Context, userID string, changeset map[string]int64, metadata map[string]interface{}, updateLedger bool) error
 	WalletsUpdate(ctx context.Context, updates []*WalletUpdate, updateLedger bool) error
 	WalletLedgerUpdate(ctx context.Context, itemID string, metadata map[string]interface{}) (WalletLedgerItem, error)
 	WalletLedgerList(ctx context.Context, userID string, limit int, cursor string) ([]WalletLedgerItem, string, error)

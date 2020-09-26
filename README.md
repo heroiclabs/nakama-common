@@ -1,54 +1,64 @@
 nakama-common
 ======
 
-Common protocol message and runtime interface definitions used by [Nakama](https://github.com/heroiclabs/nakama).
+> The runtime framework for Nakama server.
 
-## Getting Started
+This codebase defines the runtime API and protocol interface used by [Nakama](https://github.com/heroiclabs/nakama).
 
-This repository defines a set of main high level packages:
-* `api` - Core protocol message definitions used by Nakama as input/output with various server operations.
-* `rtapi` - Protocol message definitions used by Nakama for realtime communication with clients over bi-directional socket connections.
-* `runtime` - Go types and interface definitions that Nakama runtime plugins are expected to conform to. Read more in the [Nakama runtime documentation](https://heroiclabs.com/docs/runtime-code-basics/).
+The code is broken up into packages for different parts of the runtime framework:
 
-### Installation
+* `api` - The request/response messages used with GRPC and in some of the realtime API.
+* `rtapi` - The realtime messages sent and received over a socket connection.
+* `runtime` - The Go types and functional interface used by Nakama plugins to execute native logic. See the Nakama [server documentation](https://heroiclabs.com/docs/runtime-code-basics/) for more info.
 
-**Note:** Go 1.13 or above is required.
+### Contribute
 
-To pull in `nakama-common` as a dependency set up your plugin project's `go.mod` file and run:
-
-```shell
-go get -u "github.com/heroiclabs/nakama-common"
-```
-
-This will add a new dependency to the latest version of `nakama-common` and allow you to build your project with:
-
-```shell
-go build -buildmode=plugin -trimpath
-```
-
-Read more about building Go plugins for Nakama in the [runtime documentation](https://heroiclabs.com/docs/runtime-code-basics/).
-
-## Contribute
-
-The codebase uses Protocol Buffers as part of the project. This dependency is used to generate source files, which are committed to the repository to simplify builds for contributors.
+The codebase uses Protocol Buffers. The protoc toolchain is used to generate source files which are committed to the repository to simplify builds for contributors.
 
 To build the codebase and generate all sources use these steps.
 
-1. Install the toolchain.
+1. Install the Go toolchain and protoc toolchain.
 
-    ```shell
-    go get -u github.com/golang/protobuf/protoc-gen-go
-    ```
+2. Intall the protoc-gen-go plugin to generate Go code.
 
-2. Compile protocol buffers files.
+   ```shell
+   go get "google.golang.org/protobuf/cmd/protoc-gen-go"
+   ```
 
-    ```shell
-    env PATH="$HOME/go/bin:$PATH" GOPATH="$HOME/go" ./generate_proto_gocode
-    ```
+3. Use the Go generate command to generate all Go stubs.
 
-    NOTE: This script only works if the code is checked out into the old GOPATH layout.
+   ```shell
+   env PATH="$HOME/go/bin:$PATH" go generate -x ./...
+   ```
 
-The `generate_proto_gocode` script contains detailed commands to build protobuf source files for both the `api` and `rtapi` packages.
+These steps have been tested with the Go 1.14 toolchain. Earlier Go toolchain versions though YMMV.
+
+### Using this Go package
+
+To use the Go language with your Nakama server project you will compile your code as a shared object. Use this basic steps to set up the Go project and consult the [documentation](https://heroiclabs.com/docs/runtime-code-basics/) for more information.
+
+1. Install the Go toolchain.
+
+   __NOTE__ You must use the exact same version of the Go toolchain as the specific release the game server was built with. Run the server with "--logger.level DEBUG" to see the version of the Go runtime used.
+
+2. Create a Go project.
+
+   ```shell
+   go mod init "myproject/server"
+   ```
+
+3. Add this package as a dependency to the project and vendor it.
+
+   ```shell
+   go get -u "github.com/heroiclabs/nakama-common"
+   go mod vendor
+   ```
+
+3. Write your Go code and compile it as a Go plugin
+
+   ```shell
+   go build -buildmode=plugin -trimpath
+   ```
 
 ### License
 

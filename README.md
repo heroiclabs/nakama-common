@@ -1,5 +1,5 @@
 nakama-common
-======
+===
 
 > The runtime framework for Nakama server.
 
@@ -22,7 +22,7 @@ To build the codebase and generate all sources use these steps.
 2. Intall the protoc-gen-go plugin to generate Go code.
 
    ```shell
-   go get "google.golang.org/protobuf/cmd/protoc-gen-go"
+   go install "google.golang.org/protobuf/cmd/protoc-gen-go"
    ```
 
 3. Use the Go generate command to generate all Go stubs.
@@ -31,15 +31,15 @@ To build the codebase and generate all sources use these steps.
    env PATH="$HOME/go/bin:$PATH" go generate -x ./...
    ```
 
-These steps have been tested with the Go 1.14 toolchain. Earlier Go toolchain versions though YMMV.
+These steps have been tested with the Go 1.14 toolchain. Earlier Go toolchain versions may work though YMMV.
 
 ### Using this Go package
 
-To use the Go language with your Nakama server project you will compile your code as a shared object. Use this basic steps to set up the Go project and consult the [documentation](https://heroiclabs.com/docs/runtime-code-basics/) for more information.
+To use the Go language with your Nakama server project you will compile your code as a shared object. Use these basic steps to set up the Go project and consult the [documentation](https://heroiclabs.com/docs/runtime-code-basics/) for more information.
 
 1. Install the Go toolchain.
 
-   __NOTE__ You must use the exact same version of the Go toolchain as the specific release the game server was built with. Run the server with "--logger.level DEBUG" to see the version of the Go runtime used.
+   __NOTE:__ You must use the exact same version of the Go toolchain as the specific release the server was built with. Run the server with "--logger.level DEBUG" to see the version of the Go runtime used.
 
 2. Create a Go project.
 

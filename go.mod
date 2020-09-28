@@ -1,8 +1,8 @@
 module github.com/heroiclabs/nakama-common
 
-go 1.13
+go 1.14
 
 require (
-	github.com/golang/protobuf v1.3.5
-	google.golang.org/grpc v1.27.1
+	github.com/golang/protobuf v1.4.2
+	google.golang.org/protobuf v1.25.0
 )

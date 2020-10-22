@@ -4,7 +4,11 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Added
+- Runtime nakama module interfaces for TournamentRecordsList and FriendsList functions.
 
+### Fixed
+- Add missing cursor in return values for nakama module GroupUsersList and UserGroupsList interfaces.
 
 ## [1.8.0] - 2020-09-28
 ### Added

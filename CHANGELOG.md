@@ -7,6 +7,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Added
 - Runtime nakama module interfaces for TournamentRecordsList and FriendsList functions.
 
+### Changed
+- Update protobuf to 1.4.3 release.
+
 ### Fixed
 - Add missing cursor in return values for nakama module GroupUsersList and UserGroupsList interfaces.
 

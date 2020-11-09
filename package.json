@@ -5,10 +5,10 @@
   "main": "index.js",
   "author": "Heroic Labs.",
   "license": "MIT",
-  "typings": "./typescript/nkruntime/index.d.ts",
+  "typings": "./typescript/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/heroiclabs/nakama-common.git",
-    "folder": "typescript/nkruntime"
+    "folder": "typescript"
   }
 }

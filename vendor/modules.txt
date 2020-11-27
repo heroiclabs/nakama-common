@@ -1,7 +1,6 @@
 # github.com/golang/protobuf v1.4.3
 ## explicit
 github.com/golang/protobuf/proto
-github.com/golang/protobuf/ptypes/timestamp
 github.com/golang/protobuf/ptypes/wrappers
 # google.golang.org/protobuf v1.25.0
 ## explicit

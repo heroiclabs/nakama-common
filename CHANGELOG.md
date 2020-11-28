@@ -3,8 +3,10 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
-
+## [1.10.0] - 2020-11-28
+### Added
+- Add group management functions to the server runtime. Thanks @4726.
+- Add a cacheable cursor to channel message listings.
 
 ## [1.9.0] - 2020-11-02
 ### Added

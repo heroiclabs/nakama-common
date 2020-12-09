@@ -1,10 +1,9 @@
 {
-  "name": "nakama-common",
+  "name": "nakama-runtime",
   "version": "1.0.0",
   "description": "Nakama Runtime TypeScript definitions",
-  "main": "index.js",
   "author": "Heroic Labs.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "typings": "./typescript/index.d.ts",
   "repository": {
     "type": "git",

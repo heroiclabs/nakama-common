@@ -3480,7 +3480,7 @@ declare namespace nkruntime {
          * @returns A list of group members.
          * @throws {TypeError, GoError}
          */
-        groupUsersList(userID: string, limit?: number, state?: number, cursor?: string): {groupUsers: {user: User, state: number}, cursor?: string}
+        groupUsersList(userID: string, limit?: number, state?: number, cursor?: string): {groupUsers: {user: User, state: number}, cursor?: string};
 
         /**
          * List all groups the user belongs to.
@@ -3492,10 +3492,10 @@ declare namespace nkruntime {
          * @returns A list of group members.
          * @throws {TypeError, GoError}
          */
-        userGroupsList(userID: string, limit?: number, state?: number, cursor?: string): {userGroups: {group: Group, state: number}, cursor?: string}
+        userGroupsList(userID: string, limit?: number, state?: number, cursor?: string): {userGroups: {group: Group, state: number}, cursor?: string};
 
-         /**
-         * List a user's friends
+        /**
+         * List a user's friends.
          *
          * @param userID - User ID.
          * @param limit - Opt. Max number of returned results. Defaults to 100.
@@ -3504,7 +3504,54 @@ declare namespace nkruntime {
          * @returns A list of friends.
          * @throws {TypeError, GoError}
          */
-        friendsList(userID: string, limit?: number, state?: number, cursor?: string): {friends: {user: User, state: number, updateTime: number}, cursor?: string}
+        friendsList(userID: string, limit?: number, state?: number, cursor?: string): {friends: {user: User, state: number, updateTime: number}, cursor?: string};
+
+        /**
+         * Join a user to a group.
+         *
+         * @param groupID - Group ID.
+         * @param userID - User ID to join the group.
+         * @param username - Username of the user to join the group.
+         * @throws {TypeError, GoError}
+         */
+        groupUserJoin(groupID: string, userID: string, username: string): void;
+
+        /**
+         * Leave a user from a group.
+         *
+         * @param groupID - Group ID.
+         * @param userID - User ID to join the group.
+         * @param username - Username of the user to join the group.
+         * @throws {TypeError, GoError}
+         */
+        groupUserLeave(groupID: string, userID: string, username: string): void;
+
+        /**
+         * Add multiple users to a group.
+         *
+         * @param groupID - Group ID.
+         * @param userIDs - Array of userIDs to add the group.
+         * @throws {TypeError, GoError}
+         */
+        groupUsersAdd(groupID: string, userIDs: string[]): void;
+
+        /**
+         * Promote users in a group.
+         *
+         * @param groupID - Group ID.
+         * @param userIDs - Array of userIDs in the group to promote.
+         * @throws {TypeError, GoError}
+         */
+        groupUsersPromote(groupID: string, userIDs: string[]): void;
+
+         /**
+         * Demote users in a group.
+         *
+         * @param groupID - Group ID.
+         * @param userIDs - Array of userIDs in the group to demote.
+         * @throws {TypeError, GoError}
+         */
+        groupUsersDemote(groupID: string, userIDs: string[]): void;
     }
 
     /**

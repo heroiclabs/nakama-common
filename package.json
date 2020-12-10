@@ -1,0 +1,18 @@
+{
+  "name": "nakama-runtime",
+  "version": "1.10.0",
+  "description": "The runtime Type definitions for the Nakama game server.",
+  "author": "Heroic Labs.",
+  "license": "Apache-2.0",
+  "homepage": "https://heroiclabs.com",
+  "keywords": [
+      "nakama",
+      "typescript",
+      "game server"
+  ],
+  "typings": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroiclabs/nakama-common.git"
+  }
+}

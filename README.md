@@ -60,6 +60,10 @@ To use the Go language with your Nakama server project you compile your code as 
    go build -buildmode=plugin -trimpath
    ```
 
+### Release Process
+
+Make sure that the `package.json` version is in tandem with the go package releases.
+
 ### License
 
 This project is licensed under the [Apache-2 License](https://github.com/heroiclabs/nakama-common/blob/master/LICENSE).

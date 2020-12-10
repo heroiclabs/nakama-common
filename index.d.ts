@@ -1809,16 +1809,16 @@ declare namespace nkruntime {
      */
     export interface Logger {
         /**
-         * Log a messsage with optional formatted arguments at DEBUG level.
+         * Log a message with optional formatted arguments at INFO level.
          *
          * @param format - A string with optional formatting placeholders.
          * @param args - The placeholder arguments for the formatted string.
          * @returns The formatted string logged to the server.
          */
-        debug(format: string, ...args: any[]): string;
+        info(format: string, ...args: any[]): string;
 
         /**
-         * Log a messsage with optional formatted arguments at WARN level.
+         * Log a message with optional formatted arguments at WARN level.
          *
          * @param format - A string with optional formatting placeholders.
          * @param args - The placeholder arguments for the formatted string.
@@ -1827,13 +1827,22 @@ declare namespace nkruntime {
         warn(format: string, ...args: any[]): string;
 
         /**
-         * Log a messsage with optional formatted arguments at ERROR level.
+         * Log a message with optional formatted arguments at ERROR level.
          *
          * @param format - A string with optional formatting placeholders.
          * @param args - The placeholder arguments for the formatted string.
          * @returns The formatted string logged to the server.
          */
         error(format: string, ...args: any[]): string;
+
+        /**
+         * Log a message with optional formatted arguments at DEBUG level.
+         *
+         * @param format - A string with optional formatting placeholders.
+         * @param args - The placeholder arguments for the formatted string.
+         * @returns The formatted string logged to the server.
+         */
+        debug(format: string, ...args: any[]): string;
 
         /**
          * A logger with the key/value pair added as the fields logged alongside the message.

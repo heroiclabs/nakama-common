@@ -3081,9 +3081,10 @@ declare namespace nkruntime {
          *
          * @param module - Name of the module the match will run.
          * @param params - Opt. Object with the initial state of the match.
+         * @returns the match ID of the created match.
          * @throws {TypeError, GoError}
          */
-        matchCreate(module: string, params?: {[key: string]: any}): void;
+        matchCreate(module: string, params?: {[key: string]: any}): string;
 
         /**
          * Get a running match info.

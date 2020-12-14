@@ -154,7 +154,7 @@ declare namespace nkruntime {
         sender: Presence;
         persistence: boolean;
         status: string;
-        opcode: number;
+        opCode: number;
         data: string;
         reliable: boolean;
         receiveTime: number;

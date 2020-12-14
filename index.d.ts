@@ -151,12 +151,8 @@ declare namespace nkruntime {
      * Match Message definition
      */
     export interface MatchMessage {
-        userId: string;
-        sessionId: string;
-        node: string;
-        hidden: boolean;
+        sender: Presence;
         persistence: boolean;
-        username: string;
         status: string;
         opcode: number;
         data: string;
@@ -2004,11 +2000,11 @@ declare namespace nkruntime {
     export interface Presence {
         userId: string;
         sessionId: string;
-        node: string;
-        hidden: boolean;
-        persistence: boolean;
         username: string;
-        status: string;
+        node: string;
+        status?: string;
+        hidden?: boolean;
+        persistence?: boolean;
     }
 
     /**

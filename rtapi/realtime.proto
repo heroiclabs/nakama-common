@@ -31,9 +31,6 @@ option java_package = "com.heroiclabs.nakama.rtapi";
 
 option csharp_namespace = "Nakama.Protobuf";
 
-option objc_class_prefix = "NKPB";
-option swift_prefix = ""; // We want "ChannelMessageSend" as opposed to "NakamaChannelMessageSend" (if not explicitly set to '')
-
 // An envelope for a realtime message.
 message Envelope {
   string cid = 1;

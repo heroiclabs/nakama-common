@@ -30,9 +30,6 @@ option java_package = "com.heroiclabs.nakama.api";
 
 option csharp_namespace = "Nakama.Protobuf";
 
-option objc_class_prefix = "NKPB";
-option swift_prefix = ""; // We want "AccountCustom" as opposed to "NakamaAccountCustom" (if not explicitly set to '')
-
 // A user with additional account details. Always the current user.
 message Account {
   // The user object.

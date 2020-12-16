@@ -21,7 +21,7 @@ package nakama.realtime;
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
-import "api/api.proto";
+import "github.com/heroiclabs/nakama-common/api/api.proto";
 
 option go_package = "github.com/heroiclabs/nakama-common/rtapi";
 
@@ -32,6 +32,7 @@ option java_package = "com.heroiclabs.nakama.rtapi";
 option csharp_namespace = "Nakama.Protobuf";
 
 option objc_class_prefix = "NKPB";
+option swift_prefix = ""; // We want "ChannelMessageSend" as opposed to "NakamaChannelMessageSend" (if not explicitly set to '')
 
 // An envelope for a realtime message.
 message Envelope {

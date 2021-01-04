@@ -116,7 +116,7 @@ declare namespace nkruntime {
          * @param reliable - Opt. Broadcast the message with delivery guarantees or not. Defaults to true.
          * @throws {TypeError, GoError}
          */
-        broadcastMessage(opcode: number, data?: string, presences?: Presence[] | null, sender?: Presence | null, reliable?: boolean): void;
+        broadcastMessage(opcode: number, data?: string | null, presences?: Presence[] | null, sender?: Presence | null, reliable?: boolean): void;
 
         /**
          * Defer message broadcast to match presences.
@@ -128,7 +128,7 @@ declare namespace nkruntime {
          * @param reliable - Opt. Broadcast the message with delivery guarantees or not. Defaults to true.
          * @throws {TypeError, GoError}
          */
-        broadcastMessageDeferred(opcode: number, data?: string, presences?: Presence[], sender?: Presence, reliable?: boolean): void;
+        broadcastMessageDeferred(opcode: number, data?: string | null, presences?: Presence[] | null, sender?: Presence, reliable?: boolean): void;
 
         /**
          * Kick presences from match.
@@ -632,7 +632,7 @@ declare namespace nkruntime {
          * @param metadata - Metadata object.
          * @returns object with state, acceptUser and optional rejection message if acceptUser is false.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, presence: Presence, metadata: {[key: string]: any}): {state: MatchState, accept: boolean, rejectMessage?: string};
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, presence: Presence, metadata: {[key: string]: any}): {state: MatchState, accept: boolean, rejectMessage?: string} | null;
     }
 
     /**
@@ -650,7 +650,7 @@ declare namespace nkruntime {
          * @param presences - List of presences.
          * @returns object with the new state of the match.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, presences: Presence[]): {state: MatchState | null};
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, presences: Presence[]): {state: MatchState} | null;
     }
 
     /**
@@ -668,7 +668,7 @@ declare namespace nkruntime {
          * @param presences - List of presences.
          * @returns object with the new state of the match.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, presences: Presence[]): {state: MatchState | null};
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, presences: Presence[]): {state: MatchState} | null;
     }
 
     /**
@@ -685,7 +685,7 @@ declare namespace nkruntime {
          * @param state - Current match state.
          * @param messages - Received messages in the buffer.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, messages: MatchMessage[]): {state: MatchState | null};
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, messages: MatchMessage[]): {state: MatchState} | null;
     }
 
     /**
@@ -702,7 +702,7 @@ declare namespace nkruntime {
          * @param state - Current match state.
          * @param graceSeconds - Number of seconds to gracefully terminate the match. If this time elapses before the function returns the match will be forcefully terminated.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, graceSeconds: number): {state: MatchState | null};
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, graceSeconds: number): {state: MatchState} | null;
     }
 
     /**

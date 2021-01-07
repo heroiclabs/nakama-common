@@ -55,22 +55,22 @@ declare namespace nkruntime {
          * @param data - The input data to the function call.
          * @returns The escaped JSON payload.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, data?: T): T | null;
+        (ctx: Context, logger: Logger, nk: Nakama, data: T): T | void;
     }
 
     /**
      * A After Hook function definition.
      */
-    export interface AfterHookFunction<T> {
+    export interface AfterHookFunction<T,K> {
         /**
          * A Register Hook function definition.
          * @param ctx - The context for the execution.
          * @param logger - The server logger.
          * @param nk - The Nakama server APIs.
-         * @param data - The input data to the function call.
+         * @param data - The data returned by the function call.
          * @param request - The request payload.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, data: T, request?: any): void;
+        (ctx: Context, logger: Logger, nk: Nakama, data: T, request: K): void;
     }
 
     /**
@@ -216,7 +216,7 @@ declare namespace nkruntime {
     export interface AccountEmail {
         email?: string
         password?: string
-        vars?: Array<AccountEmailVarsEntry>
+        vars?: AccountEmailVarsEntry[]
     }
 
     export interface AuthenticateEmailRequest {
@@ -239,7 +239,7 @@ declare namespace nkruntime {
 
     export interface AccountFacebook {
         token?: string
-        vars?: Array<AccountFacebookVarsEntry>
+        vars?: AccountFacebookVarsEntry[]
     }
 
     export interface AccountFacebookInstantGameVarsEntry {
@@ -249,7 +249,7 @@ declare namespace nkruntime {
 
     export interface AccountFacebookInstantGame {
         signedPlayerInfo?: string
-        vars?: Array<AccountFacebookInstantGameVarsEntry>
+        vars?: AccountFacebookInstantGameVarsEntry[]
     }
 
     export interface AuthenticateFacebookInstantGameRequest {
@@ -270,7 +270,7 @@ declare namespace nkruntime {
         salt?: string
         signature?: string
         publicKeyUrl?: string
-        vars?: Array<AccountGameCenterVarsEntry>
+        vars?: AccountGameCenterVarsEntry[]
       }
 
     export interface AuthenticateGameCenterRequest {
@@ -286,7 +286,7 @@ declare namespace nkruntime {
 
     export interface AccountGoogle {
         token?: string
-        vars?: Array<AccountGoogleVarsEntry>
+        vars?: AccountGoogleVarsEntry[]
     }
 
     export interface AuthenticateGoogleRequest {
@@ -302,7 +302,7 @@ declare namespace nkruntime {
 
     export interface AccountSteam {
         token?: string
-        vars?: Array<AccountSteamVarsEntry>
+        vars?: AccountSteamVarsEntry[]
     }
 
     export interface AuthenticateSteamRequest {
@@ -318,6 +318,22 @@ declare namespace nkruntime {
         cursor?: string
     }
 
+    export interface ChannelMessage {
+        channelId?: string
+        messageId?: string
+        code?: number
+        senderId?: string
+        username?: string
+        content?: string
+        createTime?: string
+        updateTime?: string
+        persistent?: boolean
+        roomName?: string
+        groupId?: string
+        userIdOne?: string
+        userIdTwo?: string
+    }
+
     export interface ListFriendsRequest {
         limit?: number
         state?: number
@@ -325,18 +341,18 @@ declare namespace nkruntime {
     }
 
     export interface AddFriendsRequest {
-        ids?: Array<string>
-        usernames?: Array<string>
+        ids?: string[]
+        usernames?: string[]
     }
 
     export interface DeleteFriendsRequest {
-        ids?: Array<string>
-        usernames?: Array<string>
+        ids?: string[]
+        usernames?: string[]
     }
 
     export interface BlockFriendsRequest {
-        ids?: Array<string>
-        usernames?: Array<string>
+        ids?: string[]
+        usernames?: string[]
     }
 
     export interface ImportFacebookFriendsRequest {
@@ -375,27 +391,27 @@ declare namespace nkruntime {
 
     export interface AddGroupUsersRequest {
         groupId?: string
-        userIds?: Array<string>
+        userIds?: string[]
     }
 
     export interface BanGroupUsersRequest {
         groupId?: string
-        userIds?: Array<string>
+        userIds?: string[]
     }
 
     export interface KickGroupUsersRequest {
         groupId?: string
-        userIds?: Array<string>
+        userIds?: string[]
     }
 
     export interface PromoteGroupUsersRequest {
         groupId?: string
-        userIds?: Array<string>
+        userIds?: string[]
     }
 
     export interface DemoteGroupUsersRequest {
         groupId?: string
-        userIds?: Array<string>
+        userIds?: string[]
     }
 
     export interface ListGroupUsersRequest {
@@ -424,7 +440,7 @@ declare namespace nkruntime {
 
     export interface ListLeaderboardRecordsRequest {
         leaderboardId?: string
-        ownerIds?: Array<string>
+        ownerIds?: string[]
         limit?: number
         cursor?: string
         expiry?: string
@@ -450,7 +466,7 @@ declare namespace nkruntime {
 
     export interface AccountApple {
         token?: string
-        vars?: Array<AccountAppleVarsEntry>
+        vars?: AccountAppleVarsEntry[]
     }
 
     export interface AccountAppleVarsEntry {
@@ -460,7 +476,7 @@ declare namespace nkruntime {
 
     export interface AccountCustom {
         id?: string
-        vars?: Array<AccountCustomVarsEntry>
+        vars?: AccountCustomVarsEntry[]
     }
 
     export interface AccountCustomVarsEntry {
@@ -501,7 +517,7 @@ declare namespace nkruntime {
     }
 
     export interface ReadStorageObjectsRequest {
-        objectIds?: Array<ReadStorageObjectId>
+        objectIds?: ReadStorageObjectId[]
     }
 
     export interface WriteStorageObject {
@@ -514,7 +530,7 @@ declare namespace nkruntime {
     }
 
     export interface WriteStorageObjectsRequest {
-        objects?: Array<WriteStorageObject>
+        objects?: WriteStorageObject[]
     }
 
     export interface DeleteStorageObjectId {
@@ -524,7 +540,7 @@ declare namespace nkruntime {
       }
 
     export interface DeleteStorageObjectsRequest {
-        objectIds?: Array<DeleteStorageObjectId>
+        objectIds?: DeleteStorageObjectId[]
     }
 
     export interface JoinTournamentRequest {
@@ -533,7 +549,7 @@ declare namespace nkruntime {
 
     export interface ListTournamentRecordsRequest {
         tournamentId?: string
-        ownerIds?: Array<string>
+        ownerIds?: string[]
         limit?: number
         cursor?: string
         expiry?: string
@@ -567,14 +583,14 @@ declare namespace nkruntime {
     }
 
     export interface GetUsersRequest {
-        ids?: Array<string>
-        usernames?: Array<string>
-        facebookIds?: Array<string>
+        ids?: string[]
+        usernames?: string[]
+        facebookIds?: string[]
     }
 
     export interface Event {
         name?: string
-        properties?: Array<EventPropertiesEntry>
+        properties?: EventPropertiesEntry[]
         timestamp?: string
         external?: boolean
     }
@@ -582,6 +598,86 @@ declare namespace nkruntime {
     export interface EventPropertiesEntry {
         key?: string
         value?: string
+    }
+
+    export interface Session {
+        created?: boolean
+        token?: string
+    }
+
+    export interface ChannelMessageList {
+        messages?: ChannelMessage[]
+        nextCursor?: string
+        prevCursor?: string
+        cacheableCursor?: string
+    }
+
+    export interface Friend {
+        user?: User
+        state?: number
+        updateTime?: string
+    }
+
+    export interface FriendList {
+        friends?: Friend[]
+        cursor?: string
+    }
+
+    export enum GroupUserState {
+        SUPERADMIN = 0,
+        ADMIN = 1,
+        MEMBER = 2,
+        JOIN_REQUEST = 3,
+    }
+
+    export interface GroupUser {
+        user: User
+        state?: GroupUserState
+    }
+
+    export interface GroupUserList {
+        groupUsers?: GroupUser[]
+        cursor?: string
+    }
+
+    export interface LeaderboardRecordList {
+        records?: LeaderboardRecord[]
+        owner_records?: LeaderboardRecord[]
+        next_cursor?: string
+        prev_cursor?: string
+    }
+
+    export interface MatchList {
+        matches: Match[]
+    }
+
+    export interface DeleteNotificationsRequest {
+        ids: string[]
+    }
+
+    export interface StorageObjectList {
+        objects?: StorageObject
+        cursor?: string
+    }
+
+    export interface StorageObjects {
+        objects?: StorageObject[];
+    }
+
+    export interface TournamentRecordList {
+        records?: LeaderboardRecord[]
+        ownerRecords?: LeaderboardRecord[]
+        prevCursor?: string
+        nextCursor?: string
+    }
+
+    export interface TournamentList {
+        tournaments?: Tournament[]
+        cursor?: string
+    }
+
+    export interface Users {
+        users: Users[];
     }
 
     /**
@@ -741,7 +837,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute before getAccount.
          * @throws {TypeError}
          */
-        registerBeforeGetAccount(fn: BeforeHookFunction<Account>): void;
+        registerBeforeGetAccount(fn: BeforeHookFunction<void>): void;
 
         /**
          * Register After Hook for RPC getAccount function.
@@ -749,7 +845,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after getAccount.
          * @throws {TypeError}
          */
-        registerAfterGetAccount(fn: AfterHookFunction<Account>): void;
+        registerAfterGetAccount(fn: AfterHookFunction<Account, void>): void;
 
         /**
          * Register before Hook for RPC updateAccount function.
@@ -765,7 +861,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after updateAccount.
          * @throws {TypeError}
          */
-        registerAfterUpdateAccount(fn: AfterHookFunction<UserUpdateAccount>): void;
+        registerAfterUpdateAccount(fn: AfterHookFunction<void, UserUpdateAccount>): void;
 
         /**
          * Register before Hook for RPC authenticateApple function.
@@ -781,7 +877,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after authenticateApple.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateApple(fn: AfterHookFunction<AuthenticateAppleRequest>): void;
+        registerAfterAuthenticateApple(fn: AfterHookFunction<Session, AuthenticateAppleRequest>): void;
 
         /**
          * Register before Hook for RPC AuthenticateCustom function.
@@ -797,7 +893,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after AuthenticateCustom.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateCustom(fn: AfterHookFunction<AuthenticateCustomRequest>): void;
+        registerAfterAuthenticateCustom(fn: AfterHookFunction<Session, AuthenticateCustomRequest>): void;
 
         /**
          * Register before Hook for RPC AuthenticateDevice function.
@@ -805,15 +901,15 @@ declare namespace nkruntime {
          * @param fn - The function to execute before AuthenticateDevice.
          * @throws {TypeError}
          */
-        registerBeforeAuthenticateDevice(fn: AfterHookFunction<AuthenticateDeviceRequest>): void;
+        registerBeforeAuthenticateDevice(fn: BeforeHookFunction<AuthenticateDeviceRequest>): void;
 
         /**
-         * Register before Hook for RPC AuthenticateDevice function.
+         * Register after Hook for RPC AuthenticateDevice function.
          *
-         * @param fn - The function to execute before AuthenticateDevice.
+         * @param fn - The function to execute after AuthenticateDevice.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateDevice(fn: BeforeHookFunction<AuthenticateDeviceRequest>): void;
+        registerAfterAuthenticateDevice(fn: AfterHookFunction<Session, AuthenticateDeviceRequest>): void;
 
         /**
          * Register before Hook for RPC AuthenticateEmail function.
@@ -829,7 +925,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after uthenticateEmail.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateEmail(fn: AfterHookFunction<AuthenticateEmailRequest>): void;
+        registerAfterAuthenticateEmail(fn: AfterHookFunction<Session, AuthenticateEmailRequest>): void;
 
         /**
          * Register before Hook for RPC AuthenticateFacebook function.
@@ -845,7 +941,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after AuthenticateFacebook.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateFacebook(fn: AfterHookFunction<AuthenticateFacebookRequest>): void;
+        registerAfterAuthenticateFacebook(fn: AfterHookFunction<Session, AuthenticateFacebookRequest>): void;
 
         /**
          * Register before Hook for RPC AuthenticateFacebookInstantGame function.
@@ -861,7 +957,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after AuthenticateFacebookInstantGame.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateFacebookInstantGame(fn: AfterHookFunction<AuthenticateFacebookInstantGameRequest>): void;
+        registerAfterAuthenticateFacebookInstantGame(fn: AfterHookFunction<Session, AuthenticateFacebookInstantGameRequest>): void;
 
         /**
          * Register before Hook for RPC AuthenticateGameCenter function.
@@ -877,7 +973,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after AuthenticateGameCenter.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateGameCenter(fn: AfterHookFunction<AuthenticateGameCenterRequest>): void;
+        registerAfterAuthenticateGameCenter(fn: AfterHookFunction<Session, AuthenticateGameCenterRequest>): void;
 
         /**
          * Register before Hook for RPC AuthenticateGoogle function.
@@ -893,7 +989,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after AuthenticateGoogle.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateGoogle(fn: AfterHookFunction<AuthenticateGoogleRequest>): void;
+        registerAfterAuthenticateGoogle(fn: AfterHookFunction<Session, AuthenticateGoogleRequest>): void;
 
         /**
          * Register before Hook for RPC AuthenticateSteam function.
@@ -909,7 +1005,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after AuthenticateSteam.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateSteam(fn: AfterHookFunction<AuthenticateSteamRequest>): void;
+        registerAfterAuthenticateSteam(fn: AfterHookFunction<Session, AuthenticateSteamRequest>): void;
 
         /**
          * Register before Hook for RPC ChannelMessages function.
@@ -925,7 +1021,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ChannelMessages.
          * @throws {TypeError}
          */
-        registerAfterListChannelMessages(fn: AfterHookFunction<ListChannelMessagesRequest>): void;
+        registerAfterListChannelMessages(fn: AfterHookFunction<ChannelMessageList, ListChannelMessagesRequest>): void;
 
         /**
          * Register before Hook for RPC BeforeListFriends function.
@@ -941,7 +1037,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after BeforeListFriends.
          * @throws {TypeError}
          */
-        registerAfterListFriends(fn: AfterHookFunction<ListFriendsRequest>): void;
+        registerAfterListFriends(fn: AfterHookFunction<FriendList, ListFriendsRequest>): void;
 
         /**
          * Register before Hook for RPC AddFriends function.
@@ -957,7 +1053,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after AddFriends.
          * @throws {TypeError}
          */
-        registerAfterAddFriends(fn: AfterHookFunction<AddFriendsRequest>): void;
+        registerAfterAddFriends(fn: AfterHookFunction<void, AddFriendsRequest>): void;
 
         /**
          * Register before Hook for RPC DeleteFriends function.
@@ -973,7 +1069,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after DeleteFriends.
          * @throws {TypeError}
          */
-        registerAfterDeleteFriends(fn: AfterHookFunction<DeleteFriendsRequest>): void;
+        registerAfterDeleteFriends(fn: AfterHookFunction<void, DeleteFriendsRequest>): void;
 
         /**
          * Register before Hook for RPC BlockFriends function.
@@ -989,7 +1085,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after BlockFriends.
          * @throws {TypeError}
          */
-        registerAfterBlockFriends(fn: AfterHookFunction<BlockFriendsRequest>): void;
+        registerAfterBlockFriends(fn: AfterHookFunction<void, BlockFriendsRequest>): void;
 
         /**
          * Register before Hook for RPC ImportFacebookFriends function.
@@ -1005,7 +1101,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ImportFacebookFriends.
          * @throws {TypeError}
          */
-        registerAfterImportFacebookFriends(fn: AfterHookFunction<ImportFacebookFriendsRequest>): void;
+        registerAfterImportFacebookFriends(fn: AfterHookFunction<void, ImportFacebookFriendsRequest>): void;
 
         /**
          * Register before Hook for RPC CreateGroup function.
@@ -1021,7 +1117,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after CreateGroup.
          * @throws {TypeError}
          */
-        registerAfterCreateGroup(fn: AfterHookFunction<CreateGroupRequest>): void;
+        registerAfterCreateGroup(fn: AfterHookFunction<Group, CreateGroupRequest>): void;
 
         /**
          * Register before Hook for RPC UpdateGroup function.
@@ -1037,7 +1133,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UpdateGroup.
          * @throws {TypeError}
          */
-        registerAfterUpdateGroup(fn: AfterHookFunction<UpdateGroupRequest>): void;
+        registerAfterUpdateGroup(fn: AfterHookFunction<void, UpdateGroupRequest>): void;
 
         /**
          * Register before Hook for RPC DeleteGroup function.
@@ -1053,7 +1149,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after DeleteGroup.
          * @throws {TypeError}
          */
-        registerAfterDeleteGroup(fn: AfterHookFunction<DeleteGroupRequest>): void;
+        registerAfterDeleteGroup(fn: AfterHookFunction<void, DeleteGroupRequest>): void;
 
         /**
          * Register before Hook for RPC JoinGroup function.
@@ -1069,7 +1165,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after JoinGroup.
          * @throws {TypeError}
          */
-        registerAfterJoinGroup(fn: AfterHookFunction<JoinGroupRequest>): void;
+        registerAfterJoinGroup(fn: AfterHookFunction<void, JoinGroupRequest>): void;
 
         /**
          * Register before Hook for RPC LeaveGroup function.
@@ -1085,7 +1181,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LeaveGroup.
          * @throws {TypeError}
          */
-        registerAfterLeaveGroup(fn: AfterHookFunction<LeaveGroupRequest>): void;
+        registerAfterLeaveGroup(fn: AfterHookFunction<void, LeaveGroupRequest>): void;
 
         /**
          * Register before Hook for RPC AddGroupUsers function.
@@ -1101,7 +1197,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after AddGroupUsers.
          * @throws {TypeError}
          */
-        registerAfterAddGroupUsers(fn: AfterHookFunction<AddGroupUsersRequest>): void;
+        registerAfterAddGroupUsers(fn: AfterHookFunction<void, AddGroupUsersRequest>): void;
 
         /**
          * Register before Hook for RPC BanGroupUsers function.
@@ -1117,7 +1213,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after BanGroupUsers.
          * @throws {TypeError}
          */
-        registerAfterBanGroupUsers(fn: AfterHookFunction<BanGroupUsersRequest>): void;
+        registerAfterBanGroupUsers(fn: AfterHookFunction<void, BanGroupUsersRequest>): void;
 
         /**
          * Register before Hook for RPC KickGroupUsers function.
@@ -1133,7 +1229,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after KickGroupUsers.
          * @throws {TypeError}
          */
-        registerAfterKickGroupUsers(fn: AfterHookFunction<KickGroupUsersRequest>): void;
+        registerAfterKickGroupUsers(fn: AfterHookFunction<void, KickGroupUsersRequest>): void;
 
         /**
          * Register before Hook for RPC PromoteGroupUsers function.
@@ -1149,7 +1245,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after PromoteGroupUsers.
          * @throws {TypeError}
          */
-        registerAfterPromoteGroupUsers(fn: AfterHookFunction<PromoteGroupUsersRequest>): void;
+        registerAfterPromoteGroupUsers(fn: AfterHookFunction<void, PromoteGroupUsersRequest>): void;
 
         /**
          * Register before Hook for RPC DemoteGroupUsers function.
@@ -1165,7 +1261,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after DemoteGroupUsers.
          * @throws {TypeError}
          */
-        registerAfterDemoteGroupUsers(fn: AfterHookFunction<DemoteGroupUsersRequest>): void;
+        registerAfterDemoteGroupUsers(fn: AfterHookFunction<void, DemoteGroupUsersRequest>): void;
 
         /**
          * Register before Hook for RPC ListGroupUsers function.
@@ -1181,7 +1277,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListGroupUsers.
          * @throws {TypeError}
          */
-        registerAfterListGroupUsers(fn: AfterHookFunction<ListGroupUsersRequest>): void;
+        registerAfterListGroupUsers(fn: AfterHookFunction<GroupUserList, ListGroupUsersRequest>): void;
 
         /**
          * Register before Hook for RPC ListUserGroups function.
@@ -1197,7 +1293,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListUserGroups.
          * @throws {TypeError}
          */
-        registerAfterListUserGroups(fn: AfterHookFunction<ListUserGroupsRequest>): void;
+        registerAfterListUserGroups(fn: AfterHookFunction<UserGroupList, ListUserGroupsRequest>): void;
 
         /**
          * Register before Hook for RPC ListGroups function.
@@ -1213,7 +1309,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListGroups.
          * @throws {TypeError}
          */
-        registerAfterListGroups(fn: AfterHookFunction<ListGroupsRequest>): void;
+        registerAfterListGroups(fn: AfterHookFunction<GroupList, ListGroupsRequest>): void;
 
         /**
          * Register before Hook for RPC DeleteLeaderboardRecord function.
@@ -1229,7 +1325,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after DeleteLeaderboardRecord.
          * @throws {TypeError}
          */
-        registerAfterDeleteLeaderboardRecord(fn: AfterHookFunction<DeleteLeaderboardRecordRequest>): void;
+        registerAfterDeleteLeaderboardRecord(fn: AfterHookFunction<void, DeleteLeaderboardRecordRequest>): void;
 
         /**
          * Register before Hook for RPC ListLeaderboardRecords function.
@@ -1245,7 +1341,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListLeaderboardRecords.
          * @throws {TypeError}
          */
-        registerAfterListLeaderboardRecords(fn: AfterHookFunction<ListLeaderboardRecordsRequest>): void;
+        registerAfterListLeaderboardRecords(fn: AfterHookFunction<LeaderboardRecordList, ListLeaderboardRecordsRequest>): void;
 
         /**
          * Register before Hook for RPC WriteLeaderboardRecord function.
@@ -1261,7 +1357,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after WriteLeaderboardRecord.
          * @throws {TypeError}
          */
-        registerAfterWriteLeaderboardRecord(fn: AfterHookFunction<WriteLeaderboardRecordRequest>): void;
+        registerAfterWriteLeaderboardRecord(fn: AfterHookFunction<LeaderboardRecord, WriteLeaderboardRecordRequest>): void;
 
         /**
          * Register before Hook for RPC ListLeaderboardRecordsAroundOwner function.
@@ -1277,7 +1373,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListLeaderboardRecordsAroundOwner.
          * @throws {TypeError}
          */
-        registerAfterListLeaderboardRecordsAroundOwner(fn: AfterHookFunction<ListLeaderboardRecordsAroundOwnerRequest>): void;
+        registerAfterListLeaderboardRecordsAroundOwner(fn: AfterHookFunction<LeaderboardRecordList, ListLeaderboardRecordsAroundOwnerRequest>): void;
 
         /**
          * Register before Hook for RPC LinkApple function.
@@ -1293,7 +1389,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkApple.
          * @throws {TypeError}
          */
-        registerAfterLinkApple(fn: AfterHookFunction<AccountApple>): void;
+        registerAfterLinkApple(fn: AfterHookFunction<void, AccountApple>): void;
 
         /**
          * Register before Hook for RPC LinkCustom function.
@@ -1309,7 +1405,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkCustom.
          * @throws {TypeError}
          */
-        registerAfterLinkCustom(fn: AfterHookFunction<AccountCustom>): void;
+        registerAfterLinkCustom(fn: AfterHookFunction<void, AccountCustom>): void;
 
         /**
          * Register before Hook for RPC LinkDevice function.
@@ -1325,7 +1421,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkDevice.
          * @throws {TypeError}
          */
-        registerAfterLinkDevice(fn: AfterHookFunction<AccountDevice>): void;
+        registerAfterLinkDevice(fn: AfterHookFunction<void, AccountDevice>): void;
 
         /**
          * Register before Hook for RPC LinkEmail function.
@@ -1341,7 +1437,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkEmail.
          * @throws {TypeError}
          */
-        registerAfterLinkEmail(fn: AfterHookFunction<AccountEmail>): void;
+        registerAfterLinkEmail(fn: AfterHookFunction<void, AccountEmail>): void;
 
         /**
          * Register before Hook for RPC LinkFacebook function.
@@ -1357,7 +1453,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkFacebook.
          * @throws {TypeError}
          */
-        registerAfterLinkFacebook(fn: AfterHookFunction<LinkFacebookRequest>): void;
+        registerAfterLinkFacebook(fn: AfterHookFunction<void, LinkFacebookRequest>): void;
 
         /**
          * Register before Hook for RPC LinkFacebookInstantGame function.
@@ -1373,7 +1469,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkFacebookInstantGame.
          * @throws {TypeError}
          */
-        registerAfterLinkFacebookInstantGame(fn: AfterHookFunction<AccountFacebookInstantGame>): void;
+        registerAfterLinkFacebookInstantGame(fn: AfterHookFunction<void, AccountFacebookInstantGame>): void;
 
         /**
          * Register before Hook for RPC LinkGameCenter function.
@@ -1389,7 +1485,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkGameCenter.
          * @throws {TypeError}
          */
-        registerAfterLinkGameCenter(fn: AfterHookFunction<AccountGameCenter>): void;
+        registerAfterLinkGameCenter(fn: AfterHookFunction<void, AccountGameCenter>): void;
 
         /**
          * Register before Hook for RPC LinkGoogle function.
@@ -1405,7 +1501,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkGoogle.
          * @throws {TypeError}
          */
-        registerAfterLinkGoogle(fn: AfterHookFunction<AccountGoogle>): void;
+        registerAfterLinkGoogle(fn: AfterHookFunction<void, AccountGoogle>): void;
 
         /**
          * Register before Hook for RPC LinkSteam function.
@@ -1421,7 +1517,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkSteam.
          * @throws {TypeError}
          */
-        registerAfterLinkSteam(fn: AfterHookFunction<AccountSteam>): void;
+        registerAfterLinkSteam(fn: AfterHookFunction<void, AccountSteam>): void;
 
         /**
          * Register before Hook for RPC ListMatches function.
@@ -1437,7 +1533,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListMatches.
          * @throws {TypeError}
          */
-        registerAfterListMatches(fn: AfterHookFunction<ListMatchesRequest>): void;
+        registerAfterListMatches(fn: AfterHookFunction<MatchList, ListMatchesRequest>): void;
 
         /**
          * Register before Hook for RPC ListNotifications function.
@@ -1453,23 +1549,23 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListNotifications.
          * @throws {TypeError}
          */
-        registerAfterListNotifications(fn: AfterHookFunction<ListNotificationsRequest>): void;
+        registerAfterListNotifications(fn: AfterHookFunction<NotificationList, ListNotificationsRequest>): void;
 
         /**
-         * Register before Hook for RPC DeleteNotification function.
+         * Register before Hook for RPC DeleteNotifications function.
          *
-         * @param fn - The function to execute before DeleteNotification.
+         * @param fn - The function to execute before DeleteNotifications.
          * @throws {TypeError}
          */
-        registerBeforeDeleteNotification(fn: BeforeHookFunction<string[]>): void;
+        registerBeforeDeleteNotifications(fn: BeforeHookFunction<DeleteNotificationsRequest>): void;
 
         /**
-         * Register after Hook for RPC DeleteNotification function.
+         * Register after Hook for RPC DeleteNotifications function.
          *
-         * @param fn - The function to execute after DeleteNotification.
+         * @param fn - The function to execute after DeleteNotifications.
          * @throws {TypeError}
          */
-        registerAfterDeleteNotification(fn: AfterHookFunction<string[]>): void;
+        registerAfterDeleteNotifications(fn: AfterHookFunction<void, DeleteNotificationsRequest>): void;
 
         /**
          * Register before Hook for RPC ListStorageObjects function.
@@ -1485,7 +1581,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListStorageObjects.
          * @throws {TypeError}
          */
-        registerAfterListStorageObjects(fn: AfterHookFunction<ListStorageObjectsRequest>): void;
+        registerAfterListStorageObjects(fn: AfterHookFunction<StorageObjectList, ListStorageObjectsRequest>): void;
 
         /**
          * Register before Hook for RPC ReadStorageObjects function.
@@ -1501,7 +1597,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ReadStorageObjects.
          * @throws {TypeError}
          */
-        registerAfterReadStorageObjects(fn: AfterHookFunction<ReadStorageObjectsRequest>): void;
+        registerAfterReadStorageObjects(fn: AfterHookFunction<StorageObjects, ReadStorageObjectsRequest>): void;
 
         /**
          * Register before Hook for RPC WriteStorageObjects function.
@@ -1517,7 +1613,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after WriteStorageObjects.
          * @throws {TypeError}
          */
-        registerAfterWriteStorageObjects(fn: AfterHookFunction<WriteStorageObjectsRequest>): void;
+        registerAfterWriteStorageObjects(fn: AfterHookFunction<StorageObjectAcks, WriteStorageObjectsRequest>): void;
 
         /**
          * Register before Hook for RPC DeleteStorageObjects function.
@@ -1533,7 +1629,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after DeleteStorageObjects.
          * @throws {TypeError}
          */
-        registerAfterDeleteStorageObjects(fn: AfterHookFunction<DeleteStorageObjectsRequest>): void;
+        registerAfterDeleteStorageObjects(fn: AfterHookFunction<void, DeleteStorageObjectsRequest>): void;
 
         /**
          * Register before Hook for RPC JoinTournament function.
@@ -1549,7 +1645,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after JoinTournament.
          * @throws {TypeError}
          */
-        registerAfterJoinTournament(fn: AfterHookFunction<JoinTournamentRequest>): void;
+        registerAfterJoinTournament(fn: AfterHookFunction<void, JoinTournamentRequest>): void;
 
         /**
          * Register before Hook for RPC ListTournamentRecords function.
@@ -1565,7 +1661,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListTournamentRecords.
          * @throws {TypeError}
          */
-        registerAfterListTournamentRecords(fn: AfterHookFunction<ListTournamentRecordsRequest>): void;
+        registerAfterListTournamentRecords(fn: AfterHookFunction<TournamentRecordList, ListTournamentRecordsRequest>): void;
 
         /**
          * Register before Hook for RPC ListTournaments function.
@@ -1581,7 +1677,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListTournaments.
          * @throws {TypeError}
          */
-        registerAfterListTournaments(fn: AfterHookFunction<ListTournamentsRequest>): void;
+        registerAfterListTournaments(fn: AfterHookFunction<TournamentList, ListTournamentsRequest>): void;
 
         /**
          * Register before Hook for RPC WriteTournamentRecord function.
@@ -1597,7 +1693,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after WriteTournamentRecord.
          * @throws {TypeError}
          */
-        registerAfterWriteTournamentRecord(fn: AfterHookFunction<WriteTournamentRecordRequest>): void;
+        registerAfterWriteTournamentRecord(fn: AfterHookFunction<LeaderboardRecord, WriteTournamentRecordRequest>): void;
 
         /**
          * Register before Hook for RPC ListTournamentRecordsAroundOwner function.
@@ -1613,7 +1709,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListTournamentRecordsAroundOwner.
          * @throws {TypeError}
          */
-        registerAfterListTournamentRecordsAroundOwner(fn: AfterHookFunction<ListTournamentRecordsAroundOwnerRequest>): void;
+        registerAfterListTournamentRecordsAroundOwner(fn: AfterHookFunction<LeaderboardRecordList, ListTournamentRecordsAroundOwnerRequest>): void;
 
         /**
          * Register before Hook for RPC UnlinkApple function.
@@ -1629,7 +1725,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UnlinkApple.
          * @throws {TypeError}
          */
-        registerAfterUnlinkApple(fn: AfterHookFunction<AccountApple>): void;
+        registerAfterUnlinkApple(fn: AfterHookFunction<void, AccountApple>): void;
 
         /**
          * Register before Hook for RPC UnlinkCustom function.
@@ -1645,7 +1741,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UnlinkCustom.
          * @throws {TypeError}
          */
-        registerAfterUnlinkCustom(fn: AfterHookFunction<AccountCustom>): void;
+        registerAfterUnlinkCustom(fn: AfterHookFunction<void, AccountCustom>): void;
 
         /**
          * Register before Hook for RPC UnlinkDevice function.
@@ -1661,7 +1757,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UnlinkDevice.
          * @throws {TypeError}
          */
-        registerAfterUnlinkDevice(fn: AfterHookFunction<AccountDevice>): void;
+        registerAfterUnlinkDevice(fn: AfterHookFunction<void, AccountDevice>): void;
 
         /**
          * Register before Hook for RPC UnlinkEmail function.
@@ -1677,7 +1773,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UnlinkEmail.
          * @throws {TypeError}
          */
-        registerAfterUnlinkEmail(fn: AfterHookFunction<AccountEmail>): void;
+        registerAfterUnlinkEmail(fn: AfterHookFunction<void, AccountEmail>): void;
 
         /**
          * Register before Hook for RPC UnlinkFacebook function.
@@ -1693,7 +1789,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UnlinkFacebook.
          * @throws {TypeError}
          */
-        registerAfterUnlinkFacebook(fn: AfterHookFunction<AccountFacebook>): void;
+        registerAfterUnlinkFacebook(fn: AfterHookFunction<void, AccountFacebook>): void;
 
         /**
          * Register before Hook for RPC UnlinkFacebookInstantGame function.
@@ -1709,7 +1805,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UnlinkFacebookInstantGame.
          * @throws {TypeError}
          */
-        registerAfterUnlinkFacebookInstantGame(fn: AfterHookFunction<AccountFacebookInstantGame>): void;
+        registerAfterUnlinkFacebookInstantGame(fn: AfterHookFunction<void, AccountFacebookInstantGame>): void;
 
         /**
          * Register before Hook for RPC UnlinkGameCenter function.
@@ -1725,7 +1821,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UnlinkGameCenter.
          * @throws {TypeError}
          */
-        registerAfterUnlinkGameCenter(fn: AfterHookFunction<AccountGameCenter>): void;
+        registerAfterUnlinkGameCenter(fn: AfterHookFunction<void, AccountGameCenter>): void;
 
         /**
          * Register before Hook for RPC UnlinkGoogle function.
@@ -1741,7 +1837,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UnlinkGoogle.
          * @throws {TypeError}
          */
-        registerAfterUnlinkGoogle(fn: AfterHookFunction<AccountGoogle>): void;
+        registerAfterUnlinkGoogle(fn: AfterHookFunction<void, AccountGoogle>): void;
 
         /**
          * Register before Hook for RPC UnlinkSteam function.
@@ -1757,7 +1853,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after UnlinkSteam.
          * @throws {TypeError}
          */
-        registerAfterUnlinkSteam(fn: AfterHookFunction<AccountSteam>): void;
+        registerAfterUnlinkSteam(fn: AfterHookFunction<void, AccountSteam>): void;
 
         /**
          * Register before Hook for RPC GetUsers function.
@@ -1773,7 +1869,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after GetUsers.
          * @throws {TypeError}
          */
-        registerAfterGetUsers(fn: AfterHookFunction<GetUsersRequest>): void;
+        registerAfterGetUsers(fn: AfterHookFunction<Users, GetUsersRequest>): void;
 
         /**
          * Register before Hook for RPC Event function.
@@ -1789,7 +1885,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after Event.
          * @throws {TypeError}
          */
-        registerAfterEvent(fn: AfterHookFunction<Event>): void;
+        registerAfterEvent(fn: AfterHookFunction<void, Event>): void;
 
         /**
          * Register a match handler.
@@ -1925,7 +2021,7 @@ declare namespace nkruntime {
      */
     export interface AccountDevice {
         id: string
-        vars?: Array<AccountDeviceVarsEntry>
+        vars?: AccountDeviceVarsEntry[]
     }
 
     export interface AccountDeviceVarsEntry {
@@ -2028,6 +2124,11 @@ declare namespace nkruntime {
         userID: string;
     }
 
+    export interface NotificationList {
+        notifications?: Notification[];
+        cacheableCursor?: string;
+    }
+
     /**
      * Wallet Update
      */
@@ -2106,6 +2207,10 @@ declare namespace nkruntime {
         version: string;
     }
 
+    export interface StorageObjectAcks {
+        acks: StorageWriteAck[];
+    }
+
     /**
      * Storage Delete Request
      */
@@ -2170,6 +2275,21 @@ declare namespace nkruntime {
         maxCount: number;
         createTime: number;
         updateTime: number;
+    }
+
+    export interface UserGroupList {
+        userGroups?: UserGroupListUserGroup[]
+        cursor?: string
+      }
+
+    export interface UserGroupListUserGroup {
+        group?: Group
+        state?: number
+    }
+
+    export interface GroupList {
+        groups?: Group[]
+        cursor?: string
     }
 
     export enum SortOrder {
@@ -3228,7 +3348,7 @@ declare namespace nkruntime {
          * Create a new leaderboard.
          *
          * @param leaderboardID - Leaderboard id.
-         * @param authoritative - Opt. Authoritative Leaderboard if true. // TODO what does this do?
+         * @param authoritative - Opt. Authoritative Leaderboard if true.
          * @param sortOrder - Opt. Sort leaderboard in desc or asc order. Defauts to "desc".
          * @param operator - Opt. Score operator "best", "set" or "incr" (refer to the docs for more info). Defaults to "best".
          * @param resetSchedule - Cron string to set the periodicity of the leaderboard reset. Set as null to never reset.

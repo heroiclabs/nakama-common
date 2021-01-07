@@ -2512,7 +2512,7 @@ declare namespace nkruntime {
          * @returns Http response
          * @throws {TypeError, GoError}
          */
-        httpRequest(url: string, method: RequestMethod, headers: {[header: string]: string}, body: string, timeout?: number): HttpResponse
+        httpRequest(url: string, method: RequestMethod, headers?: {[header: string]: string}, body?: string, timeout?: number): HttpResponse
 
         /**
          * Base 64 Encode

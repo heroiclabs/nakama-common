@@ -624,10 +624,10 @@ declare namespace nkruntime {
     }
 
     export enum GroupUserState {
-        SUPERADMIN = 0,
-        ADMIN = 1,
-        MEMBER = 2,
-        JOIN_REQUEST = 3,
+        Superadmin = 0,
+        Admin = 1,
+        Member = 2,
+        JoinRequest = 3,
     }
 
     export interface GroupUser {
@@ -642,9 +642,9 @@ declare namespace nkruntime {
 
     export interface LeaderboardRecordList {
         records?: LeaderboardRecord[]
-        owner_records?: LeaderboardRecord[]
-        next_cursor?: string
-        prev_cursor?: string
+        ownerRecords?: LeaderboardRecord[]
+        nextCursor?: string
+        prevCursor?: string
     }
 
     export interface MatchList {
@@ -2834,7 +2834,7 @@ declare namespace nkruntime {
          * @param metadata - Metadata to update. Use null or undefined not to update this field.
          * @throws {TypeError, GoError}
          */
-        accountUpdateId(userId: string, username?: string, displayName?: string, timezone?: string, location?: string, language?: string, avatar?: string, metadata?: {[key: string]: any}): void;
+        accountUpdateId(userId: string, username?: string | null, displayName?: string | null, timezone?: string | null, location?: string | null, language?: string | null, avatar?: string | null, metadata?: {[key: string]: any} | null): void;
 
         /**
          * Delete user account
@@ -3084,7 +3084,7 @@ declare namespace nkruntime {
          * @returns List of presence objects.
          * @throws {TypeError}
          */
-        streamUserList(stream: Stream, includeHidden?: boolean, includeNotHidden?: boolean): Presence[];
+        streamUserList(stream: Stream, includeHidden?: boolean, includeNotHidden?: boolean): Presence;
 
         /**
          * Get presence of user in a stream.
@@ -3302,7 +3302,7 @@ declare namespace nkruntime {
          * @returns Object containing an array of storage objects and a cursor for the next page of results, if there is one.
          * @throws {TypeError, GoError}
          */
-        storageList(userID: string, collection: string, limit?: number, cursor?: string): {items: StorageObject[], cursor?: string};
+        storageList(userID: string, collection: string, limit?: number, cursor?: string): StorageObjectList;
 
         /**
          * Get all storage objects matching the parameters.
@@ -3383,7 +3383,7 @@ declare namespace nkruntime {
          * @returns a list of leaderboard records.
          * @throws {TypeError, GoError}
          */
-        leaderboardRecordsList(leaderboardID: string, leaderboardOwners?: string[], limit?: number, cursor?: string, overrideExpiry?: number): {records: LeaderboardRecord[], ownerRecords: LeaderboardRecord[], prevCursor?: string, nextCursor?: string}
+        leaderboardRecordsList(leaderboardID: string, leaderboardOwners?: string[], limit?: number, cursor?: string, overrideExpiry?: number): LeaderboardRecordList;
 
         /**
          * Write a new leaderboard record.
@@ -3397,7 +3397,7 @@ declare namespace nkruntime {
          * @returns - The created leaderboard record.
          * @throws {TypeError, GoError}
          */
-        leaderboardRecordWrite(leaderboardID: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}): LeaderboardRecord
+        leaderboardRecordWrite(leaderboardID: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}): LeaderboardRecord;
 
         /**
          * Delete a leaderboard record.
@@ -3495,7 +3495,7 @@ declare namespace nkruntime {
          * @returns The tournament data for the given ids.
          * @throws {TypeError, GoError}
          */
-        tournamentList(categoryStart?: number, categoryEnd?: number, startTime?: number, endTime?: number, limit?: number, cursor?: string): {tournaments: Tournament[], cursor?: string};
+        tournamentList(categoryStart?: number, categoryEnd?: number, startTime?: number, endTime?: number, limit?: number, cursor?: string): TournamentList;
 
         /**
          * List records of a tournament.
@@ -3508,7 +3508,7 @@ declare namespace nkruntime {
          * @returns a list of tournament records.
          * @throws {TypeError, GoError}
          */
-        tournamentRecordsList(tournamentID: string, tournamentOwners?: string[], limit?: number, cursor?: string, overrideExpiry?: number): {records: LeaderboardRecord[], ownerRecords: LeaderboardRecord[], prevCursor?: string, nextCursor?: string}
+        tournamentRecordsList(tournamentID: string, tournamentOwners?: string[], limit?: number, cursor?: string, overrideExpiry?: number): TournamentRecordList;
 
         /**
          * Submit a score and optional subscore to a tournament leaderboard.
@@ -3545,7 +3545,7 @@ declare namespace nkruntime {
         groupsGetId(groupIDs: string[]): Group[];
 
         /**
-         * Fetch one or more groups by their ID.
+         * Create a new group.
          *
          * @param userID - The user ID to be associcated as the group superadmin.
          * @param name - Group name, must be set and unique.
@@ -3559,24 +3559,24 @@ declare namespace nkruntime {
          * @returns An array of group objects.
          * @throws {TypeError, GoError}
          */
-        groupsCreate(userID: string, name: string, creatorID: string, lang?: string, description?: string, avatarURL?: string, open?: boolean, metadata?: {[key: string]: any}, limit?: number): Group[];
+        groupCreate(userID: string, name: string, creatorID: string, lang?: string, description?: string, avatarURL?: string, open?: boolean, metadata?: {[key: string]: any}, limit?: number): Group;
 
         /**
          * Update a group with various configuration settings.
          * The group which is updated can change some or all of its fields.
          *
          * @param groupID - The group ID to update.
-         * @param name - Group name, use nil to not update.
-         * @param creatorID - The user ID to be associcated as creator, use nil to not update.
-         * @param lang - Group language, use nil to not update.
-         * @param description - Group description, use nil to not update.
-         * @param avatarURL - URL to the group avatar, use nil to not update.
-         * @param open - Whether the group is for anyone to join or not. Use nil to not update.
-         * @param metadata - Custom information to store for this group. Use nil to not update.
-         * @param limit - Maximum number of members to have in the group. Use nil if field is not being updated.
+         * @param name - Group name, use null to not update.
+         * @param creatorID - The user ID to be associcated as creator, use null to not update.
+         * @param lang - Group language, use null to not update.
+         * @param description - Group description, use null to not update.
+         * @param avatarURL - URL to the group avatar, use null to not update.
+         * @param open - Whether the group is for anyone to join or not. Use null to not update.
+         * @param metadata - Custom information to store for this group. Use null to not update.
+         * @param limit - Maximum number of members to have in the group. Use null if field is not being updated.
          * @throws {TypeError, GoError}
          */
-        groupUpdate(userID: string, name: string, creatorID: string, lang: string, description: string, avatarURL: string, open: boolean, metadata: {[key: string]: any}, limit: number): void;
+        groupUpdate(userID: string, name?: string | null, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): void;
 
         /**
          * Delete a group.
@@ -3606,7 +3606,7 @@ declare namespace nkruntime {
          * @returns A list of group members.
          * @throws {TypeError, GoError}
          */
-        groupUsersList(userID: string, limit?: number, state?: number, cursor?: string): {groupUsers: {user: User, state: number}, cursor?: string};
+        groupUsersList(userID: string, limit?: number, state?: number, cursor?: string): GroupUserList;
 
         /**
          * List all groups the user belongs to.
@@ -3618,7 +3618,7 @@ declare namespace nkruntime {
          * @returns A list of group members.
          * @throws {TypeError, GoError}
          */
-        userGroupsList(userID: string, limit?: number, state?: number, cursor?: string): {userGroups: {group: Group, state: number}, cursor?: string};
+        userGroupsList(userID: string, limit?: number, state?: number, cursor?: string): UserGroupList;
 
         /**
          * List a user's friends.
@@ -3630,7 +3630,7 @@ declare namespace nkruntime {
          * @returns A list of friends.
          * @throws {TypeError, GoError}
          */
-        friendsList(userID: string, limit?: number, state?: number, cursor?: string): {friends: {user: User, state: number, updateTime: number}, cursor?: string};
+        friendsList(userID: string, limit?: number, state?: number, cursor?: string): FriendList;
 
         /**
          * Join a user to a group.
@@ -3670,7 +3670,7 @@ declare namespace nkruntime {
          */
         groupUsersPromote(groupID: string, userIDs: string[]): void;
 
-         /**
+        /**
          * Demote users in a group.
          *
          * @param groupID - Group ID.
@@ -3678,6 +3678,15 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         groupUsersDemote(groupID: string, userIDs: string[]): void;
+
+        /**
+         * Read a file relative from the runtime path.
+         *
+         * @param relPath - Relative Path.
+         * @returns The content of the file as a string, if found.
+         * @throws {TypeError, GoError}
+         */
+        fileRead(relPath: string): string;
     }
 
     /**

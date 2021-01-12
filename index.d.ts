@@ -110,9 +110,9 @@ declare namespace nkruntime {
          * Broadcast a message to match presences.
          *
          * @param opcode - Numeric message op code.
-         * @param data - Opt. Data payload string, or nil.
-         * @param presences - Opt. List of presences (a subset of match participants) to use as message targets, or nil to send to the whole match. Defaults to nil
-         * @param sender - Opt. A presence to tag on the message as the 'sender', or nil.
+         * @param data - Opt. Data payload string, or null.
+         * @param presences - Opt. List of presences (a subset of match participants) to use as message targets, or null to send to the whole match. Defaults to null.
+         * @param sender - Opt. A presence to tag on the message as the 'sender', or null.
          * @param reliable - Opt. Broadcast the message with delivery guarantees or not. Defaults to true.
          * @throws {TypeError, GoError}
          */
@@ -122,9 +122,9 @@ declare namespace nkruntime {
          * Defer message broadcast to match presences.
          *
          * @param opcode - Numeric message op code.
-         * @param data - Opt. Data payload string, or nil.
-         * @param presences - Opt. List of presences (a subset of match participants) to use as message targets, or nil to send to the whole match. Defaults to nil
-         * @param sender - Opt. A presence to tag on the message as the 'sender', or nil.
+         * @param data - Opt. Data payload string, or null.
+         * @param presences - Opt. List of presences (a subset of match participants) to use as message targets, or null to send to the whole match. Defaults to null
+         * @param sender - Opt. A presence to tag on the message as the 'sender', or null.
          * @param reliable - Opt. Broadcast the message with delivery guarantees or not. Defaults to true.
          * @throws {TypeError, GoError}
          */
@@ -3167,22 +3167,22 @@ declare namespace nkruntime {
          *
          * @param stream - Stream data.
          * @param data - Data string to send.
-         * @param presences - Opt. List of presences in the stream to send the data to. If nil or empty, data is sent to all the users.
+         * @param presences - Opt. List of presences in the stream to send the data to. If null or empty, data is sent to all the users.
          * @param reliable - Opt. If data is sent with delivery guarantees. Defaults to true.
          * @throws {TypeError}
          */
-        streamSend(stream: Stream, data: string, presences?: Presence[], reliable?: boolean): void;
+        streamSend(stream: Stream, data: string, presences?: Presence[] | null, reliable?: boolean): void;
 
         /**
          * Send envelope data to users in a stream.
          *
          * @param stream - Stream data.
          * @param envelope - Envelope object.
-         * @param presences - Opt. List of presences in the stream to send the data to. If nil or empty, data is sent to all the users.
+         * @param presences - Opt. List of presences in the stream to send the data to. If null or empty, data is sent to all the users.
          * @param reliable - Opt. If data is sent with delivery guarantees. Defaults to true.
          * @throws {TypeError, GoError}
          */
-        streamSendRaw(stream: Stream, envelope: {}, presences?: Presence[], reliable?: boolean): void;
+        streamSendRaw(stream: Stream, envelope: {}, presences?: Presence[] | null, reliable?: boolean): void;
 
         /**
          * Disconnect session.
@@ -3333,7 +3333,7 @@ declare namespace nkruntime {
 
         /**
          * Update multiple entities.
-         * Passing nil to any of the arguments will ignore the corresponding update.
+         * Passing null to any of the arguments will ignore the corresponding update.
          *
          * @param accountUpdates - Array of account updates.
          * @param storageObjectsUpdates - Array of storage objects updates.

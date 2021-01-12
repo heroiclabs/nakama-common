@@ -3549,12 +3549,12 @@ declare namespace nkruntime {
          *
          * @param userID - The user ID to be associcated as the group superadmin.
          * @param name - Group name, must be set and unique.
-         * @param creatorID - The user ID to be associcated as creator. If not set, system user will be set.
+         * @param creatorID - Opt. The user ID to be associcated as creator. If not set, system user will be set.
          * @param lang - Opt. Group language. Will default to 'en'.
-         * @param description - Opt. Group description, can be left empty.
-         * @param avatarURL - Opt. URL to the group avatar, can be left empty.
+         * @param description - Opt. Group description, use null to leave empty.
+         * @param avatarURL - Opt. URL to the group avatar, use null to leave empty.
          * @param open - Opt. Whether the group is for anyone to join, or members will need to send invitations to join. Defaults to false.
-         * @param metadata - Opt. Custom information to store for this group.
+         * @param metadata - Opt. Custom information to store for this group, use null to leave empty.
          * @param limit - Opt. Maximum number of members to have in the group. Defaults to 100.
          * @returns An array of group objects.
          * @throws {TypeError, GoError}

@@ -1964,7 +1964,7 @@ declare namespace nkruntime {
     /**
      * Request method type
      */
-    type RequestMethod = "get" | "post" | "put" | "patch"
+    type RequestMethod = "get" | "post" | "put" | "patch" | "head"
 
     /**
      * HTTP Response type
@@ -3537,19 +3537,11 @@ declare namespace nkruntime {
         tournamentRecordsHaystack(id: string, ownerID: string, limit?: number, expiry?: number): Tournament[];
 
         /**
-         * Fetch one or more groups by their ID.
-         *
-         * @param groupIDs - A set of strings of the ID for the groups to get.
-         * @returns An array of group objects.
-         */
-        groupsGetId(groupIDs: string[]): Group[];
-
-        /**
          * Create a new group.
          *
          * @param userID - The user ID to be associcated as the group superadmin.
          * @param name - Group name, must be set and unique.
-         * @param creatorID - Opt. The user ID to be associcated as creator. If not set, system user will be set.
+         * @param creatorID - Opt. The user ID to be associcated as creator. If not set or null system user will be set.
          * @param lang - Opt. Group language. Will default to 'en'.
          * @param description - Opt. Group description, use null to leave empty.
          * @param avatarURL - Opt. URL to the group avatar, use null to leave empty.
@@ -3559,7 +3551,7 @@ declare namespace nkruntime {
          * @returns An array of group objects.
          * @throws {TypeError, GoError}
          */
-        groupCreate(userID: string, name: string, creatorID: string, lang?: string, description?: string, avatarURL?: string, open?: boolean, metadata?: {[key: string]: any}, limit?: number): Group;
+        groupCreate(userID: string, name: string, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): Group;
 
         /**
          * Update a group with various configuration settings.
@@ -3593,7 +3585,7 @@ declare namespace nkruntime {
          * @param userIDs - Array of user IDs to be kicked from the group.
          * @throws {TypeError, GoError}
          */
-        groupUsersKick(userID: string, userIDs: string[]): void;
+        groupUsersKick(groupID: string, userIDs: string[]): void;
 
         /**
          * List all members, admins and superadmins which belong to a group.
@@ -3606,7 +3598,7 @@ declare namespace nkruntime {
          * @returns A list of group members.
          * @throws {TypeError, GoError}
          */
-        groupUsersList(userID: string, limit?: number, state?: number, cursor?: string): GroupUserList;
+        groupUsersList(groupID: string, limit?: number, state?: number, cursor?: string): GroupUserList;
 
         /**
          * List all groups the user belongs to.
@@ -3678,6 +3670,14 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         groupUsersDemote(groupID: string, userIDs: string[]): void;
+
+        /**
+         * Fetch one or more groups by their ID.
+         *
+         * @param groupIDs - A set of strings of the ID for the groups to get.
+         * @returns An array of group objects.
+         */
+        groupsGetId(groupIDs: string[]): Group[];
 
         /**
          * Read a file relative from the runtime path.

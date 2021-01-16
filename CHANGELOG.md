@@ -4,7 +4,13 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Added
+- New realtime messages for Realtime Parties.
+- New API messages for refreshing session tokens.
+- Type Definitions for the new JavaScript runtime framework in the server.
 
+### Changed
+- Matchmaker API messages now have support for parties.
 
 ## [1.10.0] - 2020-11-28
 ### Added

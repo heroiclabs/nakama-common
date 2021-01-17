@@ -19,7 +19,8 @@ declare namespace nkruntime {
     export type ContextKey = "env" | "executionMode" | "node" | "queryParams" | "userId" | "username" | "vars" | "userSessionExp" | "sessionId" | "clientIp" | "clientPort" | "matchId" | "matchNode" | "matchLabel" | "matchTickRate"
     export type Context = { [K in ContextKey]: string };
 
-    type PermissionValues = 0 | 1;
+    type ReadPermissionValues = 0 | 1 | 2;
+    type WritePermissionValues = 0 | 1;
 
     /**
      * An RPC function definition.
@@ -35,7 +36,7 @@ declare namespace nkruntime {
          * @throws {TypeError}
          * @returns A response payload or error if one occurred.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, payload: string): string;
+        (ctx: Context, logger: Logger, nk: Nakama, payload: string): string | void;
     }
 
     /**
@@ -2168,8 +2169,8 @@ declare namespace nkruntime {
         collection: string;
         userId: string;
         version: string;
-        permissionRead: PermissionValues;
-        permissionWrite: PermissionValues;
+        permissionRead: ReadPermissionValues;
+        permissionWrite: WritePermissionValues;
         createTime: number;
         updateTime: number;
         value: {[key: string]: any};
@@ -2193,8 +2194,8 @@ declare namespace nkruntime {
         userId: string;
         value: {[key: string]: any};
         version?: string;
-        permissionRead?: PermissionValues;
-        permissionWrite?: PermissionValues;
+        permissionRead?: ReadPermissionValues;
+        permissionWrite?: WritePermissionValues;
     }
 
     /**
@@ -3084,7 +3085,7 @@ declare namespace nkruntime {
          * @returns List of presence objects.
          * @throws {TypeError}
          */
-        streamUserList(stream: Stream, includeHidden?: boolean, includeNotHidden?: boolean): Presence;
+        streamUserList(stream: Stream, includeHidden?: boolean, includeNotHidden?: boolean): Presence[];
 
         /**
          * Get presence of user in a stream.

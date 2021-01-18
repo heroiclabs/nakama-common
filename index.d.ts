@@ -2136,7 +2136,7 @@ declare namespace nkruntime {
     export interface WalletUpdate {
         userId: string;
         changeset: {[key: string]: number};
-        metadata: {[key: string]: any};
+        metadata?: {[key: string]: any};
     }
 
     /**
@@ -2480,7 +2480,7 @@ declare namespace nkruntime {
          * @returns UUID v4
          *
          */
-        uuidV4(): string
+        uuidv4(): string
 
         /**
          * Execute an SQL query to the Nakama database.

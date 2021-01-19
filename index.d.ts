@@ -2120,7 +2120,7 @@ declare namespace nkruntime {
         code: number;
         content: {[key: string]: any};
         persistent: boolean;
-        sender: string;
+        senderId: string;
         subject: string;
         userID: string;
     }
@@ -3233,11 +3233,11 @@ declare namespace nkruntime {
          * @param subject - Subject of the notification.
          * @param content - Key value object to send as the notification content.
          * @param code - Custom code for the notification. Must be a positive integer.
-         * @param senderID - Sender ID.
-         * @param persistent - A non-persistent message will only be received by a client which is currently connected to the server.
+         * @param senderID - Opt. Sender ID. Defaults to nil - sender sent.
+         * @param persistent - Opt. A non-persistent message will only be received by a client which is currently connected to the server. Defaults to false.
          * @throws {TypeError, GoError}
          */
-        notificationSend(userID: string, subject: string, content: {[key: string]: any}, code: number, senderID: string, persistent: boolean): void;
+        notificationSend(userID: string, subject: string, content: {[key: string]: any}, code: number, senderID?: string | null, persistent?: boolean): void;
 
         /**
          * Send multiple notifications.
@@ -3247,7 +3247,7 @@ declare namespace nkruntime {
          * @param content - Key value object to send as the notification content.
          * @param code - Custom code for the notification. Must be a positive integer.
          * @param senderID - Sender ID.
-         * @param persistent - A non-persistent message will only be received by a client which is currently connected to the server.
+         * @param persistent - A non-persistent message will only be received by a client which is currently connected to the server. Defaults to false.
          * @throws {TypeError, GoError}
          */
         notificationsSend(notifications: Notification[]): void;

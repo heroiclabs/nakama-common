@@ -624,7 +624,7 @@ declare namespace nkruntime {
         cursor?: string
     }
 
-    export enum GroupUserState {
+    const enum GroupUserState {
         Superadmin = 0,
         Admin = 1,
         Member = 2,
@@ -2122,7 +2122,16 @@ declare namespace nkruntime {
         persistent: boolean;
         senderId: string;
         subject: string;
-        userID: string;
+        userId: string;
+    }
+
+    export interface NotificationRequest {
+        code: number;
+        content: {[key: string]: any};
+        persistent?: boolean;
+        senderId?: string | null;
+        subject: string;
+        userId: string;
     }
 
     export interface NotificationList {
@@ -2293,12 +2302,12 @@ declare namespace nkruntime {
         cursor?: string
     }
 
-    export enum SortOrder {
+    const enum SortOrder {
         ASCENDING = 'asc',
         DESCENDING = 'desc',
     }
 
-    export enum Operator {
+    const enum Operator {
         BEST = 'best',
         SET = 'set',
         INCREMENTAL = 'incr',
@@ -2888,64 +2897,64 @@ declare namespace nkruntime {
         /**
          * Link an account to Apple sign in.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param token - Apple sign in token.
          * @throws {TypeError, GoError}
          */
-        linkApple(userID: string, token: string): void;
+        linkApple(userId: string, token: string): void;
 
         /**
          * Link an account to a customID.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param customID - Custom ID.
          * @throws {TypeError, GoError}
          */
-        linkCustom(userID: string, customID: string): void;
+        linkCustom(userId: string, customID: string): void;
 
         /**
          * Link account to a custom device.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param deviceID - Device ID.
          * @throws {TypeError, GoError}
          */
-        linkDevice(userID: string, deviceID: string): void;
+        linkDevice(userId: string, deviceID: string): void;
 
         /**
          * Link account to username and password.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param email - Email.
          * @param password - Password.
          * @throws {TypeError, GoError}
          */
-        linkEmail(userID: string, email: string, password: string): void;
+        linkEmail(userId: string, email: string, password: string): void;
 
         /**
          * Link account to Facebook.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param username - Facebook username.
          * @param token - Facebook Token.
          * @param importFriends - Import Facebook Friends. Defaults to true.
          * @throws {TypeError, GoError}
          */
-        linkFacebook(userID: string, username: string, token: string, importFriends?: boolean): void;
+        linkFacebook(userId: string, username: string, token: string, importFriends?: boolean): void;
 
         /**
          * Link account to Facebook Instant Games.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param signedPlayerInfo - Signed player info.
          * @throws {TypeError, GoError}
          */
-        linkFacebookInstantGame(userID: string, signedPlayerInfo: string): void;
+        linkFacebookInstantGame(userId: string, signedPlayerInfo: string): void;
 
         /**
          * Link account to Apple Game Center.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param playerId - Game center player ID.
          * @param bundleId - Game center bundle ID.
          * @param ts - Timestamp.
@@ -2955,7 +2964,7 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         linkGameCenter(
-            userID: string,
+            userId: string,
             playerId: string,
             bundleId: string,
             ts: number,
@@ -2967,79 +2976,79 @@ declare namespace nkruntime {
         /**
          * Link account to Google.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param token - Google Token.
          * @throws {TypeError, GoError}
          */
-        linkGoogle(userID: string, token: string): void;
+        linkGoogle(userId: string, token: string): void;
 
         /**
          * Link account to Steam.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param token - Steam Token.
          * @throws {TypeError, GoError}
          */
-        linkSteam(userID: string, token: string): void;
+        linkSteam(userId: string, token: string): void;
 
         /**
          * Unlink Apple sign in from an account.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param token - Apple sign in token.
          * @throws {TypeError, GoError}
          */
-        unlinkApple(userID: string, token: string): void;
+        unlinkApple(userId: string, token: string): void;
 
         /**
          * Unlink a customID from an account.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param customID - Custom ID.
          * @throws {TypeError, GoError}
          */
-        unlinkCustom(userID: string, customID: string): void;
+        unlinkCustom(userId: string, customID: string): void;
 
         /**
          * Unlink a custom device from an account.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param deviceID - Device ID.
          * @throws {TypeError, GoError}
          */
-        unlinkDevice(userID: string, deviceID: string): void;
+        unlinkDevice(userId: string, deviceID: string): void;
 
         /**
          * Unlink username and password from an account.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param email - Email.
          * @throws {TypeError, GoError}
          */
-        unlinkEmail(userID: string, email: string): void;
+        unlinkEmail(userId: string, email: string): void;
 
         /**
          * Unlink Facebook from an account.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param token - Password.
          * @throws {TypeError, GoError}
          */
-        unlinkFacebook(userID: string, token: string): void;
+        unlinkFacebook(userId: string, token: string): void;
 
         /**
          * Unlink Facebook Instant Games from an account.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param signedPlayerInfo - Signed player info.
          * @throws {TypeError, GoError}
          */
-        unlinkFacebookInstantGame(userID: string, signedPlayerInfo: string): void;
+        unlinkFacebookInstantGame(userId: string, signedPlayerInfo: string): void;
 
         /**
          * Unlink Apple Game Center from an account.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param playerId - Game center player ID.
          * @param bundleId - Game center bundle ID.
          * @param ts - Timestamp.
@@ -3049,7 +3058,7 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         unlinkGameCenter(
-            userID: string,
+            userId: string,
             playerId: string,
             bundleId: string,
             ts: number,
@@ -3061,20 +3070,20 @@ declare namespace nkruntime {
         /**
          * Unlink Google from account.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param token - Google token.
          * @throws {TypeError, GoError}
          */
-        unlinkGoogle(userID: string, token: string): void;
+        unlinkGoogle(userId: string, token: string): void;
 
         /**
          * Unlink Steam from an account.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param token - Steam token.
          * @throws {TypeError, GoError}
          */
-        unlinkSteam(userID: string, token: string): void;
+        unlinkSteam(userId: string, token: string): void;
 
         /**
          * List stream presences.
@@ -3090,18 +3099,18 @@ declare namespace nkruntime {
         /**
          * Get presence of user in a stream.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param sessionID - Session ID.
          * @param stream - Stream data.
          * @throws {TypeError}
          * @returns Presence object.
          */
-        streamUserGet(userID: string, sessionID: string, stream: Stream): Presence;
+        streamUserGet(userId: string, sessionID: string, stream: Stream): Presence;
 
         /**
          * Add a user to a stream.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param sessionID - Session ID.
          * @param stream - Stream data.
          * @param hidden - Opt. If hidden no presence events are generated for the user.
@@ -3109,12 +3118,12 @@ declare namespace nkruntime {
          * @param status - Opt. By default no status is set for the user.
          * @throws {TypeError, GoError}
          */
-        streamUserJoin(userID: string, sessionID: string, stream: Stream, hidden?: boolean, persistence?: boolean, status?: string): void;
+        streamUserJoin(userId: string, sessionID: string, stream: Stream, hidden?: boolean, persistence?: boolean, status?: string): void;
 
         /**
          * Update user status in a stream.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param sessionID - Session ID.
          * @param stream - Stream data.
          * @param hidden - Opt. If hidden no presence events are generated for the user.
@@ -3122,17 +3131,17 @@ declare namespace nkruntime {
          * @param status - Opt. By default no status is set for the user.
          * @throws {TypeError, GoError}
          */
-        streamUserUpdate(userID: string, sessionID: string, stream: Stream, hidden?: boolean, persistence?: boolean, status?: string): void;
+        streamUserUpdate(userId: string, sessionID: string, stream: Stream, hidden?: boolean, persistence?: boolean, status?: string): void;
 
         /**
          * Have a user leave a stream.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param sessionID - Session ID.
          * @param stream - Stream data.
          * @throws {TypeError, GoError}
          */
-        streamUserLeave(userID: string, sessionID: string, stream: Stream): void;
+        streamUserLeave(userId: string, sessionID: string, stream: Stream): void;
 
         /**
          * Kick user from a stream.
@@ -3229,7 +3238,7 @@ declare namespace nkruntime {
         /**
          * Send a notification.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param subject - Subject of the notification.
          * @param content - Key value object to send as the notification content.
          * @param code - Custom code for the notification. Must be a positive integer.
@@ -3237,31 +3246,26 @@ declare namespace nkruntime {
          * @param persistent - Opt. A non-persistent message will only be received by a client which is currently connected to the server. Defaults to false.
          * @throws {TypeError, GoError}
          */
-        notificationSend(userID: string, subject: string, content: {[key: string]: any}, code: number, senderID?: string | null, persistent?: boolean): void;
+        notificationSend(userId: string, subject: string, content: {[key: string]: any}, code: number, senderID?: string | null, persistent?: boolean): void;
 
         /**
          * Send multiple notifications.
          *
          * @param notifications - Array of notifications.
-         * @param subject - Subject of the notification.
-         * @param content - Key value object to send as the notification content.
-         * @param code - Custom code for the notification. Must be a positive integer.
-         * @param senderID - Sender ID.
-         * @param persistent - A non-persistent message will only be received by a client which is currently connected to the server. Defaults to false.
          * @throws {TypeError, GoError}
          */
-        notificationsSend(notifications: Notification[]): void;
+        notificationsSend(notifications: NotificationRequest[]): void;
 
         /**
          * Update user wallet.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param changeset - Object with the wallet changeset data.
          * @param metadata - Opt. Additional metadata to tag the wallet update with.
          * @param updateLedger - Opt. Whether to record this update in the ledger. Default true.
          * @throws {TypeError, GoError}
          */
-        walletUpdate(userID: string, changeset: {[key: string]: number}, metadata?: {[key: string]: any}, updateLedger?: boolean): WalletUpdateResult;
+        walletUpdate(userId: string, changeset: {[key: string]: number}, metadata?: {[key: string]: any}, updateLedger?: boolean): WalletUpdateResult;
 
         /**
          * Update multiple user wallets.
@@ -3285,25 +3289,25 @@ declare namespace nkruntime {
         /**
          * Update user wallet ledger.
          *
-         * @param userID - User ID
+         * @param userId - User ID
          * @param limit - Opt. Maximum number of items to list. Defaults to 100.
          * @param cursor - Opt. Pagination cursor.
          * @returns Object containing an array of wallet ledger results and a cursor for the next page of results, if there is one.
          * @throws {TypeError, GoError}
          */
-        walletLedgerList(userID: string, limit?: number, cursor?: string): {items: WalletLedgerResult[], cursor?: string};
+        walletLedgerList(userId: string, limit?: number, cursor?: string): {items: WalletLedgerResult[], cursor?: string};
 
         /**
          * List user's storage objects from a collection.
          *
-         * @param userID - User ID
+         * @param userId - User ID
          * @param collection - Storage collection.
          * @param limit - Opt. Maximum number of items to list. Defaults to 100.
          * @param cursor - Opt. Pagination cursor.
          * @returns Object containing an array of storage objects and a cursor for the next page of results, if there is one.
          * @throws {TypeError, GoError}
          */
-        storageList(userID: string, collection: string, limit?: number, cursor?: string): StorageObjectList;
+        storageList(userId: string, collection: string, limit?: number, cursor?: string): StorageObjectList;
 
         /**
          * Get all storage objects matching the parameters.
@@ -3469,7 +3473,7 @@ declare namespace nkruntime {
          * A tournament may need to be joined before the owner can submit scores.
          *
          * @param tournamentID - Tournament id.
-         * @param userID - Owner of the record id.
+         * @param userId - Owner of the record id.
          * @param username - The username of the record owner.
          * @throws {TypeError, GoError}
          */
@@ -3540,7 +3544,7 @@ declare namespace nkruntime {
         /**
          * Create a new group.
          *
-         * @param userID - The user ID to be associcated as the group superadmin.
+         * @param userId - The user ID to be associcated as the group superadmin.
          * @param name - Group name, must be set and unique.
          * @param creatorID - Opt. The user ID to be associcated as creator. If not set or null system user will be set.
          * @param lang - Opt. Group language. Will default to 'en'.
@@ -3552,7 +3556,7 @@ declare namespace nkruntime {
          * @returns An array of group objects.
          * @throws {TypeError, GoError}
          */
-        groupCreate(userID: string, name: string, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): Group;
+        groupCreate(userId: string, name: string, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): Group;
 
         /**
          * Update a group with various configuration settings.
@@ -3569,7 +3573,7 @@ declare namespace nkruntime {
          * @param limit - Maximum number of members to have in the group. Use null if field is not being updated.
          * @throws {TypeError, GoError}
          */
-        groupUpdate(userID: string, name?: string | null, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): void;
+        groupUpdate(userId: string, name?: string | null, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): void;
 
         /**
          * Delete a group.
@@ -3583,10 +3587,10 @@ declare namespace nkruntime {
          * Kick users from a group.
          *
          * @param groupID - The group ID to update.
-         * @param userIDs - Array of user IDs to be kicked from the group.
+         * @param userIds - Array of user IDs to be kicked from the group.
          * @throws {TypeError, GoError}
          */
-        groupUsersKick(groupID: string, userIDs: string[]): void;
+        groupUsersKick(groupID: string, userIds: string[]): void;
 
         /**
          * List all members, admins and superadmins which belong to a group.
@@ -3604,73 +3608,73 @@ declare namespace nkruntime {
         /**
          * List all groups the user belongs to.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param limit - Opt. Max number of returned results. Defaults to 100.
          * @param state - Opt. Filter users by their group state (0: Superadmin, 1: Admin, 2: Member, 3: Requested to join). Use undefined to return all states.
          * @param cursor - Opt. A cursor used to fetch the next page when applicable.
          * @returns A list of group members.
          * @throws {TypeError, GoError}
          */
-        userGroupsList(userID: string, limit?: number, state?: number, cursor?: string): UserGroupList;
+        userGroupsList(userId: string, limit?: number, state?: number, cursor?: string): UserGroupList;
 
         /**
          * List a user's friends.
          *
-         * @param userID - User ID.
+         * @param userId - User ID.
          * @param limit - Opt. Max number of returned results. Defaults to 100.
          * @param state - Opt. Filter users by their group state (friend(0), invite_sent(1), invite_received(2), blocked(3)). Use undefined to return all states.
          * @param cursor - Opt. A cursor used to fetch the next page when applicable.
          * @returns A list of friends.
          * @throws {TypeError, GoError}
          */
-        friendsList(userID: string, limit?: number, state?: number, cursor?: string): FriendList;
+        friendsList(userId: string, limit?: number, state?: number, cursor?: string): FriendList;
 
         /**
          * Join a user to a group.
          *
          * @param groupID - Group ID.
-         * @param userID - User ID to join the group.
+         * @param userId - User ID to join the group.
          * @param username - Username of the user to join the group.
          * @throws {TypeError, GoError}
          */
-        groupUserJoin(groupID: string, userID: string, username: string): void;
+        groupUserJoin(groupID: string, userId: string, username: string): void;
 
         /**
          * Leave a user from a group.
          *
          * @param groupID - Group ID.
-         * @param userID - User ID to join the group.
+         * @param userId - User ID to join the group.
          * @param username - Username of the user to join the group.
          * @throws {TypeError, GoError}
          */
-        groupUserLeave(groupID: string, userID: string, username: string): void;
+        groupUserLeave(groupID: string, userId: string, username: string): void;
 
         /**
          * Add multiple users to a group.
          *
          * @param groupID - Group ID.
-         * @param userIDs - Array of userIDs to add the group.
+         * @param userIds - Array of userIds to add the group.
          * @throws {TypeError, GoError}
          */
-        groupUsersAdd(groupID: string, userIDs: string[]): void;
+        groupUsersAdd(groupID: string, userIds: string[]): void;
 
         /**
          * Promote users in a group.
          *
          * @param groupID - Group ID.
-         * @param userIDs - Array of userIDs in the group to promote.
+         * @param userIds - Array of userIds in the group to promote.
          * @throws {TypeError, GoError}
          */
-        groupUsersPromote(groupID: string, userIDs: string[]): void;
+        groupUsersPromote(groupID: string, userIds: string[]): void;
 
         /**
          * Demote users in a group.
          *
          * @param groupID - Group ID.
-         * @param userIDs - Array of userIDs in the group to demote.
+         * @param userIds - Array of userIds in the group to demote.
          * @throws {TypeError, GoError}
          */
-        groupUsersDemote(groupID: string, userIDs: string[]): void;
+        groupUsersDemote(groupID: string, userIds: string[]): void;
 
         /**
          * Fetch one or more groups by their ID.

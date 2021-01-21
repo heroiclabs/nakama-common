@@ -1,4 +1,4 @@
-// Copyright 2018 The Nakama Authors
+// Copyright 2021 The Nakama Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ declare namespace nkruntime {
     /**
      * A After Hook function definition.
      */
-    export interface AfterHookFunction<T,K> {
+    export interface AfterHookFunction<T, K> {
         /**
          * A Register Hook function definition.
          * @param ctx - The context for the execution.
@@ -77,21 +77,26 @@ declare namespace nkruntime {
     /**
      * A realtime before hook function definition.
      */
-    export interface RtBeforeHookFunction {
+    export interface RtBeforeHookFunction<T extends Envelope> {
         /**
          * A Register Hook function definition.
+         *
+         * * @remarks
+         * The function must return the T payload as this is what will be passed on to the hooked function.
+         * Return null to bail out of executing the function instead.
+         *
          * @param ctx - The context for the execution.
          * @param logger - The server logger.
          * @param nk - The Nakama server APIs.
          * @param envelope - The Envelope message received by the function.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, envelope: Envelope): Envelope;
+        (ctx: Context, logger: Logger, nk: Nakama, envelope: T): T | void;
     }
 
     /**
      * A realtime after hook function definition.
      */
-    export interface RtAfterHookFunction {
+    export interface RtAfterHookFunction<T extends Envelope> {
         /**
          * A Register Hook function definition.
          * @param ctx - The context for the execution.
@@ -99,9 +104,77 @@ declare namespace nkruntime {
          * @param nk - The Nakama server APIs.
          * @param envelope - The Envelope message received by the function.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, envelope: Envelope): void;
+        (ctx: Context, logger: Logger, nk: Nakama, envelope: T): void;
     }
 
+    /**
+     * Matchmaker matched hook function definition.
+     */
+    export interface MatchmakerMatchedFunction {
+        /**
+         * A Matchmaker matched register hook function definition.
+         *
+         * @remarks
+         * Expected to return an authoritative match ID for a match ready to receive
+         * these users, or void if the match should proceed through the peer-to-peer relayed mode.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param matches - The matched users presences and properties.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, matches: MatchmakerResult[]): string | void;
+    }
+
+    /**
+     * Tournament end hook function definition.
+     */
+    export interface TournamentEndFunction {
+         /**
+         * A Tournament end register hook function definition.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param tournament - The ended tournament.
+         * @param end - End time unix timestamp.
+         * @param reset - Reset time unix timestamp.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, tournament: Tournament, end: number, reset: number): void;
+    }
+
+    /**
+     * Tournament reset hook function definition.
+     */
+    export interface TournamentResetFunction {
+        /**
+         * A Tournament reset register hook function definition.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param tournament - The reset tournament.
+         * @param end - End time unix timestamp.
+         * @param reset - Reset time unix timestamp.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, tournament: Tournament, end: number, reset: number): void;
+    }
+
+    /**
+     * Leaderboard reset hook function definition.
+     */
+    export interface LeaderboardResetFunction {
+        /**
+         * A Leaderboard reset register hook function definition.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param leaderboard - The reset leaderboard.
+         * @param reset - Reset time unix timestamp.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, leaderboard: Leaderboard, reset: number): void;
+    }
 
     /**
      * Match Dispatcher API definition.
@@ -662,7 +735,7 @@ declare namespace nkruntime {
     }
 
     export interface StorageObjects {
-        objects?: StorageObject[];
+        objects?: StorageObject[]
     }
 
     export interface TournamentRecordList {
@@ -678,7 +751,12 @@ declare namespace nkruntime {
     }
 
     export interface Users {
-        users: Users[];
+        users: Users[]
+    }
+
+    export interface MatchmakerResult {
+        properties: {[key: string]: string}
+        presence: Presence
     }
 
     /**
@@ -1895,6 +1973,34 @@ declare namespace nkruntime {
          * @param functions - Object containing the match handler functions.
          */
         registerMatch(name: string, functions: MatchHandler): void;
+
+        /**
+         * Register matchmaker matched handler.
+         *
+         * @param fn - The function to execute after a matchmaker match.
+         */
+        registerMatchmakerMatched(fn: MatchmakerMatchedFunction): void;
+
+        /**
+         * Register tournament end handler.
+         *
+         * @param fn - The function to execute after a tournament ends.
+         */
+        registerTournamentEnd(fn: TournamentEndFunction): void;
+
+        /**
+         * Register tournament reset handler.
+         *
+         * @param fn - The function to execute after a tournament resets.
+         */
+        registerTournamentReset(fn: TournamentResetFunction): void;
+
+        /**
+         * Register leaderboard reset handler.
+         *
+         * @param fn - The function to execute after a leaderboard resets.
+         */
+        registerLeaderboardReset(fn: LeaderboardResetFunction): void;
     }
 
     /**
@@ -2217,6 +2323,9 @@ declare namespace nkruntime {
         version: string;
     }
 
+    /**
+     * A list of Write Acks
+     */
     export interface StorageObjectAcks {
         acks: StorageWriteAck[];
     }
@@ -2232,7 +2341,20 @@ declare namespace nkruntime {
     }
 
     /**
-     * Leaderboard Record Entry
+     * Leaderboard Entry
+     */
+    export interface Leaderboard {
+        id: string;
+        authoritative: boolean;
+        sortOrder: SortOrder;
+        operator: Operator;
+        reset: number;
+        metadata: {[key: string]: any};
+        createTime: number;
+    }
+
+    /**
+     * Leaderboard Entry
      */
     export interface LeaderboardRecord {
         leaderboardId: string;
@@ -2248,7 +2370,7 @@ declare namespace nkruntime {
     }
 
     /**
-     * Leaderboard Record Entry
+     * Tournament Entry
      */
     export interface Tournament {
         id: string;
@@ -2316,10 +2438,7 @@ declare namespace nkruntime {
     /**
      * Envelope for realtime message hooks
      */
-    export interface Envelope {
-        cid: string,
-        message: EnvelopeChannel | EnvelopeChannelJoin | EnvelopeChannelLeave | EnvelopeChannelMessageSend | EnvelopeChannelMessageUpdate | EnvelopeChannelMessageRemove | EnvelopeMatchCreateMessage | EnvelopeMatchDataSend | EnvelopeMatchJoin | EnvelopeMatchLeave | EnvelopeMatchmakerAdd | EnvelopeMatchmakerRemove | EnvelopeStatusFollow | EnvelopeStatusUnfollow | EnvelopeStatusUpdate | EnvelopePing | EnvelopePong
-    }
+    type Envelope = EnvelopeChannel | EnvelopeChannelJoin | EnvelopeChannelLeave | EnvelopeChannelMessageSend | EnvelopeChannelMessageUpdate | EnvelopeChannelMessageRemove | EnvelopeMatchCreateMessage | EnvelopeMatchDataSend | EnvelopeMatchJoin | EnvelopeMatchLeave | EnvelopeMatchmakerAdd | EnvelopeMatchmakerRemove | EnvelopeStatusFollow | EnvelopeStatusUnfollow | EnvelopeStatusUpdate | EnvelopePing | EnvelopePong
 
     export interface Channel {
         id?: string,
@@ -2388,7 +2507,7 @@ declare namespace nkruntime {
 
     export interface MatchDataMessageSend {
         matchId: string
-        opCode: number
+        opCode: string
         data?: string
         presences?: Presence[]
         reliable?: boolean

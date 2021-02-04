@@ -3,7 +3,13 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [Unreleased] - 2021-02-04
+### Added
+- New APIs for Steam friends to be imported to the social graph.
+
+### Changed
+- Improvements to the Type definitions for the runtime.
+- Add an error type for negative wallet balances in wallet updates.
 
 ## [1.11.0] - 2021-01-16
 

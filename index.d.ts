@@ -434,6 +434,11 @@ declare namespace nkruntime {
         reset?: boolean
     }
 
+    export interface ImportSteamFriendsRequest {
+        account?: AccountSteam
+        reset?: boolean
+    }
+
     export interface CreateGroupRequest {
         name?: string
         description?: string
@@ -560,6 +565,11 @@ declare namespace nkruntime {
 
     export interface LinkFacebookRequest {
         account?: AccountFacebook
+        sync?: boolean
+    }
+
+    export interface LinkSteamRequest {
+        account?: AccountSteam
         sync?: boolean
     }
 
@@ -899,7 +909,7 @@ declare namespace nkruntime {
          * @param id - The ID of the RPC function.
          * @param func - The Hook function logic to execute before the RPC is called.
          */
-        registerRtBefore(id: RtHookMessage, func: RtBeforeHookFunction): void;
+        registerRtBefore(id: RtHookMessage, func: RtBeforeHookFunction<Envelope>): void;
 
         /**
          * Register a hook function to be run after an RPC function is invoked.
@@ -908,7 +918,7 @@ declare namespace nkruntime {
          * @param id - The ID of the RPC function.
          * @param func - The Hook function logic to execute after the RPC is called.
          */
-        registerRtAfter(id: RtHookMessage, func: RtAfterHookFunction): void;
+        registerRtAfter(id: RtHookMessage, func: RtAfterHookFunction<Envelope>): void;
 
         /**
          * Register Before Hook for RPC getAccount function.
@@ -1181,6 +1191,22 @@ declare namespace nkruntime {
          * @throws {TypeError}
          */
         registerAfterImportFacebookFriends(fn: AfterHookFunction<void, ImportFacebookFriendsRequest>): void;
+
+        /**
+         * Register before Hook for RPC ImportSteamFriends function.
+         *
+         * @param fn - The function to execute before ImportSteamFriends.
+         * @throws {TypeError}
+         */
+        registerBeforeImportSteamFriends(fn: BeforeHookFunction<ImportSteamFriendsRequest>): void;
+
+        /**
+         * Register after Hook for RPC ImportSteamFriends function.
+         *
+         * @param fn - The function to execute after ImportSteamFriends.
+         * @throws {TypeError}
+         */
+        registerAfterImportSteamFriends(fn: AfterHookFunction<void, ImportSteamFriendsRequest>): void;
 
         /**
          * Register before Hook for RPC CreateGroup function.
@@ -1588,7 +1614,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute before LinkSteam.
          * @throws {TypeError}
          */
-        registerBeforeLinkSteam(fn: BeforeHookFunction<AccountSteam>): void;
+        registerBeforeLinkSteam(fn: BeforeHookFunction<LinkSteamRequest>): void;
 
         /**
          * Register after Hook for RPC LinkSteam function.
@@ -1596,7 +1622,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after LinkSteam.
          * @throws {TypeError}
          */
-        registerAfterLinkSteam(fn: AfterHookFunction<void, AccountSteam>): void;
+        registerAfterLinkSteam(fn: AfterHookFunction<void, LinkSteamRequest>): void;
 
         /**
          * Register before Hook for RPC ListMatches function.
@@ -3054,7 +3080,7 @@ declare namespace nkruntime {
          * Link account to Facebook.
          *
          * @param userId - User ID.
-         * @param username - Facebook username.
+         * @param username - Username.
          * @param token - Facebook Token.
          * @param importFriends - Import Facebook Friends. Defaults to true.
          * @throws {TypeError, GoError}
@@ -3105,10 +3131,12 @@ declare namespace nkruntime {
          * Link account to Steam.
          *
          * @param userId - User ID.
+         * @param username - Username.
          * @param token - Steam Token.
+         * @param importFriends - Import Steam Friends. Defaults to true.
          * @throws {TypeError, GoError}
          */
-        linkSteam(userId: string, token: string): void;
+        linkSteam(userId: string, username: string, token: string, importFriends: boolean): void;
 
         /**
          * Unlink Apple sign in from an account.

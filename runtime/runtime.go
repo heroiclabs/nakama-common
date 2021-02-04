@@ -775,12 +775,15 @@ type WalletUpdateResult struct {
 }
 
 type WalletNegativeError struct {
-	UserID       string
-	Path         string
-	Current      int64
-	Amount       int64
+	UserID  string
+	Path    string
+	Current int64
+	Amount  int64
 }
-func (e *WalletNegativeError) Error() string { return fmt.Sprintf("wallet update rejected negative value at path '%v'", e.Path) }
+
+func (e *WalletNegativeError) Error() string {
+	return fmt.Sprintf("wallet update rejected negative value at path '%v'", e.Path)
+}
 
 type WalletLedgerItem interface {
 	GetID() string

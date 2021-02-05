@@ -702,7 +702,7 @@ declare namespace nkruntime {
     }
 
     export interface StorageObjectList {
-        objects?: StorageObject[]
+        items?: StorageObject[]
         cursor?: string
     }
 

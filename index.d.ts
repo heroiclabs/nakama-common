@@ -221,6 +221,8 @@ declare namespace nkruntime {
         matchLabelUpdate(label: string): void;
     }
 
+    type SessionVars = {[key: string]: string}
+
     /**
      * Match Message definition
      */
@@ -244,14 +246,9 @@ declare namespace nkruntime {
     /**
      * Hooks payloads definitions
      */
-    export interface AccountAppleVarsEntry {
-        key?: string
-        value?: string
-    }
-
     export interface AccountApple {
         token?: string
-        vars?: AccountAppleVarsEntry[]
+        vars?: SessionVars
     }
 
     export interface AuthenticateAppleRequest {
@@ -260,14 +257,9 @@ declare namespace nkruntime {
         username?: string
     }
 
-    export interface AccountCustomVarsEntry {
-        key?: string
-        value?: string
-    }
-
     export interface AccountCustom {
         id?: string
-        vars?: AccountCustomVarsEntry[]
+        vars?: SessionVars
     }
 
     export interface AuthenticateCustomRequest {
@@ -282,21 +274,16 @@ declare namespace nkruntime {
         username?: string
     }
 
-    export interface AccountEmailVarsEntry {
-        key?: string
-        value?: string
-    }
-
     export interface AccountEmail {
         email?: string
         password?: string
-        vars?: AccountEmailVarsEntry[]
+        vars?: SessionVars
     }
 
     export interface AuthenticateEmailRequest {
-        account?: AccountEmail
-        create?: boolean
-        username?: string
+        account: AccountEmail
+        create: boolean
+        username: string
     }
 
     export interface AuthenticateFacebookRequest {
@@ -306,35 +293,20 @@ declare namespace nkruntime {
         sync?: boolean
     }
 
-    export interface AccountFacebookVarsEntry {
-        key?: string
-        value?: string
-    }
-
     export interface AccountFacebook {
         token?: string
-        vars?: AccountFacebookVarsEntry[]
-    }
-
-    export interface AccountFacebookInstantGameVarsEntry {
-        key?: string
-        value?: string
+        vars?: SessionVars
     }
 
     export interface AccountFacebookInstantGame {
         signedPlayerInfo?: string
-        vars?: AccountFacebookInstantGameVarsEntry[]
+        vars?: SessionVars
     }
 
     export interface AuthenticateFacebookInstantGameRequest {
         account?: AccountFacebookInstantGame
         create?: boolean
         username?: string
-    }
-
-    export interface AccountGameCenterVarsEntry {
-        key?: string
-        value?: string
     }
 
     export interface AccountGameCenter {
@@ -344,7 +316,7 @@ declare namespace nkruntime {
         salt?: string
         signature?: string
         publicKeyUrl?: string
-        vars?: AccountGameCenterVarsEntry[]
+        vars?: SessionVars
       }
 
     export interface AuthenticateGameCenterRequest {
@@ -353,14 +325,9 @@ declare namespace nkruntime {
         username?: string
     }
 
-    export interface AccountGoogleVarsEntry {
-        key?: string
-        value?: string
-    }
-
     export interface AccountGoogle {
         token?: string
-        vars?: AccountGoogleVarsEntry[]
+        vars?: SessionVars
     }
 
     export interface AuthenticateGoogleRequest {
@@ -369,14 +336,9 @@ declare namespace nkruntime {
         username?: string
     }
 
-    export interface AccountSteamVarsEntry {
-        key?: string
-        value?: string
-    }
-
     export interface AccountSteam {
         token?: string
-        vars?: AccountSteamVarsEntry[]
+        vars?: SessionVars
     }
 
     export interface AuthenticateSteamRequest {
@@ -545,7 +507,7 @@ declare namespace nkruntime {
 
     export interface AccountApple {
         token?: string
-        vars?: AccountAppleVarsEntry[]
+        vars?: SessionVars
     }
 
     export interface AccountAppleVarsEntry {
@@ -555,7 +517,7 @@ declare namespace nkruntime {
 
     export interface AccountCustom {
         id?: string
-        vars?: AccountCustomVarsEntry[]
+        vars?: SessionVars
     }
 
     export interface AccountCustomVarsEntry {
@@ -685,7 +647,7 @@ declare namespace nkruntime {
     }
 
     export interface Session {
-        created?: boolean
+        create?: boolean
         token?: string
     }
 
@@ -740,7 +702,7 @@ declare namespace nkruntime {
     }
 
     export interface StorageObjectList {
-        objects?: StorageObject
+        objects?: StorageObject[]
         cursor?: string
     }
 
@@ -2154,12 +2116,7 @@ declare namespace nkruntime {
      */
     export interface AccountDevice {
         id: string
-        vars?: AccountDeviceVarsEntry[]
-    }
-
-    export interface AccountDeviceVarsEntry {
-        key?: string
-        value?: string
+        vars?: SessionVars
     }
 
     /**
@@ -2613,6 +2570,17 @@ declare namespace nkruntime {
         pong: {}
     }
 
+    export interface SqlExecResult {
+        rowsAffected: number
+    }
+
+    type SqlQueryResult = {[column: string]: any}[]
+
+    export interface WalletLedgerList {
+        items: WalletLedgerResult
+        cursor?: string
+    }
+
     /**
      * The server APIs available in the game server.
      */
@@ -2644,7 +2612,7 @@ declare namespace nkruntime {
          * @returns the number of affected rows.
          * @throws {TypeError, GoError}
          */
-        sqlExec(sqlQuery: string, args?: any[]): {rowsAffected: number};
+        sqlExec(sqlQuery: string, args?: any[]): SqlExecResult;
 
         /**
          * Get the results of an SQL query to the Nakama database.
@@ -2654,7 +2622,7 @@ declare namespace nkruntime {
          * @returns an array of the returned query rows, each one containing an object whose keys map a column to the row value.
          * @throws {TypeError, GoError}
          */
-        sqlQuery(sqlQuery: string, args?: any[]): {[column: string]: any}[];
+        sqlQuery(sqlQuery: string, args?: any[]): SqlQueryResult;
 
         /**
          * Http Request
@@ -3442,7 +3410,7 @@ declare namespace nkruntime {
          * @returns Object containing an array of wallet ledger results and a cursor for the next page of results, if there is one.
          * @throws {TypeError, GoError}
          */
-        walletLedgerList(userId: string, limit?: number, cursor?: string): {items: WalletLedgerResult[], cursor?: string};
+        walletLedgerList(userId: string, limit?: number, cursor?: string): WalletLedgerList;
 
         /**
          * List user's storage objects from a collection.

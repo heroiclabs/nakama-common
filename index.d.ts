@@ -2577,7 +2577,7 @@ declare namespace nkruntime {
     type SqlQueryResult = {[column: string]: any}[]
 
     export interface WalletLedgerList {
-        items: WalletLedgerResult
+        items: WalletLedgerResult[]
         cursor?: string
     }
 

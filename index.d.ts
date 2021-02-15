@@ -2978,10 +2978,11 @@ declare namespace nkruntime {
         /**
          * Get user data by ids.
          *
-         * @param userIds - User IDs.
+         * @param userIds - User IDs. Pass null to fetch by facebookIds only.
+         * @param facebookIds - Facebook IDs.
          * @throws {TypeError, GoError}
          */
-        usersGetId(userIds: string[]): User[]
+        usersGetId(userIds: string[], facebookIds?: string[]): User[]
 
         /**
          * Get user data by usernames.

@@ -2124,7 +2124,7 @@ declare namespace nkruntime {
      */
     export interface Account {
         user: User
-        wallet: string
+        wallet: Wallet
         email: string
         devices: AccountDevice[]
         customId: string
@@ -2240,7 +2240,7 @@ declare namespace nkruntime {
     /**
      * Wallet Update Result
      */
-    export interface WalletUpdateResult {
+    export interface Wallet {
         // The wallet values after the update.
         updated: {[key: string]: number};
         // The wallet value prior to the update.
@@ -3381,7 +3381,7 @@ declare namespace nkruntime {
          * @param updateLedger - Opt. Whether to record this update in the ledger. Default true.
          * @throws {TypeError, GoError}
          */
-        walletUpdate(userId: string, changeset: {[key: string]: number}, metadata?: {[key: string]: any}, updateLedger?: boolean): WalletUpdateResult;
+        walletUpdate(userId: string, changeset: {[key: string]: number}, metadata?: {[key: string]: any}, updateLedger?: boolean): Wallet;
 
         /**
          * Update multiple user wallets.
@@ -3390,7 +3390,7 @@ declare namespace nkruntime {
          * @param updateLedger - Opt. Whether to record this update in the ledger. Default true.
          * @throws {TypeError, GoError}
          */
-        walletsUpdate(updates: WalletUpdate[], updateLedger?: boolean): WalletUpdateResult[];
+        walletsUpdate(updates: WalletUpdate[], updateLedger?: boolean): Wallet[];
 
         /**
          * Update user wallet ledger.
@@ -3463,7 +3463,7 @@ declare namespace nkruntime {
          * @returns An object with the results from wallets and storage objects updates.
          * @throws {TypeError, GoError}
          */
-        multiUpdate(accountUpdates: UserUpdateAccount[] | null, storageObjectsUpdates: StorageWriteRequest[] | null, walletUpdates: WalletUpdate[] | null, updateLedger?: boolean): {storageWriteAcks: StorageWriteAck[], walletUpdateAcks: WalletUpdateResult[]};
+        multiUpdate(accountUpdates: UserUpdateAccount[] | null, storageObjectsUpdates: StorageWriteRequest[] | null, walletUpdates: WalletUpdate[] | null, updateLedger?: boolean): {storageWriteAcks: StorageWriteAck[], walletUpdateAcks: Wallet[]};
 
         /**
          * Create a new leaderboard.

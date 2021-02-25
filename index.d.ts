@@ -647,8 +647,9 @@ declare namespace nkruntime {
     }
 
     export interface Session {
-        create?: boolean
+        created?: boolean
         token?: string
+        refresh_token?: string
     }
 
     export interface ChannelMessageList {

@@ -2584,6 +2584,36 @@ declare namespace nkruntime {
         cursor?: string
     }
 
+    export interface ValidatePurchaseResponse {
+        validatedPurchases?: ValidatedPurchase[]
+    }
+
+    export interface GetPurchaseByTransactionIdData {
+        validatedPurchase: ValidatedPurchase,
+        userId: string,
+    }
+
+    export enum ValidatedPurchaseStore {
+        APPLE_APP_STORE = 0,
+        GOOGLE_PLAY_STORE = 1,
+        HUAWEI_APP_GALLERY = 2,
+    }
+
+    export interface ValidatedPurchase {
+        productId?: string
+        transactionId?: string
+        store?: ValidatedPurchaseStore
+        purchaseTime?: string
+        createTime?: string
+        updateTime?: string
+        providerPayload?: string
+    }
+
+    export interface ValidatedPurchaseList {
+        validatedPurchases?: ValidatedPurchase[]
+        cursor?: string
+    }
+
     /**
      * The server APIs available in the game server.
      */
@@ -3811,6 +3841,55 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         fileRead(relPath: string): string;
+
+        /**
+         * Validate an Apple receipt containing purchases.
+         *
+         * @param userID - User ID.
+         * @param receipt - Apple receipt to validate.
+         * @returns The result of the validated and stored purchases from the receipt.
+         * @throws {TypeError, GoError}
+         */
+        purchaseValidateApple(userID: string, receipt: string): ValidatePurchaseResponse
+
+        /**
+         * Validate a Google purchase payload.
+         *
+         * @param userID - User ID.
+         * @param purchase - Google purchase payload to validate.
+         * @returns The result of the validated and stored purchases from the receipt.
+         * @throws {TypeError, GoError}
+         */
+         purchaseValidateGoogle(userID: string, purchase: string): ValidatePurchaseResponse
+
+        /**
+         * Validate a Huawei purchase payload.
+         *
+         * @param userID - User ID.
+         * @param receipt - Apple receipt to validate.
+         * @returns The result of the validated and stored purchases from the receipt.
+         * @throws {TypeError, GoError}
+         */
+        purchaseValidateHuawei(userID: string, receipt: string, signature: string): ValidatePurchaseResponse
+
+        /**
+         * Get a validated purchase data by transaction ID.
+         *
+         * @param transactionID - Transaction ID. For Google/Huawei this is the purchaseToken value of the purchase data.
+         * @returns The data of the validated and stored purchase.
+         * @throws {TypeError, GoError}
+         */
+        purchaseGetByTransactionId(transactionID: string): GetPurchaseByTransactionIdData
+
+        /**
+         * List validated and stored purchases.
+         *
+         * @param limit - Opt. Limit of results per page. Must be a value between 1 and 100.
+         * @param cursor - Opt. A cursor used to fetch the next page when applicable.
+         * @returns A page of validated and stored purchases.
+         * @throws {TypeError, GoError}
+         */
+        purchasesList(limit?: number, cursor?: string): ValidatedPurchaseList
     }
 
     /**

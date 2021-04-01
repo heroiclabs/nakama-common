@@ -2660,6 +2660,12 @@ declare namespace nkruntime {
         HUAWEI_APP_GALLERY = 2,
     }
 
+    export enum ValidatedPurchaseEnvironment {
+        UNKNOWN = 0,
+        SANDBOX = 1,
+        PRODUCTION = 2,
+    }
+
     export interface ValidatedPurchase {
         productId?: string
         transactionId?: string
@@ -2668,6 +2674,7 @@ declare namespace nkruntime {
         createTime?: string
         updateTime?: string
         providerPayload?: string
+        environment?: ValidatedPurchaseEnvironment
     }
 
     export interface ValidatedPurchaseList {

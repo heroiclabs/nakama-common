@@ -1940,6 +1940,54 @@ declare namespace nkruntime {
         registerAfterGetUsers(fn: AfterHookFunction<Users, GetUsersRequest>): void;
 
         /**
+         * Register before Hook for RPC ValidatePurchaseApple function.
+         *
+         * @param fn - The function to execute before ValidatePurchaseApple.
+         * @throws {TypeError}
+         */
+        registerBeforeValidatePurchaseApple(fn: BeforeHookFunction<ValidatePurchaseAppleRequest>): void;
+
+        /**
+         * Register after Hook for RPC ValidatePurchaseApple function.
+         *
+         * @param fn - The function to execute after ValidatePurchaseApple.
+         * @throws {TypeError}
+         */
+         registerAfterValidatePurchaseApple(fn: AfterHookFunction<ValidatePurchaseResponse, ValidatePurchaseAppleRequest>): void;
+
+        /**
+         * Register before Hook for RPC ValidatePurchaseGoogle function.
+         *
+         * @param fn - The function to execute before ValidatePurchaseGoogle.
+         * @throws {TypeError}
+         */
+        registerBeforeValidatePurchaseGoogle(fn: BeforeHookFunction<ValidatePurchaseGoogleRequest>): void;
+
+        /**
+         * Register after Hook for RPC ValidatePurchaseGoogle function.
+         *
+         * @param fn - The function to execute after ValidatePurchaseGoogle.
+         * @throws {TypeError}
+         */
+         registerAfterValidatePurchaseGoogle(fn: AfterHookFunction<ValidatePurchaseResponse, ValidatePurchaseGoogleRequest>): void;
+
+        /**
+         * Register before Hook for RPC ValidatePurchaseHuawei function.
+         *
+         * @param fn - The function to execute before ValidatePurchaseHuawei.
+         * @throws {TypeError}
+         */
+        registerBeforeValidatePurchaseHuawei(fn: BeforeHookFunction<ValidatePurchaseHuaweiRequest>): void;
+
+        /**
+         * Register after Hook for RPC ValidatePurchaseHuawei function.
+         *
+         * @param fn - The function to execute after ValidatePurchaseHuawei.
+         * @throws {TypeError}
+         */
+         registerAfterValidatePurchaseHuawei(fn: AfterHookFunction<ValidatePurchaseResponse, ValidatePurchaseHuaweiRequest>): void;
+
+        /**
          * Register before Hook for RPC Event function.
          *
          * @param fn - The function to execute before Event.
@@ -2584,11 +2632,24 @@ declare namespace nkruntime {
         cursor?: string
     }
 
+    export interface ValidatePurchaseAppleRequest {
+        receipt: string
+    }
+
+    export interface ValidatePurchaseGoogleRequest {
+        purchase: string
+    }
+
+    export interface ValidatePurchaseHuaweiRequest {
+        purchase: string
+        signature: string
+    }
+
     export interface ValidatePurchaseResponse {
         validatedPurchases?: ValidatedPurchase[]
     }
 
-    export interface GetPurchaseByTransactionIdData {
+    export interface ValidatedPurchaseOwner {
         validatedPurchase: ValidatedPurchase,
         userId: string,
     }
@@ -3879,7 +3940,7 @@ declare namespace nkruntime {
          * @returns The data of the validated and stored purchase.
          * @throws {TypeError, GoError}
          */
-        purchaseGetByTransactionId(transactionID: string): GetPurchaseByTransactionIdData
+        purchaseGetByTransactionId(transactionID: string): ValidatedPurchaseOwner
 
         /**
          * List validated and stored purchases.

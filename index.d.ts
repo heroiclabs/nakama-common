@@ -3952,12 +3952,13 @@ declare namespace nkruntime {
         /**
          * List validated and stored purchases.
          *
+         * @param userID - Opt. User ID.
          * @param limit - Opt. Limit of results per page. Must be a value between 1 and 100.
          * @param cursor - Opt. A cursor used to fetch the next page when applicable.
          * @returns A page of validated and stored purchases.
          * @throws {TypeError, GoError}
          */
-        purchasesList(limit?: number, cursor?: string): ValidatedPurchaseList
+        purchasesList(userID?: string, limit?: number, cursor?: string): ValidatedPurchaseList
     }
 
     /**

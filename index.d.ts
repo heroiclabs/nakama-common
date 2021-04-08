@@ -2201,7 +2201,7 @@ declare namespace nkruntime {
         gamecenterId: string;
         steamId: string;
         online: boolean;
-        edgeCount: string;
+        edgeCount: number;
         createTime: number;
         updateTime: number;
         metadata: {[key: string]: any};

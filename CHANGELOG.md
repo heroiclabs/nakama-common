@@ -3,8 +3,14 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.13.0] - 2021-04-14
+### Added
+- New API to logout and intercept logouts with session and refresh tokens.
+- Add a leave reason to presence events to handle transient disconnects more easily.
+- New API for IAP validation with Apple App Store, Google Play Store, and Huawei AppGallery.
 
+### Changed
+- Update account wallet, storage, and session refresh in the TypeScript type definitions.
 
 ## [1.12.1] - 2021-02-15
 ### Changed

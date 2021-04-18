@@ -3,9 +3,9 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.13.1] - 2021-04-19
 ### Changed
-- Update protobuf to 1.5.2 release.
+- Update to Protobuf v1.5.2 release.
 
 ## [1.13.0] - 2021-04-14
 ### Added

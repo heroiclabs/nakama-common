@@ -21,9 +21,9 @@ import (
 	"log"
 	"strings"
 
-	"github.com/golang/protobuf/ptypes/wrappers"
 	"github.com/heroiclabs/nakama-common/api"
 	"github.com/heroiclabs/nakama-common/rtapi"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 // This example shows how to register a new RPC function with the server.
@@ -55,7 +55,7 @@ func ExampleInitializer_registerBeforeRt() {
 		channelJoinMessage := envelope.GetChannelJoin()
 
 		// make sure all messages are persisted - this overrides whatever client has provided
-		channelJoinMessage.Persistence = &wrappers.BoolValue{Value: true}
+		channelJoinMessage.Persistence = &wrapperspb.BoolValue{Value: true}
 		return envelope, nil
 	})
 

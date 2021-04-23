@@ -3746,7 +3746,7 @@ declare namespace nkruntime {
          * @returns The tournament data for the given ids.
          * @throws {TypeError, GoError}
          */
-        tournamentRecordWrite(id: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: string): void;
+        tournamentRecordWrite(id: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: string): LeaderboardRecord;
 
         /**
          * Fetch the list of tournament records around the owner.

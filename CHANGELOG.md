@@ -9,6 +9,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [1.13.1] - 2021-04-19
 ### Changed
 - Update to Protobuf v1.5.2 release.
+- Update Leaderboard and Tournament record writes to take an override operator.
 
 ## [1.13.0] - 2021-04-14
 ### Added

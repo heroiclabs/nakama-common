@@ -3615,11 +3615,12 @@ declare namespace nkruntime {
          * @param username - Username of the scorer.
          * @param score - Score.
          * @param subscore - Subscore.
-         * @param metadata - Opt. metadata object.
+         * @param metadata - Opt. Metadata object.
+         * @param operator - Opt. Override the leaderboard operator.
          * @returns - The created leaderboard record.
          * @throws {TypeError, GoError}
          */
-        leaderboardRecordWrite(leaderboardID: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}): LeaderboardRecord;
+        leaderboardRecordWrite(leaderboardID: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: string): LeaderboardRecord;
 
         /**
          * Delete a leaderboard record.
@@ -3741,10 +3742,11 @@ declare namespace nkruntime {
          * @param score - Opt. The score to submit. Optional in Lua. Default 0.
          * @param subscore - Opt. A secondary subscore parameter for the submission. Optional in Lua. Default 0.
          * @param metadata - Opt. The metadata you want associated to this submission.
+         * @param operator - Opt. Override the tournament operator.
          * @returns The tournament data for the given ids.
          * @throws {TypeError, GoError}
          */
-        tournamentRecordWrite(id: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}): void;
+        tournamentRecordWrite(id: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: string): LeaderboardRecord;
 
         /**
          * Fetch the list of tournament records around the owner.

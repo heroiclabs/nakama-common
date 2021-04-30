@@ -3807,9 +3807,10 @@ declare namespace nkruntime {
          *
          * @param groupID - The group ID to update.
          * @param userIds - Array of user IDs to be kicked from the group.
+         * @param callerID - Opt. User ID mandating the operation to check for sufficient priviledges. Defaults to admin user if empty.
          * @throws {TypeError, GoError}
          */
-        groupUsersKick(groupID: string, userIds: string[]): void;
+        groupUsersKick(groupID: string, userIds: string[], callerID?: string): void;
 
         /**
          * List all members, admins and superadmins which belong to a group.
@@ -3873,27 +3874,30 @@ declare namespace nkruntime {
          *
          * @param groupID - Group ID.
          * @param userIds - Array of userIds to add the group.
+         * @param callerID - Opt. User ID mandating the operation to check for sufficient priviledges. Defaults to admin user if empty.
          * @throws {TypeError, GoError}
          */
-        groupUsersAdd(groupID: string, userIds: string[]): void;
+        groupUsersAdd(groupID: string, userIds: string[], callerID?: string): void;
 
         /**
          * Promote users in a group.
          *
          * @param groupID - Group ID.
          * @param userIds - Array of userIds in the group to promote.
+         * @param callerID - Opt. User ID mandating the operation to check for sufficient priviledges. Defaults to admin user if empty.
          * @throws {TypeError, GoError}
          */
-        groupUsersPromote(groupID: string, userIds: string[]): void;
+        groupUsersPromote(groupID: string, userIds: string[], callerID?: string): void;
 
         /**
          * Demote users in a group.
          *
          * @param groupID - Group ID.
          * @param userIds - Array of userIds in the group to demote.
+         * @param callerID - Opt. User ID mandating the operation to check for sufficient priviledges. Defaults to admin user if empty.
          * @throws {TypeError, GoError}
          */
-        groupUsersDemote(groupID: string, userIds: string[]): void;
+        groupUsersDemote(groupID: string, userIds: string[], callerID?: string): void;
 
         /**
          * Fetch one or more groups by their ID.

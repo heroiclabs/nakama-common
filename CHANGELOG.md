@@ -10,6 +10,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Changed
 - Update to Protobuf v1.5.2 release.
 - Update Leaderboard and Tournament record writes to take an override operator.
+- Change runtime group management APIs to include a callerID parameter.
 
 ## [1.13.0] - 2021-04-14
 ### Added

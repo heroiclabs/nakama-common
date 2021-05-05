@@ -2242,6 +2242,7 @@ declare namespace nkruntime {
         status?: string;
         hidden?: boolean;
         persistence?: boolean;
+        reason?: PresenceReason;
     }
 
     /**
@@ -2680,6 +2681,14 @@ declare namespace nkruntime {
     export interface ValidatedPurchaseList {
         validatedPurchases?: ValidatedPurchase[]
         cursor?: string
+    }
+
+    const enum PresenceReason {
+        PresenceReasonUnknown = 0,
+        PresenceReasonJoin = 1,
+        PresenceReasonUpdate = 2,
+        PresenceReasonLeave = 3,
+        PresenceReasonDisconnect = 4,
     }
 
     /**
@@ -3415,9 +3424,10 @@ declare namespace nkruntime {
          * Disconnect session.
          *
          * @param sessionID - Session ID.
+         * @param sessionID - Opt. Presence disconnect reason.
          * @throws {TypeError, GoError}
          */
-        sessionDisconnect(sessionID: string): void;
+        sessionDisconnect(sessionID: string, reason?: PresenceReason): void;
 
         /**
          * Create a new match.

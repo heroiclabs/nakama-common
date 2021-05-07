@@ -3446,7 +3446,7 @@ declare namespace nkruntime {
          * @returns match data.
          * @throws {TypeError, GoError}
          */
-        matchGet(id: string): Match
+        matchGet(id: string): Match | null
 
         /**
          * Find matches with filters.

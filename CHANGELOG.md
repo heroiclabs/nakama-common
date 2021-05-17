@@ -3,14 +3,21 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.14.0] - 2021-05-17
+### Added
+- Tournament and leaderboards functions can now submit scores with the score operator.
+- Tournament and leaderboards functions can now use a decrement score operator.
 
+### Changed
+- Remove the older Go Protobuf dependency.
+- The user ID can now be passed into group management functions. If the user ID is empty it will default to the system user as before.
+
+### Fixed
+- Small updates to the TypeScript definitions.
 
 ## [1.13.1] - 2021-04-19
 ### Changed
 - Update to Protobuf v1.5.2 release.
-- Update Leaderboard and Tournament record writes to take an override operator.
-- Change runtime group management APIs to include a callerID parameter.
 
 ## [1.13.0] - 2021-04-14
 ### Added

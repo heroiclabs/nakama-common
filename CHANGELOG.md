@@ -3,6 +3,9 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
+## [Unreleased]
+
+
 ## [1.14.0] - 2021-05-17
 ### Added
 - Tournament and leaderboards functions can now submit scores with the score operator.

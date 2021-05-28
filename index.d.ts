@@ -730,6 +730,7 @@ declare namespace nkruntime {
     export interface MatchmakerResult {
         properties: {[key: string]: string}
         presence: Presence
+        partyId?: string
     }
 
     /**

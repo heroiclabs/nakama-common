@@ -719,7 +719,7 @@ declare namespace nkruntime {
     }
 
     export interface TournamentList {
-        tournaments?: Tournament[]
+        tournaments: Tournament[]
         cursor?: string
     }
 
@@ -731,6 +731,11 @@ declare namespace nkruntime {
         properties: {[key: string]: string}
         presence: Presence
         partyId?: string
+    }
+
+    export interface LeaderboardList {
+        leaderboards: Tournament[]
+        cursor?: string
     }
 
     /**
@@ -2381,10 +2386,14 @@ declare namespace nkruntime {
      */
     export interface Leaderboard {
         id: string;
+        title: string;
+        description: string;
+        category: number;
         authoritative: boolean;
         sortOrder: SortOrder;
         operator: Operator;
-        reset: number;
+        prevReset: number;
+        nextReset: number;
         metadata: {[key: string]: any};
         createTime: number;
     }
@@ -3606,6 +3615,18 @@ declare namespace nkruntime {
         leaderboardDelete(leaderboardID: string): void;
 
         /**
+         * Get a list of tournaments by id.
+         *
+         * @param categoryStart - Filter leaderboard with categories greater or equal than this value.
+         * @param categoryEnd - Filter leaderboard with categories equal or less than this value.
+         * @param limit - Return only the required number of leaderboard denoted by this limit value.
+         * @param cursor - Cursor to paginate to the next result set. If this is empty/null there is no further results.
+         * @returns The leaderboard data for the given ids.
+         * @throws {TypeError, GoError}
+         */
+         leaderboardList(categoryStart?: number, categoryEnd?: number, startTime?: number, endTime?: number, limit?: number, cursor?: string): LeaderboardList;
+
+        /**
          * List records of a leaderboard.
          *
          * @param leaderboardID - Leaderboard id.
@@ -3641,6 +3662,15 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         leaderboardRecordDelete(leaderboardID: string, ownerID: string): void;
+
+        /**
+         * Get a list of leaderboards by id.
+         *
+         * @param leaderboardIds - Leaderboard ids.
+         * @returns The leaderboard data for the given ids.
+         * @throws {TypeError, GoError}
+         */
+        leaderboardsGetId(leaderboardIds: string[]): Leaderboard[];
 
         /**
          * Create a new tournament.

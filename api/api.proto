@@ -142,6 +142,14 @@ message AccountSteam {
   map<string, string> vars = 2;
 }
 
+// Send a Itch token to the server. Used with authenticate/link/unlink.
+message AccountItch {
+  // The account token received from Itch to access their profile API.
+  string token = 1;
+  // Extra information that will be bundled in the session token.
+  map<string, string> vars = 2;
+}
+
 // Add one or more friends to the current user.
 message AddFriendsRequest {
   // The account id of a user.
@@ -266,6 +274,16 @@ message AuthenticateSteamRequest {
   string username = 3;
   // Import Steam friends for the user.
   google.protobuf.BoolValue sync = 4;
+}
+
+// Authenticate against the server with Itch.
+message AuthenticateItchRequest {
+  // The Itch account details.
+  AccountItch account = 1;
+  // Register the account if the user does not already exist.
+  google.protobuf.BoolValue create = 2;
+  // Set the username on the account at register. Must be unique.
+  string username = 3;
 }
 
 // Ban users from a group.
@@ -1040,6 +1058,8 @@ message User {
   string facebook_instant_game_id = 17;
   // The Apple Sign In ID in the user's account.
   string apple_id = 18;
+  // The itch ID in the user's account.
+  string itch_id = 19;
 }
 
 // A list of groups belonging to a user, along with the user's role in each group.

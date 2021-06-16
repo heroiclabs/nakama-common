@@ -3837,6 +3837,20 @@ declare namespace nkruntime {
         groupUsersList(groupID: string, limit?: number, state?: number, cursor?: string): GroupUserList;
 
         /**
+         * List groups, admins and superadmins which belong to a group.
+         *
+         * @param name - Opt. Lookup group by name. '%' Suffix is supported for prefix match. Lookup by name is mutually exclusive to the remaining filters. Pass null to use other filters.
+         * @param langTag - Opt. Filter results by language tag. Pass null to disregard filter.
+         * @param open - Opt. Filter groups by open or closes state. Pass null for either.
+         * @param members - Opt. Filter results by an upper bound number of group members. Pass null to disregard filter.
+         * @param limit - Opt. Max number of returned results. Defaults to 100.
+         * @param cursor - Opt. A cursor used to fetch the next page when applicable.
+         * @returns A list of groups matching the filter criteria.
+         * @throws {TypeError, GoError}
+         */
+        groupsList(name?: string, langTag?: string, open?: boolean, members?: number, limit?: number, cursor?: string): GroupList;
+
+        /**
          * List all groups the user belongs to.
          *
          * @param userId - User ID.

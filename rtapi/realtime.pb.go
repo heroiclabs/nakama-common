@@ -19,10 +19,14 @@
 // versions:
 // 	protoc-gen-go v1.26.0
 <<<<<<< HEAD
+<<<<<<< HEAD
 // 	protoc        v3.17.3
 =======
 // 	protoc        v3.17.2
 >>>>>>> 6cc49f1 (Add leaderboardsGetId and leaderboardList runtime)
+=======
+// 	protoc        v3.17.3
+>>>>>>> bfd2b25 (Post review changes)
 // source: realtime.proto
 
 package rtapi

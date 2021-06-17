@@ -3624,7 +3624,7 @@ declare namespace nkruntime {
          * @returns The leaderboard data for the given ids.
          * @throws {TypeError, GoError}
          */
-         leaderboardList(categoryStart?: number, categoryEnd?: number, startTime?: number, endTime?: number, limit?: number, cursor?: string): LeaderboardList;
+         leaderboardList(categoryStart?: number, categoryEnd?: number, limit?: number, cursor?: string): LeaderboardList;
 
         /**
          * List records of a leaderboard.

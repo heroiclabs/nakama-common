@@ -734,7 +734,7 @@ declare namespace nkruntime {
     }
 
     export interface LeaderboardList {
-        leaderboards: Tournament[]
+        leaderboards: Leaderboard[]
         cursor?: string
     }
 
@@ -2480,6 +2480,13 @@ declare namespace nkruntime {
         INCREMENTAL = 'incr',
     }
 
+    const enum OverrideOperator {
+        BEST = 'best',
+        SET = 'set',
+        INCREMENTAL = 'incr',
+        DECREMENTAL = 'decr',
+    }
+
     /**
      * Envelope for realtime message hooks
      */
@@ -3652,7 +3659,7 @@ declare namespace nkruntime {
          * @returns - The created leaderboard record.
          * @throws {TypeError, GoError}
          */
-        leaderboardRecordWrite(leaderboardID: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: string): LeaderboardRecord;
+        leaderboardRecordWrite(leaderboardID: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: OverrideOperator): LeaderboardRecord;
 
         /**
          * Delete a leaderboard record.
@@ -3787,7 +3794,7 @@ declare namespace nkruntime {
          * @returns The tournament data for the given ids.
          * @throws {TypeError, GoError}
          */
-        tournamentRecordWrite(id: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: string): LeaderboardRecord;
+        tournamentRecordWrite(id: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: OverrideOperator): LeaderboardRecord;
 
         /**
          * Fetch the list of tournament records around the owner.

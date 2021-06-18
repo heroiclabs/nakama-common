@@ -719,7 +719,7 @@ declare namespace nkruntime {
     }
 
     export interface TournamentList {
-        tournaments?: Tournament[]
+        tournaments: Tournament[]
         cursor?: string
     }
 
@@ -731,6 +731,11 @@ declare namespace nkruntime {
         properties: {[key: string]: string}
         presence: Presence
         partyId?: string
+    }
+
+    export interface LeaderboardList {
+        leaderboards: Leaderboard[]
+        cursor?: string
     }
 
     /**
@@ -2381,10 +2386,14 @@ declare namespace nkruntime {
      */
     export interface Leaderboard {
         id: string;
+        title: string;
+        description: string;
+        category: number;
         authoritative: boolean;
         sortOrder: SortOrder;
         operator: Operator;
-        reset: number;
+        prevReset: number;
+        nextReset: number;
         metadata: {[key: string]: any};
         createTime: number;
     }
@@ -2469,6 +2478,13 @@ declare namespace nkruntime {
         BEST = 'best',
         SET = 'set',
         INCREMENTAL = 'incr',
+    }
+
+    const enum OverrideOperator {
+        BEST = 'best',
+        SET = 'set',
+        INCREMENTAL = 'incr',
+        DECREMENTAL = 'decr',
     }
 
     /**
@@ -3606,6 +3622,18 @@ declare namespace nkruntime {
         leaderboardDelete(leaderboardID: string): void;
 
         /**
+         * Get a list of tournaments by id.
+         *
+         * @param categoryStart - Filter leaderboard with categories greater or equal than this value.
+         * @param categoryEnd - Filter leaderboard with categories equal or less than this value.
+         * @param limit - Return only the required number of leaderboard denoted by this limit value.
+         * @param cursor - Cursor to paginate to the next result set. If this is empty/null there is no further results.
+         * @returns The leaderboard data for the given ids.
+         * @throws {TypeError, GoError}
+         */
+         leaderboardList(categoryStart?: number, categoryEnd?: number, limit?: number, cursor?: string): LeaderboardList;
+
+        /**
          * List records of a leaderboard.
          *
          * @param leaderboardID - Leaderboard id.
@@ -3631,7 +3659,7 @@ declare namespace nkruntime {
          * @returns - The created leaderboard record.
          * @throws {TypeError, GoError}
          */
-        leaderboardRecordWrite(leaderboardID: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: string): LeaderboardRecord;
+        leaderboardRecordWrite(leaderboardID: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: OverrideOperator): LeaderboardRecord;
 
         /**
          * Delete a leaderboard record.
@@ -3641,6 +3669,15 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         leaderboardRecordDelete(leaderboardID: string, ownerID: string): void;
+
+        /**
+         * Get a list of leaderboards by id.
+         *
+         * @param leaderboardIds - Leaderboard ids.
+         * @returns The leaderboard data for the given ids.
+         * @throws {TypeError, GoError}
+         */
+        leaderboardsGetId(leaderboardIds: string[]): Leaderboard[];
 
         /**
          * Create a new tournament.
@@ -3757,7 +3794,7 @@ declare namespace nkruntime {
          * @returns The tournament data for the given ids.
          * @throws {TypeError, GoError}
          */
-        tournamentRecordWrite(id: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: string): LeaderboardRecord;
+        tournamentRecordWrite(id: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: OverrideOperator): LeaderboardRecord;
 
         /**
          * Fetch the list of tournament records around the owner.

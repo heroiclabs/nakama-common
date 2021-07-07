@@ -3983,10 +3983,11 @@ declare namespace nkruntime {
          *
          * @param userID - User ID.
          * @param receipt - Apple receipt to validate.
+         * @param passwordOverride - Opt. Override the configured Apple Store Validation Password.
          * @returns The result of the validated and stored purchases from the receipt.
          * @throws {TypeError, GoError}
          */
-        purchaseValidateApple(userID: string, receipt: string): ValidatePurchaseResponse
+        purchaseValidateApple(userID: string, receipt: string, passwordOverride?: string): ValidatePurchaseResponse
 
         /**
          * Validate a Google purchase payload.

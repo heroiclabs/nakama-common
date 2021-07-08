@@ -3,8 +3,15 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.15.0] - 2021-07-08
+### Added
+- New functions to create custom metrics gauges, counters, and timers with Go.
+- Allow Apple IAP validation to provide an override shared secret in the runtime.
+- Use a context key name for fetching the lang set on a socket in the runtime.
+- Add groups list, get leaderboard, and list leaderboards functions.
 
+### Fixed
+- Various updates to the TypeScript definitions.
 
 ## [1.14.0] - 2021-05-17
 ### Added

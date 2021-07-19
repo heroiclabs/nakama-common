@@ -13,15 +13,36 @@
 // limitations under the License.
 
 declare namespace nkruntime {
+
     /**
      * The context of the current execution; used to observe and pass on cancellation signals.
      */
-    export type ContextKey = "env" | "executionMode" | "node" | "queryParams" | "userId" | "username" | "vars" | "userSessionExp" | "sessionId" | "clientIp" | "clientPort" | "matchId" | "matchNode" | "matchLabel" | "matchTickRate"
-    export type Context = { [K in ContextKey]: string };
+    export type Context = {
+        env: {[key: string]: string},
+        executionMode: string,
+        node: string,
+        queryParams: {[key: string]: string},
+        userId: string,
+        username: string,
+        vars: {[key: string]: string}
+        userSessionExp: number,
+        sessionId: string,
+        clientIp: string,
+        clientPort: string,
+        matchId: string,
+        matchNode: string,
+        matchLabel: string,
+        matchTickRate: number
+    }
 
     type ReadPermissionValues = 0 | 1 | 2;
     type WritePermissionValues = 0 | 1;
 
+    /**
+     * GRPC Error codes supported for thrown custom errors.
+     *
+     * These errors map to HTTP status codes as shown here: https://github.com/grpc/grpc/blob/master/doc/http-grpc-status-mapping.md/.
+     */
     const enum Codes {
         CANCELLED = 1, // The operation was cancelled, typically by the caller.
         UNKNOWN = 2, // Unknown error. For example, this error may be returned when a Status value received from another address space belongs to an error space that is not known in this address space. Also errors raised by APIs that do not return enough error information may be converted to this error.
@@ -42,7 +63,7 @@ declare namespace nkruntime {
     }
 
     /**
-     * An RPC Error
+     * A custom Runtime Error
      */
     export type Error = {
         message: string

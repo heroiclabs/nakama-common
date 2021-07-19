@@ -4,7 +4,12 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Added
+- Add TS `nkruntime.Error` custom error type that supports a custom message and grpc status code to be returned in the server response.
 
+### Fixed
+- Fix TS `nkruntime.Context` values types.
+- Add missing groupId argument from TS groupUpdate definition.
 
 ## [1.15.0] - 2021-07-08
 ### Added

@@ -3827,20 +3827,20 @@ declare namespace nkruntime {
          * Fetch the list of tournament records around the owner.
          *
          * @param id - The unique identifier for the leaderboard to submit to. Mandatory field.
-         * @param ownerID - The owner of this score submission. Mandatory field.
+         * @param ownerId - The owner of this score submission. Mandatory field.
          * @param limit - Opt. The owner username of this score submission, if it's a user.
          * @param expiry - Opt. Expiry Unix epoch.
          * @returns The tournament data for the given ids.
          * @throws {TypeError, GoError}
          */
-        tournamentRecordsHaystack(id: string, ownerID: string, limit?: number, expiry?: number): Tournament[];
+        tournamentRecordsHaystack(id: string, ownerId: string, limit?: number, expiry?: number): Tournament[];
 
         /**
          * Create a new group.
          *
-         * @param userId - The user ID to be associcated as the group superadmin.
+         * @param userId - The user ID to be associated as the group superadmin.
          * @param name - Group name, must be set and unique.
-         * @param creatorID - Opt. The user ID to be associcated as creator. If not set or null system user will be set.
+         * @param creatorId - Opt. The user ID to be associated as creator. If not set or null system user will be set.
          * @param lang - Opt. Group language. Will default to 'en'.
          * @param description - Opt. Group description, use null to leave empty.
          * @param avatarURL - Opt. URL to the group avatar, use null to leave empty.
@@ -3850,15 +3850,16 @@ declare namespace nkruntime {
          * @returns An array of group objects.
          * @throws {TypeError, GoError}
          */
-        groupCreate(userId: string, name: string, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): Group;
+        groupCreate(userId: string, name: string, creatorId?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): Group;
 
         /**
          * Update a group with various configuration settings.
          * The group which is updated can change some or all of its fields.
          *
-         * @param groupID - The group ID to update.
+         * @param groupId - The group ID to update.
+         * @param userId - The user ID calling group Update. Use null to use system user.
          * @param name - Group name, use null to not update.
-         * @param creatorID - The user ID to be associcated as creator, use null to not update.
+         * @param creatorId - The user ID to be associated as creator, use null to not update.
          * @param lang - Group language, use null to not update.
          * @param description - Group description, use null to not update.
          * @param avatarURL - URL to the group avatar, use null to not update.
@@ -3867,7 +3868,7 @@ declare namespace nkruntime {
          * @param limit - Maximum number of members to have in the group. Use null if field is not being updated.
          * @throws {TypeError, GoError}
          */
-        groupUpdate(userId: string, name?: string | null, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): void;
+        groupUpdate(groupId: string, userId: string, name?: string | null, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): void;
 
         /**
          * Delete a group.

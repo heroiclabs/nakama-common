@@ -2425,7 +2425,7 @@ declare namespace nkruntime {
     export interface StorageDeleteRequest {
         key: string;
         collection: string;
-        userId?: string;
+        userId: string;
         version?: string;
     }
 
@@ -3592,14 +3592,14 @@ declare namespace nkruntime {
         /**
          * List user's storage objects from a collection.
          *
-         * @param userId - User ID
-         * @param collection - Storage collection.
+         * @param userId - Opt. User ID that owns the collection. Call with null to retrieve regardless of the owner.
+         * @param collection - Opt. Storage collection.
          * @param limit - Opt. Maximum number of items to list. Defaults to 100.
          * @param cursor - Opt. Pagination cursor.
          * @returns Object containing an array of storage objects and a cursor for the next page of results, if there is one.
          * @throws {TypeError, GoError}
          */
-        storageList(userId: string, collection: string, limit?: number, cursor?: string): StorageObjectList;
+        storageList(userId: string | null | undefined, collection: string, limit?: number, cursor?: string): StorageObjectList;
 
         /**
          * Get all storage objects matching the parameters.

@@ -6,6 +6,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Added
 - Add TS `nkruntime.Error` custom error type that supports a custom message and grpc status code to be returned in the server response.
+- Add runtime function to retrieve a random set of users.
 
 ### Fixed
 - Fix TS `nkruntime.Context` values types.

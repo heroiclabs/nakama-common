@@ -3168,6 +3168,14 @@ declare namespace nkruntime {
         usersGetUsername(usernames: string[]): User[]
 
         /**
+         * Get user data for a given number of random users.
+         *
+         * @param count - Number of users to retrieve.
+         * @throws {TypeError, GoError}
+         */
+        usersGetRandom(count: number): User[]
+
+        /**
          * Ban a group of users by id.
          *
          * @param userIds - User IDs.

@@ -2748,6 +2748,16 @@ declare namespace nkruntime {
         cursor?: string
     }
 
+    export interface ChannelMessageSendAck {
+        channelId: string
+        messageId: string
+        code: number
+        username: string
+        createTime: number
+        updateTime: number
+        persistent: boolean
+    }
+
     const enum PresenceReason {
         PresenceReasonUnknown = 0,
         PresenceReasonJoin = 1,
@@ -4085,6 +4095,19 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         purchasesList(userID?: string, limit?: number, cursor?: string): ValidatedPurchaseList
+
+        /**
+         * Send channel message.
+         *
+         * @param stream - Stream Data.
+         * @param content - Message content.
+         * @param senderId - Opt. Message sender ID.
+         * @param senderUsername - Opt. Sender username. Defaults to system user.
+         * @param persist - Opt. Store message. Defaults to true.
+         * @returns Ack of sent message.
+         * @throws {TypeError, GoError}
+         */
+        messageDataSend(stream: Stream, content?: {[key: string]: any}, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
     }
 
     /**

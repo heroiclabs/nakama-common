@@ -973,6 +973,8 @@ type NakamaModule interface {
 	MetricsCounterAdd(name string, tags map[string]string, delta int64)
 	MetricsGaugeSet(name string, tags map[string]string, value float64)
 	MetricsTimerRecord(name string, tags map[string]string, value time.Duration)
+
+	ChannelMessageSend(ctx context.Context, mode uint8, subject, subcontext, label, content, senderId, senderUsername string, persist bool) (*rtapi.ChannelMessageAck, error)
 }
 
 // Custom Sentinel Error Values

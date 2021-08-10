@@ -4105,7 +4105,7 @@ declare namespace nkruntime {
         /**
          * Send channel message.
          *
-         * @param stream - Stream Data.
+         * @param channelId - Channel ID.
          * @param content - Message content.
          * @param senderId - Opt. Message sender ID.
          * @param senderUsername - Opt. Sender username. Defaults to system user.
@@ -4113,7 +4113,7 @@ declare namespace nkruntime {
          * @returns Ack of sent message.
          * @throws {TypeError, GoError}
          */
-        messageDataSend(stream: Stream, content?: {[key: string]: any}, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
+        channelMessageSend(channelId: string, content?: {[key: string]: any}, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
 
         /**
          * Send channel message.
@@ -4123,7 +4123,7 @@ declare namespace nkruntime {
          * @returns The channelId.
          * @throws {TypeError, GoError}
          */
-        buildChannelId(target: string, chanType: ChanType): string
+        channelIdBuild(target: string, chanType: ChanType): string
     }
 
     /**

@@ -3,6 +3,9 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
+## [Unreleased]
+
+
 ## [1.16.0] - 2021-08-10
 ### Added
 - Add TypeScript "nkruntime.Error" custom error type that supports a custom message and grpc status code which can be returned in server responses.

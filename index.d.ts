@@ -2766,6 +2766,12 @@ declare namespace nkruntime {
         PresenceReasonDisconnect = 4,
     }
 
+    const enum ChanType {
+        Room = 1,
+        DirectMessage = 2,
+        Group = 3,
+    }
+
     /**
      * The server APIs available in the game server.
      */
@@ -4108,6 +4114,16 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         messageDataSend(stream: Stream, content?: {[key: string]: any}, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
+
+        /**
+         * Send channel message.
+         *
+         * @param target - The user ID to DM with, group ID to chat with, or room channel name to join.
+         * @param type - Channel type.
+         * @returns The channelId.
+         * @throws {TypeError, GoError}
+         */
+        buildChannelId(target: string, chanType: ChanType): string
     }
 
     /**

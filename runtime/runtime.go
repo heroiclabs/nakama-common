@@ -847,6 +847,13 @@ type StorageDelete struct {
 	Version    string
 }
 
+type ChannelType int
+const (
+	Room ChannelType = iota+1
+	DirectMessage
+	Group
+)
+
 type NakamaModule interface {
 	AuthenticateApple(ctx context.Context, token, username string, create bool) (string, string, bool, error)
 	AuthenticateCustom(ctx context.Context, id, username string, create bool) (string, string, bool, error)
@@ -974,7 +981,8 @@ type NakamaModule interface {
 	MetricsGaugeSet(name string, tags map[string]string, value float64)
 	MetricsTimerRecord(name string, tags map[string]string, value time.Duration)
 
-	ChannelMessageSend(ctx context.Context, mode uint8, subject, subcontext, label, content, senderId, senderUsername string, persist bool) (*rtapi.ChannelMessageAck, error)
+	BuildChannelId(ctx context.Context, target string, chanType ChannelType) (string, error)
+	ChannelMessageSend(ctx context.Context, channelID, content, senderId, senderUsername string, persist bool) (*rtapi.ChannelMessageAck, error)
 }
 
 // Custom Sentinel Error Values

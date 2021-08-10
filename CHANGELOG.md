@@ -3,16 +3,16 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.16.0] - 2021-08-10
 ### Added
-- Add TS `nkruntime.Error` custom error type that supports a custom message and grpc status code to be returned in the server response.
-- Add runtime function to retrieve a random set of users.
-- Add ChannelMessageSend runtime function.
-- Add BuildChannelId runtime function
+- Add TypeScript "nkruntime.Error" custom error type that supports a custom message and grpc status code which can be returned in server responses.
+- Add function to retrieve a random set of users to server framework.
+- Add ChannelMessageSend function to server framework.
+- Add BuildChannelId function to server framework.
 
 ### Fixed
-- Fix TS `nkruntime.Context` values types.
-- Add missing groupId argument from TS groupUpdate definition.
+- Fix TypeScript "nkruntime.Context" value types.
+- Add missing groupId argument from groupUpdate TypeScript definition.
 
 ## [1.15.0] - 2021-07-08
 ### Added

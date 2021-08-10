@@ -2748,12 +2748,28 @@ declare namespace nkruntime {
         cursor?: string
     }
 
+    export interface ChannelMessageSendAck {
+        channelId: string
+        messageId: string
+        code: number
+        username: string
+        createTime: number
+        updateTime: number
+        persistent: boolean
+    }
+
     const enum PresenceReason {
         PresenceReasonUnknown = 0,
         PresenceReasonJoin = 1,
         PresenceReasonUpdate = 2,
         PresenceReasonLeave = 3,
         PresenceReasonDisconnect = 4,
+    }
+
+    const enum ChanType {
+        Room = 1,
+        DirectMessage = 2,
+        Group = 3,
     }
 
     /**
@@ -4085,6 +4101,29 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         purchasesList(userID?: string, limit?: number, cursor?: string): ValidatedPurchaseList
+
+        /**
+         * Send channel message.
+         *
+         * @param channelId - Channel ID.
+         * @param content - Message content.
+         * @param senderId - Opt. Message sender ID.
+         * @param senderUsername - Opt. Sender username. Defaults to system user.
+         * @param persist - Opt. Store message. Defaults to true.
+         * @returns Ack of sent message.
+         * @throws {TypeError, GoError}
+         */
+        channelMessageSend(channelId: string, content?: {[key: string]: any}, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
+
+        /**
+         * Send channel message.
+         *
+         * @param target - The user ID to DM with, group ID to chat with, or room channel name to join.
+         * @param type - Channel type.
+         * @returns The channelId.
+         * @throws {TypeError, GoError}
+         */
+        channelIdBuild(target: string, chanType: ChanType): string
     }
 
     /**

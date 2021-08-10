@@ -848,8 +848,9 @@ type StorageDelete struct {
 }
 
 type ChannelType int
+
 const (
-	Room ChannelType = iota+1
+	Room ChannelType = iota + 1
 	DirectMessage
 	Group
 )

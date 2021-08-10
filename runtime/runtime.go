@@ -983,7 +983,7 @@ type NakamaModule interface {
 	MetricsTimerRecord(name string, tags map[string]string, value time.Duration)
 
 	ChannelIdBuild(ctx context.Context, target string, chanType ChannelType) (string, error)
-	ChannelMessageSend(ctx context.Context, channelID, content, senderId, senderUsername string, persist bool) (*rtapi.ChannelMessageAck, error)
+	ChannelMessageSend(ctx context.Context, channelID string, content map[string]interface{}, senderId, senderUsername string, persist bool) (*rtapi.ChannelMessageAck, error)
 }
 
 // Custom Sentinel Error Values

@@ -2460,6 +2460,7 @@ declare namespace nkruntime {
         createTime: number;
         updateTime: number;
         expiryTime: number;
+        rank: number;
     }
 
     /**

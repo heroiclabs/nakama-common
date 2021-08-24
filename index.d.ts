@@ -2721,27 +2721,19 @@ declare namespace nkruntime {
         userId: string,
     }
 
-    export enum ValidatedPurchaseStore {
-        APPLE_APP_STORE = 0,
-        GOOGLE_PLAY_STORE = 1,
-        HUAWEI_APP_GALLERY = 2,
-    }
+    export type ValidatedPurchaseStore = "APPLE_APP_STORE" | "GOOGLE_PLAY_STORE" | "HUAWEI_APP_GALLERY"
 
-    export enum ValidatedPurchaseEnvironment {
-        UNKNOWN = 0,
-        SANDBOX = 1,
-        PRODUCTION = 2,
-    }
+    export type ValidatedPurchaseEnvironment = "UNKNOWN" | "SANDBOX" | "PRODUCTION"
 
     export interface ValidatedPurchase {
-        productId?: string
-        transactionId?: string
-        store?: ValidatedPurchaseStore
-        purchaseTime?: string
-        createTime?: string
-        updateTime?: string
-        providerPayload?: string
-        environment?: ValidatedPurchaseEnvironment
+        productId: string
+        transactionId: string
+        store: ValidatedPurchaseStore
+        purchaseTime: string
+        createTime: string
+        updateTime: string
+        providerPayload: string
+        environment: ValidatedPurchaseEnvironment
     }
 
     export interface ValidatedPurchaseList {

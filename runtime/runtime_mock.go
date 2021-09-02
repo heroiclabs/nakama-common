@@ -17,10 +17,10 @@ package runtime
 import (
 	"context"
 	"os"
+	"time"
 
 	"github.com/heroiclabs/nakama-common/api"
 	"github.com/heroiclabs/nakama-common/rtapi"
-	"github.com/heroiclabs/nakama-common/runtime"
 )
 
 /*
@@ -28,7 +28,7 @@ MockNakamaModule can be used to imitate/mock the Nakama server framework API so 
 
 Implement any of the functions that your code relies on like this:
 
-	mockNkModule := &runtime.MockNakamaModule{
+	mockNkModule := &MockNakamaModule{
 		PurchaseValidateAppleFn: func(ctx context.Context, userID, receipt string) (*api.ValidatePurchaseResponse, error) {
 			return &api.ValidatePurchaseResponse{
 				ValidatedPurchases: []*api.ValidatedPurchase{{ProductId: "my-test-product-id"}},
@@ -38,8 +38,8 @@ Implement any of the functions that your code relies on like this:
 			return map[string]int64{"gems": 10}, nil, nil
 		},
 	}
-
 */
+
 type MockNakamaModule struct {
 	AuthenticateAppleFn               func(ctx context.Context, token, username string, create bool) (string, string, bool, error)
 	AuthenticateCustomFn              func(ctx context.Context, id, username string, create bool) (string, string, bool, error)
@@ -79,37 +79,39 @@ type MockNakamaModule struct {
 	UnlinkGameCenterFn                func(ctx context.Context, userID, playerID, bundleID string, timestamp int64, salt, signature, publicKeyUrl string) error
 	UnlinkGoogleFn                    func(ctx context.Context, userID, token string) error
 	UnlinkSteamFn                     func(ctx context.Context, userID, token string) error
-	StreamUserListFn                  func(mode uint8, subject, subcontext, label string, includeHidden, includeNotHidden bool) ([]runtime.Presence, error)
-	StreamUserGetFn                   func(mode uint8, subject, subcontext, label, userID, sessionID string) (runtime.PresenceMeta, error)
+	StreamUserListFn                  func(mode uint8, subject, subcontext, label string, includeHidden, includeNotHidden bool) ([]Presence, error)
+	StreamUserGetFn                   func(mode uint8, subject, subcontext, label, userID, sessionID string) (PresenceMeta, error)
 	StreamUserJoinFn                  func(mode uint8, subject, subcontext, label, userID, sessionID string, hidden, persistence bool, status string) (bool, error)
 	StreamUserUpdateFn                func(mode uint8, subject, subcontext, label, userID, sessionID string, hidden, persistence bool, status string) error
 	StreamUserLeaveFn                 func(mode uint8, subject, subcontext, label, userID, sessionID string) error
-	StreamUserKickFn                  func(mode uint8, subject, subcontext, label string, presence runtime.Presence) error
+	StreamUserKickFn                  func(mode uint8, subject, subcontext, label string, presence Presence) error
 	StreamCountFn                     func(mode uint8, subject, subcontext, label string) (int, error)
 	StreamCloseFn                     func(mode uint8, subject, subcontext, label string) error
-	StreamSendFn                      func(mode uint8, subject, subcontext, label, data string, presences []runtime.Presence, reliable bool) error
-	StreamSendRawFn                   func(mode uint8, subject, subcontext, label string, msg *rtapi.Envelope, presences []runtime.Presence, reliable bool) error
-	SessionDisconnectFn               func(ctx context.Context, sessionID string, reason ...runtime.PresenceReason) error
+	StreamSendFn                      func(mode uint8, subject, subcontext, label, data string, presences []Presence, reliable bool) error
+	StreamSendRawFn                   func(mode uint8, subject, subcontext, label string, msg *rtapi.Envelope, presences []Presence, reliable bool) error
+	SessionDisconnectFn               func(ctx context.Context, sessionID string, reason ...PresenceReason) error
 	SessionLogoutFn                   func(userID, token, refreshToken string) error
 	MatchCreateFn                     func(ctx context.Context, module string, params map[string]interface{}) (string, error)
 	MatchGetFn                        func(ctx context.Context, id string) (*api.Match, error)
 	MatchListFn                       func(ctx context.Context, limit int, authoritative bool, label string, minSize, maxSize *int, query string) ([]*api.Match, error)
 	NotificationSendFn                func(ctx context.Context, userID, subject string, content map[string]interface{}, code int, sender string, persistent bool) error
-	NotificationsSendFn               func(ctx context.Context, notifications []*runtime.NotificationSend) error
+	NotificationsSendFn               func(ctx context.Context, notifications []*NotificationSend) error
 	WalletUpdateFn                    func(ctx context.Context, userID string, changeset map[string]int64, metadata map[string]interface{}, updateLedger bool) (map[string]int64, map[string]int64, error)
-	WalletsUpdateFn                   func(ctx context.Context, updates []*runtime.WalletUpdate, updateLedger bool) ([]*runtime.WalletUpdateResult, error)
-	WalletLedgerUpdateFn              func(ctx context.Context, itemID string, metadata map[string]interface{}) (runtime.WalletLedgerItem, error)
-	WalletLedgerListFn                func(ctx context.Context, userID string, limit int, cursor string) ([]runtime.WalletLedgerItem, string, error)
+	WalletsUpdateFn                   func(ctx context.Context, updates []*WalletUpdate, updateLedger bool) ([]*WalletUpdateResult, error)
+	WalletLedgerUpdateFn              func(ctx context.Context, itemID string, metadata map[string]interface{}) (WalletLedgerItem, error)
+	WalletLedgerListFn                func(ctx context.Context, userID string, limit int, cursor string) ([]WalletLedgerItem, string, error)
 	StorageListFn                     func(ctx context.Context, userID, collection string, limit int, cursor string) ([]*api.StorageObject, string, error)
-	StorageReadFn                     func(ctx context.Context, reads []*runtime.StorageRead) ([]*api.StorageObject, error)
-	StorageWriteFn                    func(ctx context.Context, writes []*runtime.StorageWrite) ([]*api.StorageObjectAck, error)
-	StorageDeleteFn                   func(ctx context.Context, deletes []*runtime.StorageDelete) error
-	MultiUpdateFn                     func(ctx context.Context, accountUpdates []*runtime.AccountUpdate, storageWrites []*runtime.StorageWrite, walletUpdates []*runtime.WalletUpdate, updateLedger bool) ([]*api.StorageObjectAck, []*runtime.WalletUpdateResult, error)
+	StorageReadFn                     func(ctx context.Context, reads []*StorageRead) ([]*api.StorageObject, error)
+	StorageWriteFn                    func(ctx context.Context, writes []*StorageWrite) ([]*api.StorageObjectAck, error)
+	StorageDeleteFn                   func(ctx context.Context, deletes []*StorageDelete) error
+	MultiUpdateFn                     func(ctx context.Context, accountUpdates []*AccountUpdate, storageWrites []*StorageWrite, walletUpdates []*WalletUpdate, updateLedger bool) ([]*api.StorageObjectAck, []*WalletUpdateResult, error)
 	LeaderboardCreateFn               func(ctx context.Context, id string, authoritative bool, sortOrder, operator, resetSchedule string, metadata map[string]interface{}) error
 	LeaderboardDeleteFn               func(ctx context.Context, id string) error
+	LeaderboardListFn                 func(categoryStart, categoryEnd, limit int, cursor string) (*api.LeaderboardList, error)
 	LeaderboardRecordsListFn          func(ctx context.Context, id string, ownerIDs []string, limit int, cursor string, expiry int64) ([]*api.LeaderboardRecord, []*api.LeaderboardRecord, string, string, error)
 	LeaderboardRecordWriteFn          func(ctx context.Context, id, ownerID, username string, score, subscore int64, metadata map[string]interface{}) (*api.LeaderboardRecord, error)
 	LeaderboardRecordDeleteFn         func(ctx context.Context, id, ownerID string) error
+	LeaderboardsGetIdFn               func(ctx context.Context, ids []string) ([]*api.Leaderboard, error)
 	PurchaseValidateAppleFn           func(ctx context.Context, userID, receipt string) (*api.ValidatePurchaseResponse, error)
 	PurchaseValidateGoogleFn          func(ctx context.Context, userID, receipt string) (*api.ValidatePurchaseResponse, error)
 	PurchaseValidateHuaweiFn          func(ctx context.Context, userID, signature, inAppPurchaseData string) (*api.ValidatePurchaseResponse, error)
@@ -125,6 +127,7 @@ type MockNakamaModule struct {
 	TournamentRecordWriteFn           func(ctx context.Context, id, ownerID, username string, score, subscore int64, metadata map[string]interface{}) (*api.LeaderboardRecord, error)
 	TournamentRecordsHaystackFn       func(ctx context.Context, id, ownerID string, limit int, expiry int64) ([]*api.LeaderboardRecord, error)
 	GroupsGetIdFn                     func(ctx context.Context, groupIDs []string) ([]*api.Group, error)
+	GroupsListFn                      func(ctx context.Context, name, langTag string, members *int, open *bool, limit int, cursor string) ([]*api.Group, string, error)
 	GroupCreateFn                     func(ctx context.Context, userID, name, creatorID, langTag, description, avatarUrl string, open bool, metadata map[string]interface{}, maxCount int) (*api.Group, error)
 	GroupUpdateFn                     func(ctx context.Context, id, name, creatorID, langTag, description, avatarUrl string, open bool, metadata map[string]interface{}, maxCount int) error
 	GroupDeleteFn                     func(ctx context.Context, id string) error
@@ -138,6 +141,9 @@ type MockNakamaModule struct {
 	UserGroupsListFn                  func(ctx context.Context, userID string, limit int, state *int, cursor string) ([]*api.UserGroupList_UserGroup, string, error)
 	FriendsListFn                     func(ctx context.Context, userID string, limit int, state *int, cursor string) ([]*api.Friend, string, error)
 	EventFn                           func(ctx context.Context, evt *api.Event) error
+	MetricsCounterAddFn               func(name string, tags map[string]string, delta int64)
+	MetricsGaugeSetFn                 func(name string, tags map[string]string, value float64)
+	MetricsTimerRecordFn              func(name string, tags map[string]string, value time.Duration)
 }
 
 func (nk *MockNakamaModule) AuthenticateApple(ctx context.Context, token, username string, create bool) (string, string, bool, error) {
@@ -254,10 +260,10 @@ func (nk *MockNakamaModule) UnlinkGoogle(ctx context.Context, userID, token stri
 func (nk *MockNakamaModule) UnlinkSteam(ctx context.Context, userID, token string) error {
 	return nk.UnlinkSteamFn(ctx, userID, token)
 }
-func (nk *MockNakamaModule) StreamUserList(mode uint8, subject, subcontext, label string, includeHidden, includeNotHidden bool) ([]runtime.Presence, error) {
+func (nk *MockNakamaModule) StreamUserList(mode uint8, subject, subcontext, label string, includeHidden, includeNotHidden bool) ([]Presence, error) {
 	return nk.StreamUserListFn(mode, subject, subcontext, label, includeHidden, includeNotHidden)
 }
-func (nk *MockNakamaModule) StreamUserGet(mode uint8, subject, subcontext, label, userID, sessionID string) (runtime.PresenceMeta, error) {
+func (nk *MockNakamaModule) StreamUserGet(mode uint8, subject, subcontext, label, userID, sessionID string) (PresenceMeta, error) {
 	return nk.StreamUserGetFn(mode, subject, subcontext, label, userID, sessionID)
 }
 func (nk *MockNakamaModule) StreamUserJoin(mode uint8, subject, subcontext, label, userID, sessionID string, hidden, persistence bool, status string) (bool, error) {
@@ -269,7 +275,7 @@ func (nk *MockNakamaModule) StreamUserUpdate(mode uint8, subject, subcontext, la
 func (nk *MockNakamaModule) StreamUserLeave(mode uint8, subject, subcontext, label, userID, sessionID string) error {
 	return nk.StreamUserLeaveFn(mode, subject, subcontext, label, userID, sessionID)
 }
-func (nk *MockNakamaModule) StreamUserKick(mode uint8, subject, subcontext, label string, presence runtime.Presence) error {
+func (nk *MockNakamaModule) StreamUserKick(mode uint8, subject, subcontext, label string, presence Presence) error {
 	return nk.StreamUserKickFn(mode, subject, subcontext, label, presence)
 }
 func (nk *MockNakamaModule) StreamCount(mode uint8, subject, subcontext, label string) (int, error) {
@@ -278,13 +284,13 @@ func (nk *MockNakamaModule) StreamCount(mode uint8, subject, subcontext, label s
 func (nk *MockNakamaModule) StreamClose(mode uint8, subject, subcontext, label string) error {
 	return nk.StreamCloseFn(mode, subject, subcontext, label)
 }
-func (nk *MockNakamaModule) StreamSend(mode uint8, subject, subcontext, label, data string, presences []runtime.Presence, reliable bool) error {
+func (nk *MockNakamaModule) StreamSend(mode uint8, subject, subcontext, label, data string, presences []Presence, reliable bool) error {
 	return nk.StreamSendFn(mode, subject, subcontext, label, data, presences, reliable)
 }
-func (nk *MockNakamaModule) StreamSendRaw(mode uint8, subject, subcontext, label string, msg *rtapi.Envelope, presences []runtime.Presence, reliable bool) error {
+func (nk *MockNakamaModule) StreamSendRaw(mode uint8, subject, subcontext, label string, msg *rtapi.Envelope, presences []Presence, reliable bool) error {
 	return nk.StreamSendRawFn(mode, subject, subcontext, label, msg, presences, reliable)
 }
-func (nk *MockNakamaModule) SessionDisconnect(ctx context.Context, sessionID string, reason ...runtime.PresenceReason) error {
+func (nk *MockNakamaModule) SessionDisconnect(ctx context.Context, sessionID string, reason ...PresenceReason) error {
 	return nk.SessionDisconnectFn(ctx, sessionID, reason...)
 }
 func (nk *MockNakamaModule) SessionLogout(userID, token, refreshToken string) error {
@@ -302,34 +308,34 @@ func (nk *MockNakamaModule) MatchList(ctx context.Context, limit int, authoritat
 func (nk *MockNakamaModule) NotificationSend(ctx context.Context, userID, subject string, content map[string]interface{}, code int, sender string, persistent bool) error {
 	return nk.NotificationSendFn(ctx, userID, subject, content, code, sender, persistent)
 }
-func (nk *MockNakamaModule) NotificationsSend(ctx context.Context, notifications []*runtime.NotificationSend) error {
+func (nk *MockNakamaModule) NotificationsSend(ctx context.Context, notifications []*NotificationSend) error {
 	return nk.NotificationsSendFn(ctx, notifications)
 }
 func (nk *MockNakamaModule) WalletUpdate(ctx context.Context, userID string, changeset map[string]int64, metadata map[string]interface{}, updateLedger bool) (map[string]int64, map[string]int64, error) {
 	return nk.WalletUpdateFn(ctx, userID, changeset, metadata, updateLedger)
 }
-func (nk *MockNakamaModule) WalletsUpdate(ctx context.Context, updates []*runtime.WalletUpdate, updateLedger bool) ([]*runtime.WalletUpdateResult, error) {
+func (nk *MockNakamaModule) WalletsUpdate(ctx context.Context, updates []*WalletUpdate, updateLedger bool) ([]*WalletUpdateResult, error) {
 	return nk.WalletsUpdateFn(ctx, updates, updateLedger)
 }
-func (nk *MockNakamaModule) WalletLedgerUpdate(ctx context.Context, itemID string, metadata map[string]interface{}) (runtime.WalletLedgerItem, error) {
+func (nk *MockNakamaModule) WalletLedgerUpdate(ctx context.Context, itemID string, metadata map[string]interface{}) (WalletLedgerItem, error) {
 	return nk.WalletLedgerUpdateFn(ctx, itemID, metadata)
 }
-func (nk *MockNakamaModule) WalletLedgerList(ctx context.Context, userID string, limit int, cursor string) ([]runtime.WalletLedgerItem, string, error) {
+func (nk *MockNakamaModule) WalletLedgerList(ctx context.Context, userID string, limit int, cursor string) ([]WalletLedgerItem, string, error) {
 	return nk.WalletLedgerListFn(ctx, userID, limit, cursor)
 }
 func (nk *MockNakamaModule) StorageList(ctx context.Context, userID, collection string, limit int, cursor string) ([]*api.StorageObject, string, error) {
 	return nk.StorageListFn(ctx, userID, collection, limit, cursor)
 }
-func (nk *MockNakamaModule) StorageRead(ctx context.Context, reads []*runtime.StorageRead) ([]*api.StorageObject, error) {
+func (nk *MockNakamaModule) StorageRead(ctx context.Context, reads []*StorageRead) ([]*api.StorageObject, error) {
 	return nk.StorageReadFn(ctx, reads)
 }
-func (nk *MockNakamaModule) StorageWrite(ctx context.Context, writes []*runtime.StorageWrite) ([]*api.StorageObjectAck, error) {
+func (nk *MockNakamaModule) StorageWrite(ctx context.Context, writes []*StorageWrite) ([]*api.StorageObjectAck, error) {
 	return nk.StorageWriteFn(ctx, writes)
 }
-func (nk *MockNakamaModule) StorageDelete(ctx context.Context, deletes []*runtime.StorageDelete) error {
+func (nk *MockNakamaModule) StorageDelete(ctx context.Context, deletes []*StorageDelete) error {
 	return nk.StorageDeleteFn(ctx, deletes)
 }
-func (nk *MockNakamaModule) MultiUpdate(ctx context.Context, accountUpdates []*runtime.AccountUpdate, storageWrites []*runtime.StorageWrite, walletUpdates []*runtime.WalletUpdate, updateLedger bool) ([]*api.StorageObjectAck, []*runtime.WalletUpdateResult, error) {
+func (nk *MockNakamaModule) MultiUpdate(ctx context.Context, accountUpdates []*AccountUpdate, storageWrites []*StorageWrite, walletUpdates []*WalletUpdate, updateLedger bool) ([]*api.StorageObjectAck, []*WalletUpdateResult, error) {
 	return nk.MultiUpdateFn(ctx, accountUpdates, storageWrites, walletUpdates, updateLedger)
 }
 func (nk *MockNakamaModule) LeaderboardCreate(ctx context.Context, id string, authoritative bool, sortOrder, operator, resetSchedule string, metadata map[string]interface{}) error {
@@ -337,6 +343,9 @@ func (nk *MockNakamaModule) LeaderboardCreate(ctx context.Context, id string, au
 }
 func (nk *MockNakamaModule) LeaderboardDelete(ctx context.Context, id string) error {
 	return nk.LeaderboardDeleteFn(ctx, id)
+}
+func (nk *MockNakamaModule) LeaderboardList(categoryStart, categoryEnd, limit int, cursor string) (*api.LeaderboardList, error) {
+	return nk.LeaderboardListFn(categoryStart, categoryEnd, limit, cursor)
 }
 func (nk *MockNakamaModule) LeaderboardRecordsList(ctx context.Context, id string, ownerIDs []string, limit int, cursor string, expiry int64) ([]*api.LeaderboardRecord, []*api.LeaderboardRecord, string, string, error) {
 	return nk.LeaderboardRecordsListFn(ctx, id, ownerIDs, limit, cursor, expiry)
@@ -346,6 +355,9 @@ func (nk *MockNakamaModule) LeaderboardRecordWrite(ctx context.Context, id, owne
 }
 func (nk *MockNakamaModule) LeaderboardRecordDelete(ctx context.Context, id, ownerID string) error {
 	return nk.LeaderboardRecordDeleteFn(ctx, id, ownerID)
+}
+func (nk *MockNakamaModule) LeaderboardsGetId(ctx context.Context, ids []string) ([]*api.Leaderboard, error) {
+	return nk.LeaderboardsGetIdFn(ctx, ids)
 }
 func (nk *MockNakamaModule) PurchaseValidateApple(ctx context.Context, userID, receipt string) (*api.ValidatePurchaseResponse, error) {
 	return nk.PurchaseValidateAppleFn(ctx, userID, receipt)
@@ -392,6 +404,9 @@ func (nk *MockNakamaModule) TournamentRecordsHaystack(ctx context.Context, id, o
 func (nk *MockNakamaModule) GroupsGetId(ctx context.Context, groupIDs []string) ([]*api.Group, error) {
 	return nk.GroupsGetIdFn(ctx, groupIDs)
 }
+func (nk *MockNakamaModule) GroupsList(ctx context.Context, name, langTag string, members *int, open *bool, limit int, cursor string) ([]*api.Group, string, error) {
+	return nk.GroupsListFn(ctx, name, langTag, members, open, limit, cursor)
+}
 func (nk *MockNakamaModule) GroupCreate(ctx context.Context, userID, name, creatorID, langTag, description, avatarUrl string, open bool, metadata map[string]interface{}, maxCount int) (*api.Group, error) {
 	return nk.GroupCreateFn(ctx, userID, name, creatorID, langTag, description, avatarUrl, open, metadata, maxCount)
 }
@@ -429,5 +444,14 @@ func (nk *MockNakamaModule) FriendsList(ctx context.Context, userID string, limi
 	return nk.FriendsListFn(ctx, userID, limit, state, cursor)
 }
 func (nk *MockNakamaModule) Event(ctx context.Context, evt *api.Event) error {
-	return nk.Event(ctx, evt)
+	return nk.EventFn(ctx, evt)
+}
+func (nk *MockNakamaModule) MetricsCounterAdd(name string, tags map[string]string, delta int64) {
+	nk.MetricsCounterAddFn(name, tags, delta)
+}
+func (nk *MockNakamaModule) MetricsGaugeSet(name string, tags map[string]string, value float64) {
+	nk.MetricsGaugeSetFn(name, tags, value)
+}
+func (nk *MockNakamaModule) MetricsTimerRecord(name string, tags map[string]string, value time.Duration) {
+	nk.MetricsTimerRecordFn(name, tags, value)
 }

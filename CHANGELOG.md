@@ -4,8 +4,12 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+### Added
+- Add ChannelMessageUpdate function to server framework.
+
 ### Fixed
-- Improve ValidatedPurchase TS definitions
+- Improve ValidatedPurchase TS definitions.
 
 ## [1.16.0] - 2021-08-10
 ### Added

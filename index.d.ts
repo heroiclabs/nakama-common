@@ -4110,6 +4110,20 @@ declare namespace nkruntime {
         channelMessageSend(channelId: string, content?: {[key: string]: any}, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
 
         /**
+         * Update channel message.
+         *
+         * @param channelId - Channel ID.
+         * @param messageId - Message ID of message to be updated.
+         * @param content - Message content.
+         * @param senderId - Opt. Message sender ID.
+         * @param senderUsername - Opt. Sender username. Defaults to system user.
+         * @param persist - Opt. Store message. Defaults to true.
+         * @returns Ack of sent message.
+         * @throws {TypeError, GoError}
+         */
+         channelMessageUpdate(channelId: string, messageId: string, content?: {[key: string]: any}, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
+
+        /**
          * Send channel message.
          *
          * @param target - The user ID to DM with, group ID to chat with, or room channel name to join.

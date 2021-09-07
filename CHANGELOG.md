@@ -14,6 +14,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - Add ChannelMessageSend function to server framework.
 - Add BuildChannelId function to server framework.
 
+### Changed
+- Return already seen receipts with a 'seen_before' flag set to true instead of returning an error if one is detected.
+
 ### Fixed
 - Fix TypeScript "nkruntime.Context" value types.
 - Add missing groupId argument from groupUpdate TypeScript definition.

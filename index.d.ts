@@ -2734,6 +2734,7 @@ declare namespace nkruntime {
         updateTime: string
         providerPayload: string
         environment: ValidatedPurchaseEnvironment
+        seenBefore: boolean
     }
 
     export interface ValidatedPurchaseList {

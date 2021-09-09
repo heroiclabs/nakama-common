@@ -3,13 +3,13 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
-
+## [1.17.0] - 2021-09-09
 ### Added
 - Add ChannelMessageUpdate function to server framework.
 
 ### Fixed
 - Improve ValidatedPurchase TS definitions.
+- Show "rank" field in leaderboard record TS definition.
 
 ## [1.16.0] - 2021-08-10
 ### Added

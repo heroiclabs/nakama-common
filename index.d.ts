@@ -3749,10 +3749,11 @@ declare namespace nkruntime {
          * Create a new tournament.
          *
          * @param tournamentID - Tournament id.
-         * @param sortOrder - Opt. Sort tournament in desc or asc order. Defauts to "desc".
+         * @param authoritative - Opt. Whether or not to only allow authoritative score submissions.
+         * @param sortOrder - Opt. Sort tournament in desc or asc order. Defaults to "desc".
          * @param operator - Opt. Score operator "best", "set" or "incr" (refer to the docs for more info). Defaults to "best".
          * @param duration - Opt. Duration of the tournament (unix epoch).
-         * @param resetSchedule - Opt. Tournament reset schedule (cron synthax).
+         * @param resetSchedule - Opt. Tournament reset schedule (cron syntax).
          * @param metadata - Opt. metadata object.
          * @param title -  Opt. Tournament title.
          * @param description - Opt. Tournament description.
@@ -3766,6 +3767,7 @@ declare namespace nkruntime {
          */
         tournamentCreate(
             tournamentID: string,
+            authoritative: boolean,
             sortOrder: SortOrder,
             operator: Operator,
             duration: number,

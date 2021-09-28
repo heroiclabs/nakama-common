@@ -3,8 +3,10 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
-
+## [1.18.0] - 2021-09-28
+### Changed
+- Use named return parameters in leaderboard and tournament listings.
+- Add authoritative parameter on tournament create. Same as in leaderboard create.
 
 ## [1.17.0] - 2021-09-09
 ### Added

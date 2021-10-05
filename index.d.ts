@@ -801,6 +801,7 @@ declare namespace nkruntime {
         matchLeave: MatchLeaveFunction;
         matchLoop: MatchLoopFunction;
         matchTerminate: MatchTerminateFunction;
+        matchSignal: MatchSignalFunction;
     }
 
     /**
@@ -905,6 +906,24 @@ declare namespace nkruntime {
          * @param graceSeconds - Number of seconds to gracefully terminate the match. If this time elapses before the function returns the match will be forcefully terminated.
          */
         (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, graceSeconds: number): {state: MatchState} | null;
+    }
+
+    /**
+     * Match signal function definition.
+     */
+    export interface MatchSignalFunction {
+        /**
+         * User match leave function definition.
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param dispatcher - Message dispatcher APIs.
+         * @param tick - Current match loop tick.
+         * @param state - Current match state.
+         * @param data - Arbitrary data the signal caller is sending to the match signal handler.
+         * @returns object with state and optional response data string to the signal caller.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, data: string): {state: MatchState, data?: string} | null;
     }
 
     /**
@@ -3525,7 +3544,7 @@ declare namespace nkruntime {
         /**
          * Get a running match info.
          *
-         * @param matchID - Match ID.
+         * @param id - Match ID.
          * @returns match data.
          * @throws {TypeError, GoError}
          */
@@ -3546,6 +3565,17 @@ declare namespace nkruntime {
         matchList(limit: number, authoritative?: boolean | null, label?: string | null, minSize?: number | null, maxSize?: number | null, query?: string | null): Match[]
 
         /**
+         * Signal a match and receive a response.
+         *
+         * @param id - Match ID.
+         * @param data - Arbitrary data to pass to the match signal handler.
+         * @returns response data from the signal handler, if any.
+         * @throws {TypeError, GoError}
+         */
+        matchSignal(id: string, data: string): string
+
+
+      /**
          * Send a notification.
          *
          * @param userId - User ID.

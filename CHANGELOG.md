@@ -4,7 +4,9 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
-
+### Added
+- Match signal handler as part of the match handler definition.
+- Add match signal function to server framework.
 
 ## [1.18.0] - 2021-09-28
 ### Changed

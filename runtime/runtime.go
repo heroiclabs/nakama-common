@@ -188,6 +188,18 @@ var (
 	ErrPartyAcceptRequest    = errors.New("party could not accept request")
 	ErrPartyRemove           = errors.New("party could not remove")
 	ErrPartyRemoveSelf       = errors.New("party cannot remove self")
+
+	ErrGroupNameInUse         = errors.New("group name in use")
+	ErrGroupPermissionDenied  = errors.New("group permission denied")
+	ErrGroupNoUpdateOps       = errors.New("no group updates")
+	ErrGroupNotUpdated        = errors.New("group not updated")
+	ErrGroupNotFound          = errors.New("group not found")
+	ErrGroupFull              = errors.New("group is full")
+	ErrGroupUserNotFound      = errors.New("user not found")
+	ErrGroupLastSuperadmin    = errors.New("user is last group superadmin")
+	ErrGroupUserInvalidCursor = errors.New("group user cursor invalid")
+	ErrUserGroupInvalidCursor = errors.New("user group cursor invalid")
+	ErrGroupCreatorInvalid    = errors.New("group creator user ID not valid")
 )
 
 const (

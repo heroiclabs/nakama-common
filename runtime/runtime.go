@@ -200,6 +200,17 @@ var (
 	ErrGroupUserInvalidCursor = errors.New("group user cursor invalid")
 	ErrUserGroupInvalidCursor = errors.New("user group cursor invalid")
 	ErrGroupCreatorInvalid    = errors.New("group creator user ID not valid")
+
+	ErrWalletLedgerInvalidCursor = errors.New("wallet ledger cursor invalid")
+
+	ErrCannotEncodeParams    = errors.New("error creating match: cannot encode params")
+	ErrCannotDecodeParams    = errors.New("error creating match: cannot decode params")
+	ErrMatchIdInvalid        = errors.New("match id invalid")
+	ErrMatchNotFound         = errors.New("match not found")
+	ErrMatchBusy             = errors.New("match busy")
+	ErrMatchStateFailed      = errors.New("match did not return state")
+	ErrMatchLabelTooLong     = errors.New("match label too long, must be 0-2048 bytes")
+	ErrDeferredBroadcastFull = errors.New("too many deferred message broadcasts per tick")
 )
 
 const (

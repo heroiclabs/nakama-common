@@ -88,6 +88,7 @@ package runtime
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 	"os"
 	"time"
@@ -148,6 +149,45 @@ const (
 
 	// Tick rate defined for this match. Only applicable to server authoritative multiplayer.
 	RUNTIME_CTX_MATCH_TICK_RATE = "match_tick_rate"
+)
+
+var (
+	ErrStorageRejectedVersion    = errors.New("Storage write rejected - version check failed.")
+	ErrStorageRejectedPermission = errors.New("Storage write rejected - permission denied.")
+
+	ErrChannelIDInvalid     = errors.New("invalid channel id")
+	ErrChannelCursorInvalid = errors.New("invalid channel cursor")
+	ErrChannelGroupNotFound = errors.New("group not found")
+
+	ErrInvalidChannelTarget = errors.New("Invalid channel target")
+	ErrInvalidChannelType   = errors.New("Invalid channel type")
+
+	ErrFriendInvalidCursor = errors.New("friend cursor invalid")
+
+	ErrTournamentNotFound                = errors.New("tournament not found")
+	ErrTournamentAuthoritative           = errors.New("tournament only allows authoritative submissions")
+	ErrTournamentMaxSizeReached          = errors.New("tournament max size reached")
+	ErrTournamentOutsideDuration         = errors.New("tournament outside of duration")
+	ErrTournamentWriteMaxNumScoreReached = errors.New("max number score count reached")
+	ErrTournamentWriteJoinRequired       = errors.New("required to join before writing tournament record")
+
+	ErrMatchmakerQueryInvalid     = errors.New("matchmaker query invalid")
+	ErrMatchmakerDuplicateSession = errors.New("matchmaker duplicate session")
+	ErrMatchmakerIndex            = errors.New("matchmaker index error")
+	ErrMatchmakerDelete           = errors.New("matchmaker delete error")
+	ErrMatchmakerNotAvailable     = errors.New("matchmaker not available")
+	ErrMatchmakerTooManyTickets   = errors.New("matchmaker too many tickets")
+	ErrMatchmakerTicketNotFound   = errors.New("matchmaker ticket not found")
+
+	ErrPartyClosed           = errors.New("party closed")
+	ErrPartyFull             = errors.New("party full")
+	ErrPartyJoinRequestsFull = errors.New("party join requests full")
+	ErrPartyNotLeader        = errors.New("party leader only")
+	ErrPartyNotMember        = errors.New("party member not found")
+	ErrPartyNotRequest       = errors.New("party join request not found")
+	ErrPartyAcceptRequest    = errors.New("party could not accept request")
+	ErrPartyRemove           = errors.New("party could not remove")
+	ErrPartyRemoveSelf       = errors.New("party cannot remove self")
 )
 
 const (

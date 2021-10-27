@@ -10,6 +10,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Added
 - Match signal handler as part of the match handler definition.
 - Add match signal function to server framework.
+- Add a prev cursor to the PurchaseList message.
 
 ## [1.18.0] - 2021-09-28
 ### Changed

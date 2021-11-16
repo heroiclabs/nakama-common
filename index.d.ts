@@ -21,7 +21,7 @@ declare namespace nkruntime {
         env: {[key: string]: string},
         executionMode: string,
         node: string,
-        httpHeaders: {[key: string]: string[]},
+        headers: {[key: string]: string[]},
         queryParams: {[key: string]: string[]},
         userId: string,
         username: string,

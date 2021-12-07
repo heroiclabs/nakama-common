@@ -239,7 +239,7 @@ declare namespace nkruntime {
          * @param reliable - Opt. Broadcast the message with delivery guarantees or not. Defaults to true.
          * @throws {TypeError, GoError}
          */
-        broadcastMessage(opcode: number, data?: string | null, presences?: Presence[] | null, sender?: Presence | null, reliable?: boolean): void;
+        broadcastMessage(opcode: number, data?: Uint8Array | string | null, presences?: Presence[] | null, sender?: Presence | null, reliable?: boolean): void;
 
         /**
          * Defer message broadcast to match presences.
@@ -251,7 +251,7 @@ declare namespace nkruntime {
          * @param reliable - Opt. Broadcast the message with delivery guarantees or not. Defaults to true.
          * @throws {TypeError, GoError}
          */
-        broadcastMessageDeferred(opcode: number, data?: string | null, presences?: Presence[] | null, sender?: Presence, reliable?: boolean): void;
+        broadcastMessageDeferred(opcode: number, data?: Uint8Array | string | null, presences?: Presence[] | null, sender?: Presence, reliable?: boolean): void;
 
         /**
          * Kick presences from match.
@@ -280,7 +280,7 @@ declare namespace nkruntime {
         persistence: boolean;
         status: string;
         opCode: number;
-        data: string;
+        data: Uint8Array;
         reliable: boolean;
         receiveTime: number;
     }
@@ -2790,6 +2790,22 @@ declare namespace nkruntime {
      * The server APIs available in the game server.
      */
     export interface Nakama {
+        /**
+         * Convert binary data to string.
+         *
+         * @param data - Data to convert to string.
+         * @throws {TypeError}
+         */
+         binaryToString(data: Uint8Array): string;
+
+        /**
+         * Convert a string to binary data.
+         *
+         * @param str - String to convert to binary data.
+         * @throws {TypeError}
+         */
+         stringToBinary(str: string): Uint8Array;
+
         /**
          * Emit an event to be processed.
          *

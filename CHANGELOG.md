@@ -5,7 +5,11 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 ### Added
-- Add ctx field to access http request headers in the runtimes. 
+- Add ctx field to access http request headers in the runtimes.
+- New JS runtime stringToBinary and binaryToString functions.
+
+### Changed
+- JS runtime match data changed to Uint8Array.
 
 ## [1.20.0] - 2021-10-29
 ### Added

@@ -4,6 +4,9 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+
+## [1.21.0] - 2021-12-16
 ### Added
 - Add ctx field to access http request headers in the Lua and JavaScript runtimes.
 - New JavaScript runtime stringToBinary and binaryToString functions.

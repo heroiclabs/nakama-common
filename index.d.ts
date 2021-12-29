@@ -1046,9 +1046,9 @@ declare namespace nkruntime {
         registerBeforeAuthenticateEmail(fn: BeforeHookFunction<AuthenticateEmailRequest>): void;
 
         /**
-         * Register after Hook for RPC uthenticateEmail function.
+         * Register after Hook for RPC AuthenticateEmail function.
          *
-         * @param fn - The function to execute after uthenticateEmail.
+         * @param fn - The function to execute after AuthenticateEmail.
          * @throws {TypeError}
          */
         registerAfterAuthenticateEmail(fn: AfterHookFunction<Session, AuthenticateEmailRequest>): void;

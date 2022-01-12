@@ -4058,6 +4058,16 @@ declare namespace nkruntime {
         groupUsersAdd(groupID: string, userIds: string[], callerID?: string): void;
 
         /**
+         * Ban multiple users from a group.
+         *
+         * @param groupID - Group ID.
+         * @param userIds - Array of userIds to ban from the group.
+         * @param callerID - Opt. User ID mandating the operation to check for sufficient priviledges. Defaults to admin user if empty.
+         * @throws {TypeError, GoError}
+         */
+         groupUsersBan(groupID: string, userIds: string[], callerID?: string): void;
+
+        /**
          * Promote users in a group.
          *
          * @param groupID - Group ID.

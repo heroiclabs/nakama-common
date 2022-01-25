@@ -3793,6 +3793,18 @@ declare namespace nkruntime {
         leaderboardsGetId(leaderboardIds: string[]): Leaderboard[];
 
         /**
+         * Fetch the list of leaderboard records around the owner.
+         *
+         * @param leaderboardId - The unique identifier for the leaderboard.
+         * @param ownerId - The owner of the score to list records around. Mandatory field.
+         * @param limit - Return only the required number of leaderboards denoted by this limit value.
+         * @param overrideExpiry - Records with expiry in the past are not returned unless within this defined limit. Must be equal or greater than 0.
+         * @returns The leaderboard records according to ID.
+         * @throws {TypeError, GoError}
+         */
+        leaderboardRecordsAroundOwner(leaderboardId: string, ownerId: string, limit: number, overrideExpiry: number): LeaderboardRecordList[];
+
+        /**
          * Create a new tournament.
          *
          * @param tournamentID - Tournament id.

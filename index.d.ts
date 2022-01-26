@@ -3797,7 +3797,7 @@ declare namespace nkruntime {
          *
          * @param leaderboardId - The unique identifier for the leaderboard.
          * @param ownerId - The owner of the score to list records around. Mandatory field.
-         * @param limit - Return only the required number of leaderboards denoted by this limit value.
+         * @param limit - Return only the required number of leaderboard records denoted by this limit value.
          * @param overrideExpiry - Records with expiry in the past are not returned unless within this defined limit. Must be equal or greater than 0.
          * @returns The leaderboard records according to ID.
          * @throws {TypeError, GoError}

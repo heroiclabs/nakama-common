@@ -795,20 +795,20 @@ declare namespace nkruntime {
     /**
      * Match handler definitions
      */
-    export interface MatchHandler {
-        matchInit: MatchInitFunction;
-        matchJoinAttempt: MatchJoinAttemptFunction;
-        matchJoin: MatchJoinFunction;
-        matchLeave: MatchLeaveFunction;
-        matchLoop: MatchLoopFunction;
-        matchTerminate: MatchTerminateFunction;
-        matchSignal: MatchSignalFunction;
+    export interface MatchHandler<State> {
+        matchInit: MatchInitFunction<State>;
+        matchJoinAttempt: MatchJoinAttemptFunction<State>;
+        matchJoin: MatchJoinFunction<State>;
+        matchLeave: MatchLeaveFunction<State>;
+        matchLoop: MatchLoopFunction<State>;
+        matchTerminate: MatchTerminateFunction<State>;
+        matchSignal: MatchSignalFunction<State>;
     }
 
     /**
      * Match initialization function definition.
      */
-    export interface MatchInitFunction {
+    export interface MatchInitFunction<State> {
         /**
          * Match initialization function definition.
          * @param ctx - The context for the execution.
@@ -817,13 +817,13 @@ declare namespace nkruntime {
          * @param params - Match create http request parameters.
          * @returns An object with the match state, tick rate and labels.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, params: {[key: string]: string}): {state: MatchState, tickRate: number, label: string};
+        (ctx: Context, logger: Logger, nk: Nakama, params: {[key: string]: string}): {state: State, tickRate: number, label: string};
     }
 
     /**
      * Match join attempt function definition.
      */
-    export interface MatchJoinAttemptFunction {
+    export interface MatchJoinAttemptFunction<State> {
         /**
          * User match join attempt function definition.
          * @param ctx - The context for the execution.
@@ -836,13 +836,13 @@ declare namespace nkruntime {
          * @param metadata - Metadata object.
          * @returns object with state, acceptUser and optional rejection message if acceptUser is false.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, presence: Presence, metadata: {[key: string]: any}): {state: MatchState, accept: boolean, rejectMessage?: string} | null;
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: State, presence: Presence, metadata: {[key: string]: any}): {state: State, accept: boolean, rejectMessage?: string} | null;
     }
 
     /**
      * Match join function definition.
      */
-    export interface MatchJoinFunction {
+    export interface MatchJoinFunction<State> {
         /**
          * User match join function definition.
          * @param ctx - The context for the execution.
@@ -854,13 +854,13 @@ declare namespace nkruntime {
          * @param presences - List of presences.
          * @returns object with the new state of the match.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, presences: Presence[]): {state: MatchState} | null;
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: State, presences: Presence[]): {state: State} | null;
     }
 
     /**
      * Match leave function definition.
      */
-    export interface MatchLeaveFunction {
+    export interface MatchLeaveFunction<State> {
         /**
          * User match leave function definition.
          * @param ctx - The context for the execution.
@@ -872,13 +872,13 @@ declare namespace nkruntime {
          * @param presences - List of presences.
          * @returns object with the new state of the match.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, presences: Presence[]): {state: MatchState} | null;
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: State, presences: Presence[]): {state: State} | null;
     }
 
     /**
      * Match loop function definition.
      */
-    export interface MatchLoopFunction {
+    export interface MatchLoopFunction<State> {
         /**
          * User match leave function definition.
          * @param ctx - The context for the execution.
@@ -889,13 +889,13 @@ declare namespace nkruntime {
          * @param state - Current match state.
          * @param messages - Received messages in the buffer.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, messages: MatchMessage[]): {state: MatchState} | null;
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: State, messages: MatchMessage[]): {state: State} | null;
     }
 
     /**
      * Match terminate function definition.
      */
-    export interface MatchTerminateFunction {
+    export interface MatchTerminateFunction<State> {
         /**
          * User match leave function definition.
          * @param ctx - The context for the execution.
@@ -906,13 +906,13 @@ declare namespace nkruntime {
          * @param state - Current match state.
          * @param graceSeconds - Number of seconds to gracefully terminate the match. If this time elapses before the function returns the match will be forcefully terminated.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, graceSeconds: number): {state: MatchState} | null;
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: State, graceSeconds: number): {state: State} | null;
     }
 
     /**
      * Match signal function definition.
      */
-    export interface MatchSignalFunction {
+    export interface MatchSignalFunction<State> {
         /**
          * User match leave function definition.
          * @param ctx - The context for the execution.
@@ -924,7 +924,7 @@ declare namespace nkruntime {
          * @param data - Arbitrary data the signal caller is sending to the match signal handler.
          * @returns object with state and optional response data string to the signal caller.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: MatchState, data: string): {state: MatchState, data?: string} | null;
+        (ctx: Context, logger: Logger, nk: Nakama, dispatcher: MatchDispatcher, tick: number, state: State, data: string): {state: State, data?: string} | null;
     }
 
     /**
@@ -2083,7 +2083,7 @@ declare namespace nkruntime {
          * @param name - Identifier of the match handler.
          * @param functions - Object containing the match handler functions.
          */
-        registerMatch(name: string, functions: MatchHandler): void;
+        registerMatch<State = MatchState>(name: string, functions: MatchHandler<State>): void;
 
         /**
          * Register matchmaker matched handler.

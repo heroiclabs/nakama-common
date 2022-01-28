@@ -795,7 +795,7 @@ declare namespace nkruntime {
     /**
      * Match handler definitions
      */
-    export interface MatchHandler<State> {
+    export interface MatchHandler<State = MatchState> {
         matchInit: MatchInitFunction<State>;
         matchJoinAttempt: MatchJoinAttemptFunction<State>;
         matchJoin: MatchJoinFunction<State>;
@@ -808,7 +808,7 @@ declare namespace nkruntime {
     /**
      * Match initialization function definition.
      */
-    export interface MatchInitFunction<State> {
+    export interface MatchInitFunction<State = MatchState> {
         /**
          * Match initialization function definition.
          * @param ctx - The context for the execution.
@@ -823,7 +823,7 @@ declare namespace nkruntime {
     /**
      * Match join attempt function definition.
      */
-    export interface MatchJoinAttemptFunction<State> {
+    export interface MatchJoinAttemptFunction<State = MatchState> {
         /**
          * User match join attempt function definition.
          * @param ctx - The context for the execution.
@@ -842,7 +842,7 @@ declare namespace nkruntime {
     /**
      * Match join function definition.
      */
-    export interface MatchJoinFunction<State> {
+    export interface MatchJoinFunction<State = MatchState> {
         /**
          * User match join function definition.
          * @param ctx - The context for the execution.
@@ -860,7 +860,7 @@ declare namespace nkruntime {
     /**
      * Match leave function definition.
      */
-    export interface MatchLeaveFunction<State> {
+    export interface MatchLeaveFunction<State = MatchState> {
         /**
          * User match leave function definition.
          * @param ctx - The context for the execution.
@@ -878,7 +878,7 @@ declare namespace nkruntime {
     /**
      * Match loop function definition.
      */
-    export interface MatchLoopFunction<State> {
+    export interface MatchLoopFunction<State = MatchState> {
         /**
          * User match leave function definition.
          * @param ctx - The context for the execution.
@@ -895,7 +895,7 @@ declare namespace nkruntime {
     /**
      * Match terminate function definition.
      */
-    export interface MatchTerminateFunction<State> {
+    export interface MatchTerminateFunction<State = MatchState> {
         /**
          * User match leave function definition.
          * @param ctx - The context for the execution.
@@ -912,7 +912,7 @@ declare namespace nkruntime {
     /**
      * Match signal function definition.
      */
-    export interface MatchSignalFunction<State> {
+    export interface MatchSignalFunction<State = MatchState> {
         /**
          * User match leave function definition.
          * @param ctx - The context for the execution.

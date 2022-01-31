@@ -33,7 +33,8 @@ declare namespace nkruntime {
         matchId: string,
         matchNode: string,
         matchLabel: string,
-        matchTickRate: number
+        matchTickRate: number,
+        lang: string,
     }
 
     type ReadPermissionValues = 0 | 1 | 2;

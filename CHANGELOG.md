@@ -5,7 +5,8 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 ### Added
-- Add GroupUsersBan function to all runtimes.
+- Add GroupUsersBan function to the runtimes.
+- Add LeaderboardRecordsHaystack function to the runtimes.
 
 ## [1.21.0] - 2021-12-16
 ### Added

@@ -4110,31 +4110,34 @@ declare namespace nkruntime {
          *
          * @param userID - User ID.
          * @param receipt - Apple receipt to validate.
+         * @param persist - Opt. Whether to persist the receipt validation. Defaults to true.
          * @param passwordOverride - Opt. Override the configured Apple Store Validation Password.
          * @returns The result of the validated and stored purchases from the receipt.
          * @throws {TypeError, GoError}
          */
-        purchaseValidateApple(userID: string, receipt: string, passwordOverride?: string): ValidatePurchaseResponse
+        purchaseValidateApple(userID: string, receipt: string, persist?: boolean, passwordOverride?: string): ValidatePurchaseResponse
 
         /**
          * Validate a Google purchase payload.
          *
          * @param userID - User ID.
          * @param purchase - Google purchase payload to validate.
+         * @param persist - Opt. Whether to persist the receipt validation. Defaults to true.
          * @returns The result of the validated and stored purchases from the receipt.
          * @throws {TypeError, GoError}
          */
-         purchaseValidateGoogle(userID: string, purchase: string): ValidatePurchaseResponse
+         purchaseValidateGoogle(userID: string, purchase: string, persist?: boolean): ValidatePurchaseResponse
 
         /**
          * Validate a Huawei purchase payload.
          *
          * @param userID - User ID.
          * @param receipt - Apple receipt to validate.
+         * @param persist - Opt. Whether to persist the receipt validation. Defaults to true.
          * @returns The result of the validated and stored purchases from the receipt.
          * @throws {TypeError, GoError}
          */
-        purchaseValidateHuawei(userID: string, receipt: string, signature: string): ValidatePurchaseResponse
+        purchaseValidateHuawei(userID: string, receipt: string, signature: string, persist?: boolean): ValidatePurchaseResponse
 
         /**
          * Get a validated purchase data by transaction ID.

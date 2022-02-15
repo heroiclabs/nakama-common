@@ -1010,6 +1010,7 @@ type NakamaModule interface {
 	LeaderboardRecordWrite(ctx context.Context, id, ownerID, username string, score, subscore int64, metadata map[string]interface{}, overrideOperator *int) (*api.LeaderboardRecord, error)
 	LeaderboardRecordDelete(ctx context.Context, id, ownerID string) error
 	LeaderboardsGetId(ctx context.Context, ids []string) ([]*api.Leaderboard, error)
+	LeaderboardRecordsHaystack(ctx context.Context, id, ownerID string, limit int, expiry int64) ([]*api.LeaderboardRecord, error)
 
 	PurchaseValidateApple(ctx context.Context, userID, receipt string, passwordOverride ...string) (*api.ValidatePurchaseResponse, error)
 	PurchaseValidateGoogle(ctx context.Context, userID, receipt string) (*api.ValidatePurchaseResponse, error)

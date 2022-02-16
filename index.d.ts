@@ -2522,6 +2522,7 @@ declare namespace nkruntime {
         maxCount: number;
         createTime: number;
         updateTime: number;
+        metadata: {[key: string]: any};
     }
 
     export interface UserGroupList {
@@ -3830,7 +3831,7 @@ declare namespace nkruntime {
             authoritative: boolean,
             sortOrder: SortOrder,
             operator: Operator,
-            duration: number,
+            duration?: number,
             resetSchedule?: string | null,
             metadata?: {[key: string]: any} | null,
             title?: string | null,

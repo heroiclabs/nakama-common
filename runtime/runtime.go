@@ -1051,7 +1051,7 @@ type NakamaModule interface {
 	MetricsGaugeSet(name string, tags map[string]string, value float64)
 	MetricsTimerRecord(name string, tags map[string]string, value time.Duration)
 
-	ChannelIdBuild(ctx context.Context, target string, chanType ChannelType) (string, error)
+	ChannelIdBuild(ctx context.Context, sender string, target string, chanType ChannelType) (string, error)
 	ChannelMessageSend(ctx context.Context, channelID string, content map[string]interface{}, senderId, senderUsername string, persist bool) (*rtapi.ChannelMessageAck, error)
 	ChannelMessageUpdate(ctx context.Context, channelID, messageID string, content map[string]interface{}, senderId, senderUsername string, persist bool) (*rtapi.ChannelMessageAck, error)
 }

@@ -8,6 +8,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - Add GroupUsersBan function to the runtimes.
 - Add LeaderboardRecordsHaystack function to the runtimes.
 
+### Changed
+- Add senderID param to channelIdBuild.
+
 ## [1.21.0] - 2021-12-16
 ### Added
 - Add ctx field to access http request headers in the Lua and JavaScript runtimes.

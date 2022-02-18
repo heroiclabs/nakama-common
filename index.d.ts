@@ -4199,12 +4199,13 @@ declare namespace nkruntime {
         /**
          * Send channel message.
          *
+         * @param sender - The user ID of the sender.
          * @param target - The user ID to DM with, group ID to chat with, or room channel name to join.
          * @param type - Channel type.
          * @returns The channelId.
          * @throws {TypeError, GoError}
          */
-        channelIdBuild(target: string, chanType: ChanType): string
+        channelIdBuild(sender: string, target: string, chanType: ChanType): string
     }
 
     /**

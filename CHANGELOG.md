@@ -18,6 +18,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ### Changed
 - JavaScript runtime match data changed to use Uint8Array type.
+- Added IAP validation `persist` parameter to make persistence optional. 
 
 ## [1.20.0] - 2021-10-29
 ### Added

@@ -4136,10 +4136,12 @@ declare namespace nkruntime {
          * @param userID - User ID.
          * @param purchase - Google purchase payload to validate.
          * @param persist - Opt. Whether to persist the receipt validation. Defaults to true.
+         * @param clientEmailOverride - Opt. Override the configured Google Service Account client email.
+         * @param privateKeyOverride - Opt. Override the configured Google Service Account private key.
          * @returns The result of the validated and stored purchases from the receipt.
          * @throws {TypeError, GoError}
          */
-         purchaseValidateGoogle(userID: string, purchase: string, persist?: boolean): ValidatePurchaseResponse
+         purchaseValidateGoogle(userID: string, purchase: string, persist?: boolean, clientEmailOverride?: string, privateKeyOverride?: string): ValidatePurchaseResponse
 
         /**
          * Validate a Huawei purchase payload.

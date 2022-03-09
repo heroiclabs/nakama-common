@@ -1044,6 +1044,8 @@ type NakamaModule interface {
 	UserGroupsList(ctx context.Context, userID string, limit int, state *int, cursor string) ([]*api.UserGroupList_UserGroup, string, error)
 
 	FriendsList(ctx context.Context, userID string, limit int, state *int, cursor string) ([]*api.Friend, string, error)
+	FriendsAdd(ctx context.Context, userID string, username string, ids []string, usernames []string) error
+	FriendsDelete(ctx context.Context, userID string, username string, ids []string, usernames []string) error
 
 	Event(ctx context.Context, evt *api.Event) error
 

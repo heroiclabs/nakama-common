@@ -3594,7 +3594,7 @@ declare namespace nkruntime {
         matchSignal(id: string, data: string): string
 
 
-      /**
+        /**
          * Send a notification.
          *
          * @param userId - User ID.
@@ -3614,6 +3614,18 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         notificationsSend(notifications: NotificationRequest[]): void;
+
+        /**
+         * Send a system notification to all users.
+         *
+         * @param userId - User ID.
+         * @param subject - Subject of the notification.
+         * @param content - Key value object to send as the notification content.
+         * @param code - Custom code for the notification. Must be a positive integer.
+         * @param persistent - Opt. A non-persistent message will only be received by a client which is currently connected to the server. Defaults to false.
+         * @throws {TypeError, GoError}
+         */
+        notificationSendToAll(userId: string, subject: string, content: {[key: string]: any}, code: number, persistent?: boolean): void;
 
         /**
          * Update user wallet.

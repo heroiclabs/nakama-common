@@ -4042,6 +4042,28 @@ declare namespace nkruntime {
         friendsList(userId: string, limit?: number, state?: number, cursor?: string): FriendList;
 
         /**
+         * Add friends to a user.
+         *
+         * @param userId - User ID.
+         * @param username - Username.
+         * @param ids - The IDs of the users you want to add as friends.
+         * @param usernames - The usernames of the users you want to add as friends.
+         * @throws {TypeError, GoError}
+         */
+        friendsAdd(userId: string, username: string, ids: string[], usernames: string[]): FriendList;
+
+        /**
+         * Delete friends from a user.
+         *
+         * @param userId - User ID.
+         * @param username - Username.
+         * @param ids - The IDs of the users you want to delete as friends.
+         * @param usernames - The usernames of the users you want to delete as friends.
+         * @throws {TypeError, GoError}
+         */
+        friendsDelete(userId: string, username: string, ids: string[], usernames: string[]): FriendList;
+
+        /**
          * Join a user to a group.
          *
          * @param groupID - Group ID.

@@ -152,9 +152,10 @@ declare namespace nkruntime {
          * @param ctx - The context for the execution.
          * @param logger - The server logger.
          * @param nk - The Nakama server APIs.
-         * @param envelope - The Envelope message received by the function.
+         * @param output - The response envelope, if any.
+         * @param input - The Envelope message received by the function.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, envelope: T): void;
+        (ctx: Context, logger: Logger, nk: Nakama, output: T | null, input: T): void;
     }
 
     /**

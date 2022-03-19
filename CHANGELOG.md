@@ -8,6 +8,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - Add GroupUsersBan function to the runtimes.
 - Add FriendsAdd, FriendsDelete functions to the runtimes.
 - Add LeaderboardRecordsHaystack function to the runtimes.
+- Add NotificationSendAll function to the runtimes, for sending a notification to all users.
 - Support for outgoing envelopes in realtime after hooks.
 
 ### Changed

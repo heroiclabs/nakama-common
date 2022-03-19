@@ -7,6 +7,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Added
 - Add GroupUsersBan function to the runtimes.
 - Add LeaderboardRecordsHaystack function to the runtimes.
+- Add NotificationSendAll function to the runtimes, for sending a notification to all users.
 
 ### Changed
 - Add senderID param to channelIdBuild.

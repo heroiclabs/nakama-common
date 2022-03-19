@@ -152,9 +152,10 @@ declare namespace nkruntime {
          * @param ctx - The context for the execution.
          * @param logger - The server logger.
          * @param nk - The Nakama server APIs.
-         * @param envelope - The Envelope message received by the function.
+         * @param output - The response envelope, if any.
+         * @param input - The Envelope message received by the function.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, envelope: T): void;
+        (ctx: Context, logger: Logger, nk: Nakama, output: T | null, input: T): void;
     }
 
     /**
@@ -4244,6 +4245,16 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         channelIdBuild(sender: string, target: string, chanType: ChanType): string
+
+        /**
+         * Parses a CRON expression and a timestamp in UTC seconds, and returns the next matching timestamp in UTC seconds.
+         *
+         * @param cron - The cron expression.
+         * @param timestamp - UTC unix seconds timestamp.
+         * @returns The next cron matching timestamp in UTC seconds.
+         * @throws {TypeError, GoError}
+         */
+         cronNext(cron: string, timestamp: number): number
     }
 
     /**

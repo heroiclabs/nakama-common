@@ -311,22 +311,22 @@ type Initializer interface {
 	RegisterRpc(id string, fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, payload string) (string, error)) error
 
 	/*
-		RegisterBeforeRt registers a function for a message. The registered function will be called after the message has been processed in the pipeline.
+		RegisterBeforeRt registers a function with for a message. Any function may be registered to intercept a message received from a client and operate on it (or reject it) based on custom logic.
+		This is useful to enforce specific rules on top of the standard features in the server.
+
+		You can return `nil` instead of the `rtapi.Envelope` and this will disable that particular server functionality.
+
+		Message names can be found here: https://heroiclabs.com/docs/runtime-code-basics/#message-names
+	*/
+	RegisterBeforeRt(id string, fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *rtapi.Envelope) (*rtapi.Envelope, error)) error
+
+	/*
+		RegisterAfterRt registers a function for a message. The registered function will be called after the message has been processed in the pipeline.
 		The custom code will be executed asynchronously after the response message has been sent to a client
 
 		Message names can be found here: https://heroiclabs.com/docs/runtime-code-basics/#message-names
 	*/
-	RegisterBeforeRt(id string, fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, envelope *rtapi.Envelope) (*rtapi.Envelope, error)) error
-
-	/*
-		RegisterAfterRt registers a function with for a message. Any function may be registered to intercept a message received from a client and operate on it (or reject it) based on custom logic.
-		This is useful to enforce specific rules on top of the standard features in the server.
-
-		You can return `nil` instead of the `rtapi.Envelope` and this will disable disable that particular server functionality.
-
-		Message names can be found here: https://heroiclabs.com/docs/runtime-code-basics/#message-names
-	*/
-	RegisterAfterRt(id string, fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, envelope *rtapi.Envelope) error) error
+	RegisterAfterRt(id string, fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out, in *rtapi.Envelope) error) error
 
 	// RegisterMatchmakerMatched
 	RegisterMatchmakerMatched(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, entries []MatchmakerEntry) (string, error)) error

@@ -10,6 +10,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - Add LeaderboardRecordsHaystack function to the runtimes.
 - Add NotificationSendAll function to the runtimes, for sending a notification to all users.
 - Support for outgoing envelopes in realtime after hooks.
+- Add inputs for matchmaker option to enforce a multiple of resulting matched count.
 
 ### Changed
 - Add senderID param to channelIdBuild.

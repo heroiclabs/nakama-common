@@ -3,17 +3,17 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.22.0] - 2022-03-21
 ### Added
-- Add GroupUsersBan function to the runtimes.
-- Add FriendsAdd, FriendsDelete functions to the runtimes.
-- Add LeaderboardRecordsHaystack function to the runtimes.
-- Add NotificationSendAll function to the runtimes, for sending a notification to all users.
-- Support for outgoing envelopes in realtime after hooks.
+- Add "GroupUsersBan" function to the runtimes.
+- Add "FriendsAdd" and "FriendsDelete" functions to the runtimes.
+- Add "LeaderboardRecordsHaystack" function to the runtimes.
+- Add "NotificationSendAll" function to the runtimes, for sending a notification to all users.
+- Propagate outgoing envelopes in realtime message after hooks.
 - Add inputs for matchmaker option to enforce a multiple of resulting matched count.
 
 ### Changed
-- Add senderID param to channelIdBuild.
+- Add senderID param to "channelIdBuild".
 
 ## [1.21.0] - 2021-12-16
 ### Added

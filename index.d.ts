@@ -2821,6 +2821,37 @@ declare namespace nkruntime {
         event(eventName: string, properties: {[key: string]: string}, timestamp?: number, external?: boolean): void;
 
         /**
+         * Add a custom metrics counter.
+         *
+         * @param name - The name of the custom metrics counter.
+         * @param tags - The metrics tags associated with this counter.
+         * @param delta - An integer value to update this metric with.
+         * @throws {TypeError}
+         */
+        metricsCounterAdd(name: string, tags: {[key: string]: string}, delta: number): void;
+
+        /**
+         * Add a custom metrics gauge.
+         *
+         * @param name - The name of the custom metrics gauge.
+         * @param tags - The metrics tags associated with this gauge.
+         * @param value - A floating point value to update this metric with.
+         * @throws {TypeError}
+         */
+        metricsGaugeSet(name: string, tags: {[key: string]: string}, value: number): void;
+
+
+        /**
+         * Add a custom metrics timer.
+         *
+         * @param name - The name of the custom metrics timer.
+         * @param tags - The metrics tags associated with this timer.
+         * @param value - An integer value to update this metric with (in nanoseconds).
+         * @throws {TypeError}
+         */
+        metricsTimerRecord(name: string, tags: {[key: string]: string}, value: number): void;
+
+        /**
          * Generate a new UUID v4.
          *
          * @returns UUID v4

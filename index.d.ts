@@ -2835,7 +2835,7 @@ declare namespace nkruntime {
          *
          * @param name - The name of the custom metrics gauge.
          * @param tags - The metrics tags associated with this gauge.
-         * @param value - A floating point value to update this metric with.
+         * @param value - A value to update this metric with.
          * @throws {TypeError}
          */
         metricsGaugeSet(name: string, tags: {[key: string]: string}, value: number): void;

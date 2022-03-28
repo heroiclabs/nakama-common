@@ -2417,7 +2417,7 @@ declare namespace nkruntime {
     export interface StorageWriteRequest {
         key: string;
         collection: string;
-        userId: string;
+        userId: string | undefined;
         value: {[key: string]: any};
         version?: string;
         permissionRead?: ReadPermissionValues;

@@ -2664,6 +2664,7 @@ declare namespace nkruntime {
         query: string
         stringProperties: {[key: string]: string}
         numericProperties: {[key: string]: number}
+        countMultiple: number
     }
 
     export interface EnvelopeMatchmakerAdd {

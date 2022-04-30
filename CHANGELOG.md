@@ -6,6 +6,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Added
 - Add custom metrics publishing functions to Lua and JavaScript runtimes.
+- Add missing "sessionLogout" TypeScript definition.
 
 ## [1.22.0] - 2022-03-21
 ### Added

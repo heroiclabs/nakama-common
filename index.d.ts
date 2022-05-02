@@ -3581,7 +3581,17 @@ declare namespace nkruntime {
          * @param sessionID - Opt. Presence disconnect reason.
          * @throws {TypeError, GoError}
          */
-        sessionDisconnect(sessionID: string, reason?: PresenceReason): void;
+         sessionDisconnect(sessionID: string, reason?: PresenceReason): void;
+
+        /**
+         * Log out a user from their current session.
+         *
+         * @param userId - The ID of the user to be logged out.
+         * @param token - Opt. The current session authentication token.
+         * @param refreshToken - Opt. The current session refresh token.
+         * @throws {TypeError, GoError}
+         */
+         sessionLogout(userId: string, token?: string, refreshToken?:string): void;
 
         /**
          * Create a new match.

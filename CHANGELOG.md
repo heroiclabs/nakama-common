@@ -8,6 +8,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - Add custom metrics publishing functions to Lua and JavaScript runtimes.
 - Add missing "sessionLogout" TypeScript definition.
 
+### Changed
+- Fix naming of delete notifications before/after hook registration functions.
+
 ## [1.22.0] - 2022-03-21
 ### Added
 - Add "GroupUsersBan" function to the runtimes.

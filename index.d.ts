@@ -2032,6 +2032,24 @@ declare namespace nkruntime {
          registerAfterValidatePurchaseApple(fn: AfterHookFunction<ValidatePurchaseResponse, ValidatePurchaseAppleRequest>): void;
 
         /**
+         * Register before Hook for RPC ValidateSubscriptionApple function.
+         *
+         * @param fn - The function to execute before ValidatePurchaseApple.
+         * @throws {TypeError}
+         */
+        registerBeforeValidateSubscriptionApple(fn: BeforeHookFunction<ValidateSubscriptionAppleRequest>): void;
+
+        /**
+         * Register after Hook for RPC ValidatePurchaseApple function.
+         *
+         * @param fn - The function to execute after ValidatePurchaseApple.
+         * @throws {TypeError}
+         */
+        registerAfterValidateSubscriptionApple(fn: AfterHookFunction<ValidateSubscriptionResponse, ValidateSubscriptionAppleRequest>): void;
+
+
+
+        /**
          * Register before Hook for RPC ValidatePurchaseGoogle function.
          *
          * @param fn - The function to execute before ValidatePurchaseGoogle.
@@ -2046,6 +2064,22 @@ declare namespace nkruntime {
          * @throws {TypeError}
          */
          registerAfterValidatePurchaseGoogle(fn: AfterHookFunction<ValidatePurchaseResponse, ValidatePurchaseGoogleRequest>): void;
+
+        /**
+         * Register before Hook for RPC ValidatePurchaseGoogle function.
+         *
+         * @param fn - The function to execute before ValidatePurchaseGoogle.
+         * @throws {TypeError}
+         */
+        registerBeforeValidatePurchaseGoogle(fn: BeforeHookFunction<ValidateSubscriptionGoogleRequest>): void;
+
+        /**
+         * Register after Hook for RPC ValidatePurchaseGoogle function.
+         *
+         * @param fn - The function to execute after ValidatePurchaseGoogle.
+         * @throws {TypeError}
+         */
+        registerAfterValidatePurchaseGoogle(fn: AfterHookFunction<ValidateSubscriptionResponse, ValidateSubscriptionGoogleRequest>): void;
 
         /**
          * Register before Hook for RPC ValidatePurchaseHuawei function.
@@ -2728,8 +2762,16 @@ declare namespace nkruntime {
         receipt: string
     }
 
+    export interface ValidateSubscriptionAppleRequest {
+        receipt: string
+    }
+
     export interface ValidatePurchaseGoogleRequest {
         purchase: string
+    }
+
+    export interface ValidateSubscriptionGoogleRequest {
+        receipt: string
     }
 
     export interface ValidatePurchaseHuaweiRequest {
@@ -2741,9 +2783,18 @@ declare namespace nkruntime {
         validatedPurchases?: ValidatedPurchase[]
     }
 
+    export interface ValidateSubscriptionResponse {
+        validatedSubscription: ValidatedSubscription
+    }
+
     export interface ValidatedPurchaseOwner {
-        validatedPurchase: ValidatedPurchase,
-        userId: string,
+        validatedPurchase: ValidatedPurchase
+        userId: string
+    }
+
+    export interface ValidatedSubscriptionOwner {
+      validatedSubscription: ValidatedSubscription
+      userId: string
     }
 
     export type ValidatedPurchaseStore = "APPLE_APP_STORE" | "GOOGLE_PLAY_STORE" | "HUAWEI_APP_GALLERY"
@@ -2762,9 +2813,28 @@ declare namespace nkruntime {
         seenBefore: boolean
     }
 
+    export interface ValidatedSubscription {
+        productId: string
+        originalTransactionId: string
+        store: ValidatedPurchaseStore
+        purchaseTime: string
+        createTime: string
+        updateTime: string
+        environment: ValidatedPurchaseEnvironment
+        expiryTime: string
+        active: boolean
+    }
+
     export interface ValidatedPurchaseList {
         validatedPurchases?: ValidatedPurchase[]
         cursor?: string
+        prevCursor?: string
+    }
+
+    export interface ValidatedSubscriptionList {
+        validatedSubscription?: ValidatedSubscription
+        cursor?: string
+        prevCursor?: string
     }
 
     export interface ChannelMessageSendAck {
@@ -4250,6 +4320,52 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         purchaseGetByTransactionId(transactionID: string): ValidatedPurchaseOwner
+
+        /**
+         * List validated and stored purchases.
+         *
+         * @param userID - Opt. User ID.
+         * @param limit - Opt. Limit of results per page. Must be a value between 1 and 100.
+         * @param cursor - Opt. A cursor used to fetch the next page when applicable.
+         * @returns A page of validated and stored purchases.
+         * @throws {TypeError, GoError}
+         */
+        purchasesList(userID?: string, limit?: number, cursor?: string): ValidatedPurchaseList
+
+        /**
+         * Validate an Apple receipt containing a subscription.
+         *
+         * @param userID - User ID.
+         * @param receipt - Apple subscription receipt to validate.
+         * @param persist - Opt. Whether to persist the subscription validation. Defaults to true.
+         * @param passwordOverride - Opt. Override the configured Apple Store Validation Password.
+         * @returns The result of the validated and stored purchases from the receipt.
+         * @throws {TypeError, GoError}
+         */
+        subscriptionValidateApple(userID: string, receipt: string, persist?: boolean, passwordOverride?: string): ValidateSubscriptionResponse
+
+        /**
+         * Validate a Google receipt containing a subscription.
+         *
+         * @param userID - User ID.
+         * @param subscription - Google subscription payload to validate.
+         * @param persist - Opt. Whether to persist the subscription receipt validation. Defaults to true.
+         * @param clientEmailOverride - Opt. Override the configured Google Service Account client email.
+         * @param privateKeyOverride - Opt. Override the configured Google Service Account private key.
+         * @returns The result of the validated and stored purchases from the receipt.
+         * @throws {TypeError, GoError}
+         */
+        subscriptionValidateGoogle(userID: string, subscription: string, persist?: boolean, clientEmailOverride?: string, privateKeyOverride?: string): ValidateSubscriptionResponse
+
+        /**
+         * Get a validated subscription data by product ID.
+         *
+         * @param userID - User ID.
+         * @param productID - Product ID. For Google this is the subscriptionToken value of the purchase data.
+         * @returns The data of the validated and stored purchase.
+         * @throws {TypeError, GoError}
+         */
+        subscriptionGetByProductId(userID: string, productID: string): ValidatedPurchaseOwner
 
         /**
          * List validated and stored purchases.

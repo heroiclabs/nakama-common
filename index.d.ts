@@ -2756,7 +2756,7 @@ declare namespace nkruntime {
         purchaseTime: string
         createTime: string
         updateTime: string
-        providerPayload: string
+        providerResponse: string
         environment: ValidatedPurchaseEnvironment
         seenBefore: boolean
     }

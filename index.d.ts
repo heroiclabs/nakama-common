@@ -2328,6 +2328,7 @@ declare namespace nkruntime {
         matchId: string;
         authoritative: boolean;
         size: number;
+        label: string;
     }
 
     /**

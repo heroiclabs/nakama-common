@@ -4119,6 +4119,17 @@ declare namespace nkruntime {
         friendsDelete(userId: string, username: string, ids: string[], usernames: string[]): FriendList;
 
         /**
+         * Block friends for a user.
+         *
+         * @param userId - User ID.
+         * @param username - Username.
+         * @param ids - The IDs of the users you want to block as friends.
+         * @param usernames - The usernames of the users you want to block as friends.
+         * @throws {TypeError, GoError}
+         */
+        friendsBlock(userId: string, username: string, ids: string[], usernames: string[]): FriendList;
+
+        /**
          * Join a user to a group.
          *
          * @param groupID - Group ID.

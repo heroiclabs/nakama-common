@@ -8,6 +8,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - Add custom metrics publishing functions to Lua and JavaScript runtimes.
 - Add missing "sessionLogout" TypeScript definition.
 - Add "FriendsBlock" function to the runtimes.
+- Add "ChannelMessagesList" function to the runtimes.
 
 ### Changed
 - Fix naming of delete notifications before/after hook registration functions.

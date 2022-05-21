@@ -4290,6 +4290,18 @@ declare namespace nkruntime {
          channelMessageUpdate(channelId: string, messageId: string, content?: {[key: string]: any}, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
 
         /**
+         * List channel messages.
+         *
+         * @param channelId - Channel ID.
+         * @param limit - The number of messages to return per page.
+         * @param forward - Whether to list messages from oldest to newest, or newest to oldest.
+         * @param cursor - Opt. Pagination cursor.
+         * @returns List of channel messages.
+         * @throws {TypeError, GoError}
+         */
+         channelMessagesList(channelId: string, limit?: number, forward?: boolean, cursor?: string): ChannelMessageList
+
+        /**
          * Send channel message.
          *
          * @param sender - The user ID of the sender.

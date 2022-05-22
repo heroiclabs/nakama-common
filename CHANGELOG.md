@@ -3,15 +3,21 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.23.0] - 2022-05-22
 ### Added
 - Add custom metrics publishing functions to Lua and JavaScript runtimes.
 - Add missing "sessionLogout" TypeScript definition.
-- Add "FriendsBlock" function to the runtimes.
-- Add "ChannelMessagesList" function to the runtimes.
+- Add "FriendsBlock" function to the Lua and JavaScript runtimes.
+- Add "ChannelMessagesList" function to the Lua and JavaScript runtimes.
+- New "countMultiple" parameter in the "MatchmakerAdd" TypeScript definition.
 
 ### Changed
-- Fix naming of delete notifications before/after hook registration functions.
+- Update naming of delete notifications before/after hook registration functions.
+- Allow storage writes to accept "undefined" as a user ID input in the TypeScript definitions.
+
+### Fixed
+- Rename field in "ValidatedPurchase" to "providerResponse" to match what the server returns.
+- Add missing "label" field to "Match" TypeScript definition.
 
 ## [1.22.0] - 2022-03-21
 ### Added

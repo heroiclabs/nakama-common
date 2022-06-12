@@ -155,15 +155,15 @@ const (
 )
 
 var (
-	ErrStorageRejectedVersion    = errors.New("Storage write rejected - version check failed.")
-	ErrStorageRejectedPermission = errors.New("Storage write rejected - permission denied.")
+	ErrStorageRejectedVersion    = errors.New("storage write rejected - version check failed")
+	ErrStorageRejectedPermission = errors.New("storage write rejected - permission denied")
 
 	ErrChannelIDInvalid     = errors.New("invalid channel id")
 	ErrChannelCursorInvalid = errors.New("invalid channel cursor")
 	ErrChannelGroupNotFound = errors.New("group not found")
 
-	ErrInvalidChannelTarget = errors.New("Invalid channel target")
-	ErrInvalidChannelType   = errors.New("Invalid channel type")
+	ErrInvalidChannelTarget = errors.New("invalid channel target")
+	ErrInvalidChannelType   = errors.New("invalid channel type")
 
 	ErrFriendInvalidCursor = errors.New("friend cursor invalid")
 

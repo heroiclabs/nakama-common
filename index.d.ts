@@ -3929,7 +3929,7 @@ declare namespace nkruntime {
          * @returns The leaderboard records according to ID.
          * @throws {TypeError, GoError}
          */
-        leaderboardRecordsHaystack(leaderboardId: string, ownerId: string, limit: number, overrideExpiry: number): LeaderboardRecordList[];
+        leaderboardRecordsHaystack(leaderboardId: string, ownerId: string, limit: number, overrideExpiry: number): LeaderboardRecordList;
 
         /**
          * Create a new tournament.

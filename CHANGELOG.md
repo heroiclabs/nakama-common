@@ -8,7 +8,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - Add subscription validation APIs and runtime functions for Google and Apple.
 
 ### Changed
-- Added next and previous cursor to results of the LeaderboardRecordsAroundOwner API and LeaderboardRecordsHaystack runtime functions.
+- Added next and previous cursor to results of the Leaderboard/TournamentRecordsAroundOwner API and Leaderboard/TournamentRecordsHaystack runtime functions.
 
 ## [1.23.0] - 2022-05-22
 ### Added

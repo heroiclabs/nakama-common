@@ -3209,7 +3209,7 @@ declare namespace nkruntime {
          * @returns Object with authenticated user data.
          * @throws {TypeError, GoError}
          */
-        authenticateGamecenter(
+        authenticateGameCenter(
             playerId: string,
             bundleId: string,
             ts: number,

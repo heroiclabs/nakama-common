@@ -3925,11 +3925,12 @@ declare namespace nkruntime {
          * @param leaderboardId - The unique identifier for the leaderboard.
          * @param ownerId - The owner of the score to list records around. Mandatory field.
          * @param limit - Return only the required number of leaderboard records denoted by this limit value.
+         * @param cursor - Page cursor.
          * @param overrideExpiry - Records with expiry in the past are not returned unless within this defined limit. Must be equal or greater than 0.
          * @returns The leaderboard records according to ID.
          * @throws {TypeError, GoError}
          */
-        leaderboardRecordsHaystack(leaderboardId: string, ownerId: string, limit: number, overrideExpiry: number): LeaderboardRecordList;
+        leaderboardRecordsHaystack(leaderboardId: string, ownerId: string, limit: number, cursor: string, overrideExpiry: number): LeaderboardRecordList;
 
         /**
          * Create a new tournament.
@@ -4056,11 +4057,12 @@ declare namespace nkruntime {
          * @param id - The unique identifier for the leaderboard to submit to. Mandatory field.
          * @param ownerId - The owner of this score submission. Mandatory field.
          * @param limit - Opt. The owner username of this score submission, if it's a user.
+         * @param cursor - Page cursor.
          * @param expiry - Opt. Expiry Unix epoch.
          * @returns The tournament data for the given ids.
          * @throws {TypeError, GoError}
          */
-        tournamentRecordsHaystack(id: string, ownerId: string, limit?: number, expiry?: number): Tournament[];
+        tournamentRecordsHaystack(id: string, ownerId: string, limit?: number, cursor: string, expiry?: number): TournamentRecordList;
 
         /**
          * Create a new group.

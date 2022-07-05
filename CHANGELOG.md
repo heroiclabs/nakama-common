@@ -7,6 +7,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Added
 - Add subscription validation APIs and runtime functions for Google and Apple.
 
+### Changed
+- Added next and previous cursor to results of the Leaderboard/TournamentRecordsAroundOwner API and Leaderboard/TournamentRecordsHaystack runtime functions.
+
 ## [1.23.0] - 2022-05-22
 ### Added
 - Add custom metrics publishing functions to Lua and JavaScript runtimes.
@@ -17,7 +20,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ### Changed
 - Update naming of delete notifications before/after hook registration functions.
-- Allow storage writes to accept "undefined" as a user ID input in the TypeScript definitions.
+- Allow storage writes to accept "undefined" as a user ID input in the TypeScript definitions. 
 
 ### Fixed
 - Rename field in "ValidatedPurchase" to "providerResponse" to match what the server returns.

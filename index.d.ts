@@ -14,6 +14,9 @@
 
 declare namespace nkruntime {
 
+    // System User
+    const SystemUserId = "00000000-0000-0000-0000-000000000000";
+
     /**
      * The context of the current execution; used to observe and pass on cancellation signals.
      */

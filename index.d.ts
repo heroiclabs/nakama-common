@@ -713,7 +713,7 @@ declare namespace nkruntime {
     export interface Friend {
         user?: User
         state?: number
-        update_time?: number
+        updateTime?: number
     }
 
     export interface FriendList {

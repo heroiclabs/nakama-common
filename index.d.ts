@@ -412,8 +412,8 @@ declare namespace nkruntime {
         senderId?: string
         username?: string
         content?: string
-        createTime?: string
-        updateTime?: string
+        createTime?: number
+        updateTime?: number
         persistent?: boolean
         roomName?: string
         groupId?: string
@@ -700,7 +700,7 @@ declare namespace nkruntime {
     export interface Session {
         created?: boolean
         token?: string
-        refresh_token?: string
+        refreshToken?: string
     }
 
     export interface ChannelMessageList {
@@ -713,7 +713,7 @@ declare namespace nkruntime {
     export interface Friend {
         user?: User
         state?: number
-        updateTime?: string
+        update_time?: number
     }
 
     export interface FriendList {
@@ -2805,9 +2805,9 @@ declare namespace nkruntime {
         productId: string
         transactionId: string
         store: ValidatedPurchaseStore
-        purchaseTime: string
-        createTime: string
-        updateTime: string
+        purchaseTime: number
+        createTime: number
+        updateTime: number
         providerResponse: string
         environment: ValidatedPurchaseEnvironment
         seenBefore: boolean
@@ -2817,9 +2817,9 @@ declare namespace nkruntime {
         productId: string
         originalTransactionId: string
         store: ValidatedPurchaseStore
-        purchaseTime: string
-        createTime: string
-        updateTime: string
+        purchaseTime: number
+        createTime: number
+        updateTime: number
         environment: ValidatedPurchaseEnvironment
         expiryTime: string
         active: boolean

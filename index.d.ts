@@ -2377,6 +2377,11 @@ declare namespace nkruntime {
         userId: string;
     }
 
+    export interface NotificationDeleteRequest {
+        notificationId: string;
+        userId: string;
+    }
+
     export interface NotificationRequest {
         code: number;
         content: {[key: string]: any};
@@ -3739,6 +3744,14 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         notificationSendAll(subject: string, content: {[key: string]: any}, code: number, persistent?: boolean): void;
+
+        /**
+         * Delete multiple notifications.
+         *
+         * @param notifications - Array of notifications to delete.
+         * @throws {TypeError, GoError}
+         */
+        notificationsSend(notifications: NotificationDeleteRequest[]): void;
 
         /**
          * Update user wallet.

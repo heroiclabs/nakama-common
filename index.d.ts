@@ -3751,7 +3751,7 @@ declare namespace nkruntime {
          * @param notifications - Array of notifications to delete.
          * @throws {TypeError, GoError}
          */
-        notificationsSend(notifications: NotificationDeleteRequest[]): void;
+        notificationsDelete(notifications: NotificationDeleteRequest[]): void;
 
         /**
          * Update user wallet.

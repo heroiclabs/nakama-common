@@ -2977,7 +2977,7 @@ declare namespace nkruntime {
          *
          * @throws {TypeError}
          */
-        base64Encode(s: string, padding?: boolean): string;
+        base64Encode(s: string | ArrayBuffer, padding?: boolean): string;
 
         /**
          * Base 64 Decode
@@ -3111,7 +3111,7 @@ declare namespace nkruntime {
          * @returns HMAC SHA256.
          * @throws {TypeError, GoError}
          */
-        hmacSha256Hash(input: string, key: string): string;
+        hmacSha256Hash(input: string, key: string): ArrayBuffer;
 
         /**
          * BCrypt hash of a password

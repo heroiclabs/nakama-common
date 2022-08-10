@@ -4078,7 +4078,7 @@ declare namespace nkruntime {
          * @returns The tournament data for the given ids.
          * @throws {TypeError, GoError}
          */
-        tournamentRecordsHaystack(id: string, ownerId: string, limit?: number, cursor: string, expiry?: number): TournamentRecordList;
+        tournamentRecordsHaystack(id: string, ownerId: string, limit?: number, cursor?: string, expiry?: number): TournamentRecordList;
 
         /**
          * Create a new group.

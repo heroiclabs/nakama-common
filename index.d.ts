@@ -3298,9 +3298,10 @@ declare namespace nkruntime {
          * Delete user account
          *
          * @param userId - Target account.
+         * @param recorded - Opt. Whether to record this deletion in the database. Defaults to false.
          * @throws {TypeError, GoError}
          */
-        accountDeleteId(userId: string): void;
+        accountDeleteId(userId: string, recorded?: boolean): void;
 
         /**
          * Export user account data to JSON encoded string

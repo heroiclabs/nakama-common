@@ -3,12 +3,21 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.24.0] - 2022-08-18
 ### Added
-- Add subscription validation APIs and runtime functions for Google and Apple.
+- New subscription validation functions for Apple and Google in the runtimes.
+- Add "NotificationsDelete" function to the runtimes.
+- Add const field for easier access to system user ID in TypeScript definition.
 
 ### Changed
-- Added next and previous cursor to results of the Leaderboard/TournamentRecordsAroundOwner API and Leaderboard/TournamentRecordsHaystack runtime functions.
+- Return a cursor with "leaderboardRecordsHaystack" function.
+- Use ArrayBuffer type instead of Uint8Array in JavaScript runtime. Thanks @formatCvt.
+- Expose optional "recorded" param to "accountDeleteId" in TypeScript definition.
+
+### Fixed
+- Fix function signature of "leaderboardRecordsHaystack" in TypeScript definition.
+- Fix signature of "authenticateGameCenter" in TypeScript definition.
+- Update field name used in Friend type in TypeScript definition.
 
 ## [1.23.0] - 2022-05-22
 ### Added

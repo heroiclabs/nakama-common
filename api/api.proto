@@ -642,6 +642,8 @@ message ListChannelMessagesRequest {
   google.protobuf.BoolValue forward = 3;
   // A pagination cursor, if any.
   string cursor = 4;
+  // Time which around to list messages in seconds (since epoch), if any. Used only if no cursor is provided.
+  google.protobuf.Int64Value instant = 5;
 }
 
 // List friends for a user.

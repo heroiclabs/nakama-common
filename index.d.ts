@@ -4431,11 +4431,11 @@ declare namespace nkruntime {
          * @param limit - The number of messages to return per page.
          * @param forward - Whether to list messages from oldest to newest, or newest to oldest.
          * @param cursor - Opt. Pagination cursor.
-         * @param time - Opt. Time which around to list messages.
+         * @param instant - Opt. Time which around to list messages.
          * @returns List of channel messages.
          * @throws {TypeError, GoError}
          */
-         channelMessagesList(channelId: string, limit?: number, forward?: boolean, cursor?: string, time?: number): ChannelMessageList
+         channelMessagesList(channelId: string, limit?: number, forward?: boolean, cursor?: string, instant?: number): ChannelMessageList
 
         /**
          * Send channel message.

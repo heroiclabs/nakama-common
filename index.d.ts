@@ -2986,10 +2986,10 @@ declare namespace nkruntime {
          * Base 64 Decode
          *
          * @param string - Input to decode.
-         * @returns Decoded string.
+         * @returns Decoded data as an ArrayBuffer.
          * @throws {TypeError, GoError}
          */
-        base64Decode(s: string, padding?: boolean): string;
+        base64Decode(s: string, padding?: boolean): ArrayBuffer;
 
         /**
          * Base 64 URL Encode
@@ -2998,16 +2998,16 @@ declare namespace nkruntime {
          * @returns URL safe base 64 encoded string.
          * @throws {TypeError}
          */
-        base64UrlEncode(s: string, padding?: boolean): string;
+        base64UrlEncode(s: string | ArrayBuffer, padding?: boolean): string;
 
         /**
          * Base 64 URL Decode
          *
          * @param string - Input to decode.
-         * @returns Decoded string.
+         * @returns Decoded data as an ArrayBuffer.
          * @throws {TypeError, GoError}
          */
-        base64UrlDecode(s: string, padding?: boolean): string;
+        base64UrlDecode(s: string, padding?: boolean): ArrayBuffer;
 
         /**
          * Base 16 Encode

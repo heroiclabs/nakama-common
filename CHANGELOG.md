@@ -4,7 +4,13 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
-
+### Changed
+- JavaScript runtime Base64 encode accepts string or ArrayBuffer input.
+- JavaScript runtime Base64 URL encode accepts string or ArrayBuffer input.
+- JavaScript runtime Base16 encode accepts string or ArrayBuffer input.
+- JavaScript runtime Base64 decode returns ArrayBuffer output.
+- JavaScript runtime Base64 URL decode returns ArrayBuffer output.
+- JavaScript runtime Base16 decode returns ArrayBuffer output.
 
 ## [1.24.0] - 2022-08-18
 ### Added

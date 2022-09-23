@@ -3013,19 +3013,19 @@ declare namespace nkruntime {
          * Base 16 Encode
          *
          * @param string - Input to encode.
-         * @returns URL safe base 64 encoded string.
+         * @returns Base 16 encoded string.
          * @throws {TypeError}
          */
-        base16Encode(s: string, padding?: boolean): string;
+        base16Encode(s: string | ArrayBuffer, padding?: boolean): string;
 
         /**
          * Base 16 Decode
          *
          * @param string - Input to decode.
-         * @returns Decoded string.
+         * @returns Decoded data as an ArrayBuffer.
          * @throws {TypeError, GoError}
          */
-        base16Decode(s: string, padding?: boolean): string;
+        base16Decode(s: string, padding?: boolean): ArrayBuffer;
 
         /**
          * Generate a JWT token
@@ -3036,7 +3036,7 @@ declare namespace nkruntime {
          * @returns signed JWT token.
          * @throws {TypeError, GoError}
          */
-        jwtGenerate(s: 'HS256' | 'RS256', signingKey: string, claims: {[key: string]: string | number | boolean}): string;
+        jwtGenerate(algorithm: 'HS256' | 'RS256', signingKey: string, claims: {[key: string]: string | number | boolean}): string;
 
         /**
          * AES 128 bit block size encrypt

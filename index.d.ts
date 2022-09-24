@@ -287,7 +287,7 @@ declare namespace nkruntime {
         opCode: number;
         data: ArrayBuffer;
         reliable: boolean;
-        receiveTime: number;
+        receiveTimeMs: number;
     }
 
     /**

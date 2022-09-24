@@ -11,6 +11,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - JavaScript runtime Base64 decode returns ArrayBuffer output.
 - JavaScript runtime Base64 URL decode returns ArrayBuffer output.
 - JavaScript runtime Base16 decode returns ArrayBuffer output.
+- Fix field name used in MatchMessage type in TypeScript definition.
 
 ## [1.24.0] - 2022-08-18
 ### Added

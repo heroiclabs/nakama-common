@@ -13,6 +13,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - JavaScript runtime Base16 decode returns ArrayBuffer output.
 - Fix field name used in MatchMessage type in TypeScript definition.
 
+## Fixed
+- Add user id to JS runtime wallet operations returned results.
+
 ## [1.24.0] - 2022-08-18
 ### Added
 - New subscription validation functions for Apple and Google in the runtimes.
@@ -39,7 +42,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ### Changed
 - Update naming of delete notifications before/after hook registration functions.
-- Allow storage writes to accept "undefined" as a user ID input in the TypeScript definitions. 
+- Allow storage writes to accept "undefined" as a user ID input in the TypeScript definitions.
 
 ### Fixed
 - Rename field in "ValidatedPurchase" to "providerResponse" to match what the server returns.

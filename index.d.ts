@@ -2412,6 +2412,8 @@ declare namespace nkruntime {
      * Wallet Update Result
      */
     export interface WalletUpdateResult {
+        // The user ID of the wallet.
+        userId: string;
         // The wallet values after the update.
         updated: {[key: string]: number};
         // The wallet value prior to the update.

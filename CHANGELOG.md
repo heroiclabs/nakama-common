@@ -4,6 +4,9 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Added
+- Add new GroupsGetRandom function to the runtimes.
+
 ### Changed
 - JavaScript runtime Base64 encode accepts string or ArrayBuffer input.
 - JavaScript runtime Base64 URL encode accepts string or ArrayBuffer input.

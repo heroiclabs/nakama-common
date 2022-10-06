@@ -4164,6 +4164,14 @@ declare namespace nkruntime {
         groupsList(name?: string, langTag?: string, open?: boolean, members?: number, limit?: number, cursor?: string): GroupList;
 
         /**
+         * Get group data for a given number of random groups.
+         *
+         * @param count - Number of groups to retrieve.
+         * @throws {TypeError, GoError}
+         */
+         groupsGetRandom(count: number): Group[]
+
+        /**
          * List all groups the user belongs to.
          *
          * @param userId - User ID.

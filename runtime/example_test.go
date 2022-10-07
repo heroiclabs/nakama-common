@@ -77,10 +77,10 @@ func ExampleInitializer_registerAfterRt() {
 	// this is received from the InitModule function invocation
 	var initializer Initializer
 
-	err := initializer.RegisterAfterRt("StatusFollow", func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, envelope *rtapi.Envelope) error {
+	err := initializer.RegisterAfterRt("StatusFollow", func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out, in *rtapi.Envelope) error {
 		// This is the user that has sent the status follow messages.
 		userID := ctx.Value(RUNTIME_CTX_USER_ID).(string)
-		statusFollowMessage := envelope.GetStatusFollow()
+		statusFollowMessage := out.GetStatusFollow()
 
 		// A user can follow multiple people at once, so lets buffer up a notification list.
 		notifications := make([]*NotificationSend, 0, len(statusFollowMessage.UserIds))

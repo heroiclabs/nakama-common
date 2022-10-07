@@ -4116,7 +4116,7 @@ declare namespace nkruntime {
          * @param limit - Maximum number of members to have in the group. Use null if field is not being updated.
          * @throws {TypeError, GoError}
          */
-        groupUpdate(groupId: string, userId: string, name?: string | null, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): void;
+        groupUpdate(groupId: string, userId: string | null, name?: string | null, creatorID?: string | null, lang?: string | null, description?: string | null, avatarURL?: string | null, open?: boolean | null, metadata?: {[key: string]: any} | null, limit?: number | null): void;
 
         /**
          * Delete a group.

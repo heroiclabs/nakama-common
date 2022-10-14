@@ -3,9 +3,11 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.25.0] - 2022-10-14
 ### Added
-- Add new GroupsGetRandom function to the runtimes.
+- New GroupsGetRandom function added to the runtimes.
+- New NotificationsDelete function added to the runtimes.
+- The server version is now visible to server framework code within the context object.
 
 ### Changed
 - JavaScript runtime Base64 encode accepts string or ArrayBuffer input.
@@ -14,10 +16,12 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - JavaScript runtime Base64 decode returns ArrayBuffer output.
 - JavaScript runtime Base64 URL decode returns ArrayBuffer output.
 - JavaScript runtime Base16 decode returns ArrayBuffer output.
-- Fix field name used in MatchMessage type in TypeScript definition.
+- The groupUpdate function argument for a user ID is now optional in the type definition.
+- Update to Protobuf v1.28.1 dependency.
 
-## Fixed
-- Add user id to JS runtime wallet operations returned results.
+### Fixed
+- Add user ID to JS runtime wallet operations returned results.
+- Type definition for field name used in MatchMessage type is correct in TypeScript.
 
 ## [1.24.0] - 2022-08-18
 ### Added

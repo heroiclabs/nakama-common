@@ -796,7 +796,7 @@ declare namespace nkruntime {
     /**
      * Realtime hook messages
      */
-    export type RtHookMessage = 'ChannelJoin' | 'ChannelLeave' | 'ChannelMessageSend' | 'ChannelMessageUpdate' | 'ChannelMessageRemove' | 'MatchCreate' | 'MatchDataSend' | 'MatchJoin' | 'MatchLeave' | 'MatchmakerAdd' | 'MatchmakerRemove' | 'StatusFollow' | 'StatusUnfollow' | 'StatusUpdate' | 'Ping' | 'Pong'
+    export type RtHookMessage = 'ChannelJoin' | 'ChannelLeave' | 'ChannelMessageSend' | 'ChannelMessageUpdate' | 'ChannelMessageRemove' | 'MatchCreate' | 'MatchDataSend' | 'MatchJoin' | 'MatchLeave' | 'MatchmakerAdd' | 'MatchmakerRemove' | 'PartyCreate' | 'PartyJoin' | 'PartyLeave' | 'PartyLeave' | 'PartyPromote' | 'PartyLeader' | 'PartyAccept' | 'PartyRemove' | 'PartyClose' | 'PartyJoinRequestList' | 'PartyJoinRequest' | 'PartyMatchmakerAdd' | 'PartyMatchmakerRemove' | 'PartyMatchmakerTicket' | 'PartyData' | 'PartyDataSend' | 'PartyPresenceEvent' | 'StatusFollow' | 'StatusUnfollow' | 'StatusUpdate' | 'Ping' | 'Pong'
 
     /**
      * Match handler definitions
@@ -2608,7 +2608,7 @@ declare namespace nkruntime {
     /**
      * Envelope for realtime message hooks
      */
-    type Envelope = EnvelopeChannel | EnvelopeChannelJoin | EnvelopeChannelLeave | EnvelopeChannelMessageSend | EnvelopeChannelMessageUpdate | EnvelopeChannelMessageRemove | EnvelopeMatchCreateMessage | EnvelopeMatchDataSend | EnvelopeMatchJoin | EnvelopeMatchLeave | EnvelopeMatchmakerAdd | EnvelopeMatchmakerRemove | EnvelopeStatusFollow | EnvelopeStatusUnfollow | EnvelopeStatusUpdate | EnvelopePing | EnvelopePong
+    type Envelope = EnvelopeChannel | EnvelopeChannelJoin | EnvelopeChannelLeave | EnvelopeChannelMessageSend | EnvelopeChannelMessageUpdate | EnvelopeChannelMessageRemove | EnvelopeMatchCreateMessage | EnvelopeMatchDataSend | EnvelopeMatchJoin | EnvelopeMatchLeave | EnvelopeMatchmakerAdd | EnvelopeMatchmakerRemove | EnvelopePartyCreate | EnvelopePartyJoin | EnvelopePartyLeave | EnvelopePartyPromote | EnvelopePartyLeader | EnvelopePartyAccept | EnvelopePartyRemove | EnvelopePartyClose | EnvelopePartyJoinRequestList | EnvelopePartyJoinRequest | EnvelopePartyMatchmakerAdd | EnvelopePartyMatchmakerRemove | EnvelopePartyMatchmakerTicket | EnvelopePartyData | EnvelopePartyDataSend | EnvelopePartyPresenceEvent | EnvelopeStatusFollow | EnvelopeStatusUnfollow | EnvelopeStatusUpdate | EnvelopePing | EnvelopePong
 
     export interface Channel {
         id?: string,
@@ -2723,6 +2723,155 @@ declare namespace nkruntime {
 
     export interface EnvelopeMatchmakerRemove {
         matchmakerRemove: MatchmakerRemoveMessage
+    }
+
+    export interface PartyCreateMessage {
+        open: boolean
+        maxSize: number
+    }
+
+    export interface EnvelopePartyCreate {
+        partyCreate: PartyCreateMessage
+    }
+
+    export interface PartyJoinMessage {
+        partyId: string
+    }
+
+    export interface EnvelopePartyJoin {
+        partyJoin: PartyJoinMessage
+    }
+
+    export interface PartyLeaveMessage {
+        partyId: string
+    }
+
+    export interface EnvelopePartyLeave {
+        partyLeave: PartyLeaveMessage
+    }
+
+    export interface PartyPromoteMessage {
+        partyId: string
+        presence: Presence
+    }
+
+    export interface EnvelopePartyPromote {
+        partyPromote: PartyPromoteMessage
+    }
+
+    export interface PartyLeaderMessage {
+        partyId: string
+        presence: Presence
+    }
+
+    export interface EnvelopePartyLeader {
+        partyLeader: PartyLeaderMessage
+    }
+
+    export interface PartyAcceptMessage {
+        partyId: string
+        presence: Presence
+    }
+
+    export interface EnvelopePartyAccept {
+        partyAccept: PartyAcceptMessage
+    }
+
+    export interface PartyRemoveMessage {
+        partyId: string
+        presence: Presence
+    }
+
+    export interface EnvelopePartyRemove {
+        partyRemove: PartyRemoveMessage
+    }
+
+    export interface PartyCloseMessage {
+        partyId: string
+    }
+
+    export interface EnvelopePartyClose {
+        partyClose: PartyCloseMessage
+    }
+
+    export interface PartyJoinRequestListMessage {
+        partyId: string
+    }
+
+    export interface EnvelopePartyJoinRequestList {
+        partyJoinRequestList: PartyJoinRequestListMessage
+    }
+
+    export interface PartyJoinRequestMessage {
+        partyId: string
+        presences?: Presence[]
+    }
+
+    export interface EnvelopePartyJoinRequest {
+        partyJoinRequest: PartyJoinRequestMessage
+    }
+
+    export interface PartyMatchmakerAddMessage {
+        partyId: string
+        minCount: number
+        maxCount: number
+        query: string
+        stringProperties: {[key: string]: string}
+        numericProperties: {[key: string]: number}
+        countMultiple: number
+    }
+
+    export interface EnvelopePartyMatchmakerAdd {
+        partyMatchmakerAdd: PartyMatchmakerAddMessage
+    }
+
+    export interface PartyMatchmakerRemoveMessage {
+        partyId: string
+        ticket: string
+    }
+
+    export interface EnvelopePartyMatchmakerRemove {
+        partyMatchmakerRemove: PartyMatchmakerRemoveMessage
+    }
+
+    export interface PartyMatchmakerTicketMessage {
+        partyId: string
+        ticket: string
+    }
+
+    export interface EnvelopePartyMatchmakerTicket {
+        partyMatchmakerTicket: PartyMatchmakerTicketMessage
+    }
+
+    export interface PartyDataMessage {
+        partyId: string
+        presence: Presence
+        opCode: number
+        data?: string
+    }
+
+    export interface EnvelopePartyData {
+        partyData: PartyDataMessage
+    }
+
+    export interface PartyDataSendMessage {
+        partyId: string
+        opCode: number
+        data?: string
+    }
+
+    export interface EnvelopePartyDataSend {
+        partyDataSend: PartyDataSendMessage
+    }
+
+    export interface PartyPresenceEventMessage {
+        partyId: string
+        joins?: Presence[]
+        leaves?: Presence[]
+    }
+
+    export interface EnvelopePartyPresenceEvent {
+        partyPresenceEvent: PartyPresenceEventMessage
     }
 
     export interface StatusFollowMessage {

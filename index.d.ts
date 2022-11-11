@@ -2506,7 +2506,7 @@ declare namespace nkruntime {
         description: string;
         category: number;
         authoritative: boolean;
-        sortOrder: SortOrder;
+        sortOrder: number;
         operator: Operator;
         prevReset: number;
         nextReset: number;
@@ -2539,7 +2539,7 @@ declare namespace nkruntime {
         title: string;
         description: string;
         category: number;
-        sortOrder: SortOrder;
+        sortOrder: number;
         size: number;
         maxSize: number;
         maxNumScore: number;
@@ -3257,12 +3257,13 @@ declare namespace nkruntime {
          * Generate authentication token.
          *
          * @param userId - User ID.
-         * @param exp - Token expiration, Unix epoch.
-         * @param vars - Arbitrary metadata.
+         * @param username - Opt. Username. If not provided one will be automatically generated.
+         * @param exp - Opt. Token expiration, Unix epoch.
+         * @param vars - Opt. Arbitrary metadata.
          * @returns Object with authenticated user data.
          * @throws {TypeError, GoError}
          */
-        authenticateTokenGenerate(userId: string, exp: number, vars: {[key: string]: string}): TokenGenerateResult;
+        authenticateTokenGenerate(userId: string, username?: string, exp?: number, vars?: {[key: string]: string}): TokenGenerateResult;
 
         /**
          * Get account data by id.
@@ -3552,8 +3553,8 @@ declare namespace nkruntime {
          * List stream presences.
          *
          * @param stream - Stream object.
-         * @param includeHidden - Optional argument to include hidden presences in the list or not, default true.
-         * @param includeNotHidden - Optional argument to include not hidden presences in the list or not, default true.
+         * @param includeHidden - Opt. Include hidden presences in the list or not, default true.
+         * @param includeNotHidden - Opt. Include not hidden presences in the list or not, default true.
          * @returns List of presence objects.
          * @throws {TypeError}
          */

@@ -2588,21 +2588,21 @@ declare namespace nkruntime {
     }
 
     const enum SortOrder {
-        ASCENDING = 'asc',
-        DESCENDING = 'desc',
+        ASCENDING = 'ascending',
+        DESCENDING = 'descending',
     }
 
     const enum Operator {
         BEST = 'best',
         SET = 'set',
-        INCREMENTAL = 'incr',
+        INCREMENTAL = 'increment',
     }
 
     const enum OverrideOperator {
         BEST = 'best',
         SET = 'set',
-        INCREMENTAL = 'incr',
-        DECREMENTAL = 'decr',
+        INCREMENTAL = 'increment',
+        DECREMENTAL = 'decrement',
     }
 
     /**

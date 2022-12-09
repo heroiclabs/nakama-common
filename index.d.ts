@@ -2222,7 +2222,7 @@ declare namespace nkruntime {
     /**
      * Request method type
      */
-    type RequestMethod = "get" | "post" | "put" | "patch" | "head"
+    type RequestMethod = "get" | "post" | "put" | "patch" | "head" | "delete"
 
     /**
      * HTTP Response type

@@ -22,8 +22,12 @@
 // 	protoc        v3.21.7
 =======
 // 	protoc-gen-go v1.28.1
+<<<<<<< HEAD
 // 	protoc        v3.21.9
 >>>>>>> 0c508fe (Add subscription raw response/notification)
+=======
+// 	protoc        v3.21.11
+>>>>>>> c478a74 (Add IAP notification callback functions.)
 // source: realtime.proto
 
 package rtapi

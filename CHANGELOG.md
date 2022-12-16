@@ -5,7 +5,8 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 ### Added
-- Added party hook messages to JavaScript runtime.
+- Add party hook messages to JavaScript runtime.
+- Add In-App Purchase notification callback functions to runtimes.
 
 ## [1.25.0] - 2022-10-14
 ### Added

@@ -232,6 +232,70 @@ declare namespace nkruntime {
     }
 
     /**
+     * Purchase Notification Apple function definition.
+     */
+    export interface PurchaseNotificationAppleFunction {
+        /**
+         * A Purchase Notification Apple register hook function definition.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param purchase - The notification purchase.
+         * @param providerPayload - The raw payload of the provider notificaton.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, purchase: ValidatedPurchase, providerPayload: string): void;
+    }
+
+    /**
+     * Subscription Notification Apple function definition.
+     */
+       export interface SubscriptionNotificationAppleFunction {
+        /**
+         * A Subscription Notification Apple register hook function definition.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param subscription - The notification subscription.
+         * @param providerPayload - The raw payload of the provider notificaton.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, subscription: ValidatedSubscription, providerPayload: string): void;
+    }
+
+    /**
+     * Purchase Notification Google function definition.
+     */
+    export interface PurchaseNotificationGoogleFunction {
+        /**
+         * A Purchase Notification Google register hook function definition.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param purchase - The notification purchase.
+         * @param providerPayload - The raw payload of the provider notificaton.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, purchase: ValidatedPurchase, providerPayload: string): void;
+    }
+
+    /**
+     * Subscription Notification Google function definition.
+     */
+       export interface SubscriptionNotificationGoogleFunction {
+        /**
+         * A Subscription Notification Google register hook function definition.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param subscription - The notification subscription.
+         * @param providerPayload - The raw payload of the provider notificaton.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, subscription: ValidatedSubscription, providerPayload: string): void;
+    }
+
+    /**
      * Match Dispatcher API definition.
      */
     export interface MatchDispatcher {
@@ -2152,6 +2216,34 @@ declare namespace nkruntime {
          * @param fn - The function to execute after a leaderboard resets.
          */
         registerLeaderboardReset(fn: LeaderboardResetFunction): void;
+
+        /**
+         * Register purchase notification Apple handler.
+         *
+         * @param fn - The function to execute after an Apple IAP Notification is received.
+         */
+        registerPurchaseNotificationApple(fn: PurchaseNotificationAppleFunction): void;
+
+        /**
+         * Register purchase notification Apple handler.
+         *
+         * @param fn - The function to execute after an Apple IAP Notification is received.
+         */
+        registerSubscriptionNotificationApple(fn: SubscriptionNotificationAppleFunction): void;
+
+        /**
+         * Register purchase notification Google handler.
+         *
+         * @param fn - The function to execute after a Google IAP Notification is received.
+         */
+        registerPurchaseNotificationGoogle(fn: PurchaseNotificationGoogleFunction): void;
+
+        /**
+         * Register purchase notification Google handler.
+         *
+         * @param fn - The function to execute after a Google IAP Notification is received.
+         */
+        registerSubscriptionNotificationGoogle(fn: SubscriptionNotificationGoogleFunction): void;
     }
 
     /**

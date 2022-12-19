@@ -1060,6 +1060,22 @@ declare namespace nkruntime {
         registerAfterUpdateAccount(fn: AfterHookFunction<void, UserUpdateAccount>): void;
 
         /**
+         * Register before Hook for RPC deleteAccount function.
+         *
+         * @param fn - The function to execute before updateAccount.
+         * @throws {TypeError}
+         */
+        registerBeforeDeleteAccount(fn: BeforeHookFunction<void>): void;
+
+        /**
+         * Register after Hook for RPC deleteAccount function.
+         *
+         * @param fn - The function to execute after updateAccount.
+         * @throws {TypeError}
+         */
+        registerAfterDeleteAccount(fn: AfterHookFunction<void, void>): void;
+
+        /**
          * Register before Hook for RPC authenticateApple function.
          *
          * @param fn - The function to execute before authenticateApple.

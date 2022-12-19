@@ -7,6 +7,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Added
 - Add party hook messages to JavaScript runtime.
 - Add In-App Purchase notification callback functions to runtimes.
+- Add `DeleteAccount` before and after hook functions to runtimes.
 
 ## [1.25.0] - 2022-10-14
 ### Added

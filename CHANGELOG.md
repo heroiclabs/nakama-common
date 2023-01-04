@@ -3,16 +3,24 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.26.0] - 2023-01-04
 ### Added
 - Add party hook messages to JavaScript runtime.
-- Add In-App Purchase notification callback functions to runtimes.
-- Add `DeleteAccount` before and after hook functions to runtimes.
+- Add In-App Purchase notification callback functions to the server runtimes.
+- Add "DeleteAccount" before and after hook functions to the server runtimes.
+
+## Changed
+- Accept the leaderboard operator types in their expanded string name.
+
+## Fixed
+- Update Type definition for "authenticateTokenGenerate" to support the optional params allowed by the server.
+- Make public the "ChannelMessageRemove" function to the server Go runtime.
+- Allow DELETE method to be used in HTTP requests.
 
 ## [1.25.0] - 2022-10-14
 ### Added
-- New GroupsGetRandom function added to the runtimes.
-- New NotificationsDelete function added to the runtimes.
+- New "GroupsGetRandom" function added to the runtimes.
+- New "NotificationsDelete" function added to the runtimes.
 - The server version is now visible to server framework code within the context object.
 
 ### Changed

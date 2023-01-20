@@ -572,6 +572,12 @@ type Initializer interface {
 	// RegisterAfterDeleteLeaderboardRecord can be used to perform additional logic after deleting record from a leaderboard.
 	RegisterAfterDeleteLeaderboardRecord(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.DeleteLeaderboardRecordRequest) error) error
 
+	// RegisterBeforeDeleteTournamentRecord can be used to perform additional logic before deleting record from a leaderboard.
+	RegisterBeforeDeleteTournamentRecord(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.DeleteTournamentRecordRequest) (*api.DeleteTournamentRecordRequest, error)) error
+
+	// RegisterAfterDeleteTournamentRecord can be used to perform additional logic after deleting record from a leaderboard.
+	RegisterAfterDeleteTournamentRecord(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.DeleteTournamentRecordRequest) error) error
+
 	// RegisterBeforeListLeaderboardRecords can be used to perform additional logic before listing records from a leaderboard.
 	RegisterBeforeListLeaderboardRecords(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ListLeaderboardRecordsRequest) (*api.ListLeaderboardRecordsRequest, error)) error
 
@@ -1091,6 +1097,7 @@ type NakamaModule interface {
 	TournamentList(ctx context.Context, categoryStart, categoryEnd, startTime, endTime, limit int, cursor string) (*api.TournamentList, error)
 	TournamentRecordsList(ctx context.Context, tournamentId string, ownerIDs []string, limit int, cursor string, overrideExpiry int64) (records []*api.LeaderboardRecord, ownerRecords []*api.LeaderboardRecord, prevCursor string, nextCursor string, err error)
 	TournamentRecordWrite(ctx context.Context, id, ownerID, username string, score, subscore int64, metadata map[string]interface{}, operatorOverride *int) (*api.LeaderboardRecord, error)
+	TournamentRecordDelete(ctx context.Context, id, ownerID string) error
 	TournamentRecordsHaystack(ctx context.Context, id, ownerID string, limit int, cursor string, expiry int64) (*api.TournamentRecordList, error)
 
 	GroupsGetId(ctx context.Context, groupIDs []string) ([]*api.Group, error)

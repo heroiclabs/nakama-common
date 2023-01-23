@@ -798,6 +798,7 @@ declare namespace nkruntime {
         Admin = 1,
         Member = 2,
         JoinRequest = 3,
+        Banned = 4,
     }
 
     export interface GroupUser {

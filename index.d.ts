@@ -3022,6 +3022,7 @@ declare namespace nkruntime {
     export type ValidatedPurchaseEnvironment = "UNKNOWN" | "SANDBOX" | "PRODUCTION"
 
     export interface ValidatedPurchase {
+        userId: string
         productId: string
         transactionId: string
         store: ValidatedPurchaseStore
@@ -3034,6 +3035,7 @@ declare namespace nkruntime {
     }
 
     export interface ValidatedSubscription {
+        userId: string
         productId: string
         originalTransactionId: string
         store: ValidatedPurchaseStore

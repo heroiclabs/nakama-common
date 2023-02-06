@@ -4679,6 +4679,32 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
          cronNext(cron: string, timestamp: number): number
+
+        /**
+         * Get local cache data by key.
+         *
+         * @param key - local cache key.
+         * @throws {TypeError, GoError}
+         * @returns local cache object.
+         */
+        localcacheGet(key: string): any;
+
+        /**
+         * Put data to local cache.
+         *
+         * @param key - local cache key.
+         * @param value - local cache value.
+         * @throws {TypeError, GoError}
+         */
+        localcachePut(key: string, value: any): void;
+
+        /**
+         * Delete local cache data by key.
+         *
+         * @param key - local cache key.
+         * @throws {TypeError, GoError}
+         */
+        localcacheDelete(key: string): void;
     }
 
     /**

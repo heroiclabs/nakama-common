@@ -6,6 +6,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Added
 - Add local cache functions to JavaScript runtime.
+- Add tournamentRecordDelete function to runtimes.
 
 ## [1.26.0] - 2023-01-04
 ### Added

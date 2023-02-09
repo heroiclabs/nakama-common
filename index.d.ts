@@ -598,6 +598,10 @@ declare namespace nkruntime {
         leaderboardId?: string
     }
 
+    export interface DeleteTournamentRecordRequest {
+      tournamentId?: string
+    }
+
     export interface ListLeaderboardRecordsRequest {
         leaderboardId?: string
         ownerIds?: string[]
@@ -794,6 +798,7 @@ declare namespace nkruntime {
         Admin = 1,
         Member = 2,
         JoinRequest = 3,
+        Banned = 4,
     }
 
     export interface GroupUser {
@@ -1554,6 +1559,22 @@ declare namespace nkruntime {
          * @throws {TypeError}
          */
         registerAfterDeleteLeaderboardRecord(fn: AfterHookFunction<void, DeleteLeaderboardRecordRequest>): void;
+
+        /**
+         * Register before Hook for RPC DeleteTournamentRecord function.
+         *
+         * @param fn - The function to execute before DeleteTournamentRecord.
+         * @throws {TypeError}
+         */
+        registerBeforeDeleteTournamentRecord(fn: BeforeHookFunction<DeleteTournamentRecordRequest>): void;
+
+        /**
+         * Register after Hook for RPC DeleteTournamentRecord function.
+         *
+         * @param fn - The function to execute after DeleteTournamentRecord.
+         * @throws {TypeError}
+         */
+        registerAfterDeleteTournamentRecord(fn: AfterHookFunction<void, DeleteTournamentRecordRequest>): void;
 
         /**
          * Register before Hook for RPC ListLeaderboardRecords function.
@@ -4137,7 +4158,7 @@ declare namespace nkruntime {
          * Delete a leaderboard record.
          *
          * @param leaderboardID - Leaderboard id.
-         * @param ownerID - Array of leaderboard owners.
+         * @param ownerID - Leaderboard record owner.
          * @throws {TypeError, GoError}
          */
         leaderboardRecordDelete(leaderboardID: string, ownerID: string): void;
@@ -4282,6 +4303,15 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         tournamentRecordWrite(id: string, ownerID: string, username?: string, score?: number, subscore?: number, metadata?: {[key: string]: any}, operator?: OverrideOperator): LeaderboardRecord;
+
+        /**
+         * Delete a tournament record.
+         *
+         * @param tournamentID - Tournament id.
+         * @param ownerID - Tournament record owner.
+         * @throws {TypeError, GoError}
+         */
+        tournamentRecordDelete(tournamentID: string, ownerID: string): void;
 
         /**
          * Fetch the list of tournament records around the owner.

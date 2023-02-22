@@ -3050,6 +3050,7 @@ declare namespace nkruntime {
         purchaseTime: number
         createTime: number
         updateTime: number
+        refundTime: number
         providerResponse: string
         environment: ValidatedPurchaseEnvironment
         seenBefore: boolean
@@ -3063,6 +3064,7 @@ declare namespace nkruntime {
         purchaseTime: number
         createTime: number
         updateTime: number
+        refundTime: number
         environment: ValidatedPurchaseEnvironment
         expiryTime: string
         active: boolean

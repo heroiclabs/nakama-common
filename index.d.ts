@@ -3028,16 +3028,6 @@ declare namespace nkruntime {
         validatedSubscription: ValidatedSubscription
     }
 
-    export interface ValidatedPurchaseOwner {
-        validatedPurchase: ValidatedPurchase
-        userId: string
-    }
-
-    export interface ValidatedSubscriptionOwner {
-      validatedSubscription: ValidatedSubscription
-      userId: string
-    }
-
     export type ValidatedPurchaseStore = "APPLE_APP_STORE" | "GOOGLE_PLAY_STORE" | "HUAWEI_APP_GALLERY"
 
     export type ValidatedPurchaseEnvironment = "UNKNOWN" | "SANDBOX" | "PRODUCTION"
@@ -4591,7 +4581,7 @@ declare namespace nkruntime {
          * @returns The data of the validated and stored purchase.
          * @throws {TypeError, GoError}
          */
-        purchaseGetByTransactionId(transactionID: string): ValidatedPurchaseOwner
+        purchaseGetByTransactionId(transactionID: string): ValidatedPurchase
 
         /**
          * List validated and stored purchases.
@@ -4637,7 +4627,7 @@ declare namespace nkruntime {
          * @returns The data of the validated and stored purchase.
          * @throws {TypeError, GoError}
          */
-        subscriptionGetByProductId(userID: string, productID: string): ValidatedPurchaseOwner
+        subscriptionGetByProductId(userID: string, productID: string): ValidatedSubscription
 
         /**
          * List validated and stored purchases.

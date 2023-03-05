@@ -4727,6 +4727,13 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         localcacheDelete(key: string): void;
+
+        /**
+         * Get Satori object.
+         *
+         * @returns The satori integration interface.
+         */
+        getSatori(): Satori;
     }
 
     /**
@@ -4746,5 +4753,110 @@ declare namespace nkruntime {
          * @param initializer - The injector to initialize features in the game server.
          */
         (ctx: Context, logger: Logger, nk: Nakama, initializer: Initializer): void;
+    }
+
+    export interface Properties {
+        default: {[key: string]: string}
+        custom: {[key: string]: string}
+        computed: {[key: string]: string}
+    }
+
+    export interface PropertiesUpdate {
+        default?: {[key: string]: string}
+        custom?: {[key: string]: string}
+    }
+
+    export interface SatoriEvent {
+        name: string
+        id: string
+        metadata?: {[key: string]: string}
+        value: string
+        timestamp: number
+    }
+
+    export interface Experiment {
+        name: string
+        value: string
+    }
+
+    export interface Flag {
+        name: string
+        value: string
+        conditionChanged: boolean
+    }
+
+    export interface LiveEvent {
+        name: string
+        description: string
+        value: string
+        activeStartTime: number
+        activeEndTime: number
+    }
+
+    /**
+     * The Satori integration functions.
+     */
+    export interface Satori {
+        /**
+         * Create identity.
+         *
+         * @param id - Identity identifier.
+         * @throws {TypeError, GoError}
+         */
+        authenticate(id: string): void
+
+        /**
+         * Get identity properties.
+         *
+         * @param id - Identity identifier.
+         * @returns The identity properties.
+         * @throws {TypeError, GoError}
+         */
+        propertiesGet(id: string): Properties[]
+
+        /**
+         * Update identity properties.
+         *
+         * @param id - Identity identifier.
+         * @param properties - Updated properties.
+         * @throws {TypeError, GoError}
+         */
+        propertiesUpdate(id: string, properties: PropertiesUpdate): void
+
+        /**
+         * Publish events.
+         *
+         * @param id - Identity identifier.
+         * @param events - Events to publish.
+         * @throws {TypeError, GoError}
+         */
+        eventsPublish(id: string, events: SatoriEvent[]): void
+
+        /**
+         * List experiments.
+         *
+         * @param id - Identity identifier.
+         * @param names - Opt. List of experiment names.
+         * @throws {TypeError, GoError}
+         */
+        experimentsList(id: string, names?: string[]): Experiment[]
+
+        /**
+         * List flags.
+         *
+         * @param id - Identity identifier.
+         * @param names - Opt. List of flag names.
+         * @throws {TypeError, GoError}
+         */
+        flagsList(id: string, names?: string[]): Flag[]
+
+        /**
+         * List live events.
+         *
+         * @param id - Identity identifier.
+         * @param names - Opt. List of live event names.
+         * @throws {TypeError, GoError}
+         */
+        liveEventsList(id: string, names?: string[]): LiveEvent[]
     }
 }

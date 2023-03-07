@@ -3683,37 +3683,37 @@ declare namespace nkruntime {
          * Unlink Apple sign in from an account.
          *
          * @param userId - User ID.
-         * @param token - Apple sign in token.
+         * @param token - Opt. Apple sign in token.
          * @throws {TypeError, GoError}
          */
-        unlinkApple(userId: string, token: string): void;
+        unlinkApple(userId: string, token?: string): void;
 
         /**
          * Unlink a customID from an account.
          *
          * @param userId - User ID.
-         * @param customID - Custom ID.
+         * @param customID - Opt. Custom ID.
          * @throws {TypeError, GoError}
          */
-        unlinkCustom(userId: string, customID: string): void;
+        unlinkCustom(userId: string, customID?: string): void;
 
         /**
          * Unlink a custom device from an account.
          *
          * @param userId - User ID.
-         * @param deviceID - Device ID.
+         * @param deviceID - Opt. Device ID.
          * @throws {TypeError, GoError}
          */
-        unlinkDevice(userId: string, deviceID: string): void;
+        unlinkDevice(userId: string, deviceID?: string): void;
 
         /**
          * Unlink username and password from an account.
          *
          * @param userId - User ID.
-         * @param email - Email.
+         * @param email - Opt. Email.
          * @throws {TypeError, GoError}
          */
-        unlinkEmail(userId: string, email: string): void;
+        unlinkEmail(userId: string, email?: string): void;
 
         /**
          * Unlink Facebook from an account.
@@ -3722,7 +3722,7 @@ declare namespace nkruntime {
          * @param token - Password.
          * @throws {TypeError, GoError}
          */
-        unlinkFacebook(userId: string, token: string): void;
+        unlinkFacebook(userId: string, token?: string): void;
 
         /**
          * Unlink Facebook Instant Games from an account.
@@ -3731,7 +3731,7 @@ declare namespace nkruntime {
          * @param signedPlayerInfo - Signed player info.
          * @throws {TypeError, GoError}
          */
-        unlinkFacebookInstantGame(userId: string, signedPlayerInfo: string): void;
+        unlinkFacebookInstantGame(userId: string, signedPlayerInfo?: string): void;
 
         /**
          * Unlink Apple Game Center from an account.
@@ -3747,12 +3747,12 @@ declare namespace nkruntime {
          */
         unlinkGameCenter(
             userId: string,
-            playerId: string,
-            bundleId: string,
-            ts: number,
-            salt: string,
-            signature: string,
-            publicKeyURL: string,
+            playerId?: string,
+            bundleId?: string,
+            ts?: number,
+            salt?: string,
+            signature?: string,
+            publicKeyURL?: string,
         ): void;
 
         /**
@@ -3762,7 +3762,7 @@ declare namespace nkruntime {
          * @param token - Google token.
          * @throws {TypeError, GoError}
          */
-        unlinkGoogle(userId: string, token: string): void;
+        unlinkGoogle(userId: string, token?: string): void;
 
         /**
          * Unlink Steam from an account.
@@ -3771,7 +3771,7 @@ declare namespace nkruntime {
          * @param token - Steam token.
          * @throws {TypeError, GoError}
          */
-        unlinkSteam(userId: string, token: string): void;
+        unlinkSteam(userId: string, token?: string): void;
 
         /**
          * List stream presences.

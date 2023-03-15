@@ -16,6 +16,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## Changed
 - Accept the leaderboard operator types in their expanded string name.
+- Added userID param to Go runtime GroupUpdate function.
 
 ## Fixed
 - Update Type definition for "authenticateTokenGenerate" to support the optional params allowed by the server.

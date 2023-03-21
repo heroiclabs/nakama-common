@@ -4107,13 +4107,13 @@ declare namespace nkruntime {
         leaderboardDelete(leaderboardID: string): void;
 
         /**
-         * Get a list of tournaments by id.
+         * Get a list of leaderboards.
          *
          * @param categoryStart - Filter leaderboard with categories greater or equal than this value.
          * @param categoryEnd - Filter leaderboard with categories equal or less than this value.
          * @param limit - Return only the required number of leaderboard denoted by this limit value.
          * @param cursor - Cursor to paginate to the next result set. If this is empty/null there is no further results.
-         * @returns The leaderboard data for the given ids.
+         * @returns The leaderboards data.
          * @throws {TypeError, GoError}
          */
          leaderboardList(categoryStart?: number, categoryEnd?: number, limit?: number, cursor?: string): LeaderboardList;
@@ -4255,7 +4255,7 @@ declare namespace nkruntime {
         tournamentsGetId(tournamentIds: string[]): Tournament[];
 
         /**
-         * Get a list of tournaments by id.
+         * Get a list of tournaments.
          *
          * @param categoryStart - Filter tournament with categories greater or equal than this value.
          * @param categoryEnd - Filter tournament with categories equal or less than this value.
@@ -4263,7 +4263,7 @@ declare namespace nkruntime {
          * @param endTime - Filter tournament with that end before this time.
          * @param limit - Return only the required number of tournament denoted by this limit value.
          * @param cursor - Cursor to paginate to the next result set. If this is empty/null there is no further results.
-         * @returns The tournament data for the given ids.
+         * @returns The tournaments data.
          * @throws {TypeError, GoError}
          */
         tournamentList(categoryStart?: number, categoryEnd?: number, startTime?: number, endTime?: number, limit?: number, cursor?: string): TournamentList;
@@ -4727,6 +4727,13 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         localcacheDelete(key: string): void;
+
+        /**
+         * Get Satori object.
+         *
+         * @returns The satori integration interface.
+         */
+        getSatori(): Satori;
     }
 
     /**
@@ -4746,5 +4753,110 @@ declare namespace nkruntime {
          * @param initializer - The injector to initialize features in the game server.
          */
         (ctx: Context, logger: Logger, nk: Nakama, initializer: Initializer): void;
+    }
+
+    export interface Properties {
+        default: {[key: string]: string}
+        custom: {[key: string]: string}
+        computed: {[key: string]: string}
+    }
+
+    export interface PropertiesUpdate {
+        default?: {[key: string]: string}
+        custom?: {[key: string]: string}
+    }
+
+    export interface SatoriEvent {
+        name: string
+        id: string
+        metadata?: {[key: string]: string}
+        value: string
+        timestamp: number
+    }
+
+    export interface Experiment {
+        name: string
+        value: string
+    }
+
+    export interface Flag {
+        name: string
+        value: string
+        conditionChanged: boolean
+    }
+
+    export interface LiveEvent {
+        name: string
+        description: string
+        value: string
+        activeStartTime: number
+        activeEndTime: number
+    }
+
+    /**
+     * The Satori integration functions.
+     */
+    export interface Satori {
+        /**
+         * Create identity.
+         *
+         * @param id - Identity identifier.
+         * @throws {TypeError, GoError}
+         */
+        authenticate(id: string): void
+
+        /**
+         * Get identity properties.
+         *
+         * @param id - Identity identifier.
+         * @returns The identity properties.
+         * @throws {TypeError, GoError}
+         */
+        propertiesGet(id: string): Properties[]
+
+        /**
+         * Update identity properties.
+         *
+         * @param id - Identity identifier.
+         * @param properties - Updated properties.
+         * @throws {TypeError, GoError}
+         */
+        propertiesUpdate(id: string, properties: PropertiesUpdate): void
+
+        /**
+         * Publish events.
+         *
+         * @param id - Identity identifier.
+         * @param events - Events to publish.
+         * @throws {TypeError, GoError}
+         */
+        eventsPublish(id: string, events: SatoriEvent[]): void
+
+        /**
+         * List experiments.
+         *
+         * @param id - Identity identifier.
+         * @param names - Opt. List of experiment names.
+         * @throws {TypeError, GoError}
+         */
+        experimentsList(id: string, names?: string[]): Experiment[]
+
+        /**
+         * List flags.
+         *
+         * @param id - Identity identifier.
+         * @param names - Opt. List of flag names.
+         * @throws {TypeError, GoError}
+         */
+        flagsList(id: string, names?: string[]): Flag[]
+
+        /**
+         * List live events.
+         *
+         * @param id - Identity identifier.
+         * @param names - Opt. List of live event names.
+         * @throws {TypeError, GoError}
+         */
+        liveEventsList(id: string, names?: string[]): LiveEvent[]
     }
 }

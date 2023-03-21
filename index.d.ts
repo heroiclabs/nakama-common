@@ -3191,13 +3191,14 @@ declare namespace nkruntime {
          *
          * @param url - Request target URL.
          * @param method - Http method.
-         * @param headers - Http request headers.
-         * @param body - Http request body.
-         * @param timeout - Http Request timeout in ms.
+         * @param headers - Opt. Http request headers. Defaults to no headers.
+         * @param body - Opt. Http request body. Defaults to undefined.
+         * @param timeout - Opt. Http Request timeout in ms. Defaults to 5s.
+         * @param insecure - Opt. Set to true to skip TLS validations. Defaults to false.
          * @returns Http response
          * @throws {TypeError, GoError}
          */
-        httpRequest(url: string, method: RequestMethod, headers?: {[header: string]: string}, body?: string, timeout?: number): HttpResponse
+        httpRequest(url: string, method: RequestMethod, headers?: {[header: string]: string}, body?: string, timeout?: number, insecure?: boolean): HttpResponse
 
         /**
          * Base 64 Encode

@@ -3,11 +3,22 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
-## [Unreleased]
+## [1.27.0] - 2023-04-18
 ### Added
-- Add local cache functions to JavaScript runtime.
-- Add tournamentRecordDelete function to runtimes.
-- Add insecure flag to httpRequest TS function.
+- Add local cache functions to JavaScript server framework.
+- Add "tournamentRecordDelete" function to server frameworks.
+- New "insecure" flag to "httpRequest" TypeScript function.
+- [Satori](https://heroiclabs.com/satori/) API available to Nakama server in all server frameworks.
+- New "MatchmakerOverride" hook to provide custom matching behaviour.
+
+### Changed
+- User ID is now returned in ValidatedSubscription, and ValidatedPurchases types.
+- ValidatedSubscription types are visible to the Go server framework.
+- Add "refundTime" field to TypeScript ValidatedSubscription type.
+- Loosened TypeScript definitions to allow for no identifier to be passed to Unlink operations.
+
+### Fixed
+- Various small TypeScript definitions fixes.
 
 ## [1.26.0] - 2023-01-04
 ### Added

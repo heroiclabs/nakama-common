@@ -3058,6 +3058,8 @@ declare namespace nkruntime {
         environment: ValidatedPurchaseEnvironment
         expiryTime: string
         active: boolean
+        providerResponse: string
+        providerNotification: string
     }
 
     export interface ValidatedPurchaseList {

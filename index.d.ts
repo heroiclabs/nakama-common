@@ -4128,14 +4128,12 @@ declare namespace nkruntime {
         /**
          * Get a list of leaderboards.
          *
-         * @param categoryStart - Filter leaderboard with categories greater or equal than this value.
-         * @param categoryEnd - Filter leaderboard with categories equal or less than this value.
          * @param limit - Return only the required number of leaderboard denoted by this limit value.
          * @param cursor - Cursor to paginate to the next result set. If this is empty/null there is no further results.
          * @returns The leaderboards data.
          * @throws {TypeError, GoError}
          */
-         leaderboardList(categoryStart?: number, categoryEnd?: number, limit?: number, cursor?: string): LeaderboardList;
+         leaderboardList(limit?: number, cursor?: string): LeaderboardList;
 
         /**
          * List records of a leaderboard.

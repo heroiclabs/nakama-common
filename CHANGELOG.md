@@ -4,7 +4,8 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
-
+### Changed
+- Remove incorrect category start and category end parameters from runtime leaderboard list functions.
 
 ## [1.27.0] - 2023-04-18
 ### Added

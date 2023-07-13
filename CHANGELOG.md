@@ -6,6 +6,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Changed
 - Remove incorrect category start and category end parameters from runtime leaderboard list functions.
+- Update to Protobuf v1.31.0 dependency.
 
 ## [1.27.0] - 2023-04-18
 ### Added

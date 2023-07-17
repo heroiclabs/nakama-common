@@ -4,6 +4,9 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Added
+- Add storage object indexing support and related runtime functions.
+
 ### Changed
 - Remove incorrect category start and category end parameters from runtime leaderboard list functions.
 - Update to Protobuf v1.31.0 dependency.

@@ -312,6 +312,22 @@ declare namespace nkruntime {
     }
 
     /**
+     * Storage Index Filter function definition.
+     */
+    export interface StorageIndexFilterFunction {
+        /**
+         * A storage index hook function to apply custom filtering logic to storage objects.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param write - the write to be indexed or deleted from the index
+         * @return a boolean - true to index the object and false to delete any indexed object (if any exists).
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, write: StorageWriteRequest): boolean;
+    }
+
+    /**
      * Match Dispatcher API definition.
      */
     export interface MatchDispatcher {
@@ -2297,6 +2313,26 @@ declare namespace nkruntime {
          * @param fn - The function to execute after a Google IAP Notification is received.
          */
         registerSubscriptionNotificationGoogle(fn: SubscriptionNotificationGoogleFunction): void;
+
+        /**
+         * List entries from an existing configured storage index.
+         *
+         * @param name - Name of the new index. Must be unique.
+         * @param collection - Collection of storage engine to index objects from.
+         * @param key - Opt. Key of storage objects to index. Set to null, undefined or emtpy string to index all objects of collection.
+         * @param fields - Array of fields of object to index. The values of these fields will be searchable in the index.
+         * @param maxEntries - Maximum number of entries to keep in the index.
+         * @throws {TypeError, GoError}
+         */
+        registerStorageIndex(name: string, collection: string, key: string, fields: string[], maxEntries: number): void;
+
+        /**
+         * Register purchase notification Google handler.
+         *
+         * @param indexName - The name of the configured index to attach the custom filtering function to.
+         * @param fn - The function to execute to decide whether to index a storage object or delete it from the index.
+         */
+        registerStorageIndexFilter(indexName: string, fn: StorageIndexFilterFunction): void;
     }
 
     /**
@@ -4744,6 +4780,17 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         localcacheDelete(key: string): void;
+
+        /**
+         * List entries from an existing configured storage index.
+         *
+         * @param indexName - Index to query.
+         * @param query - The query to specify the index lookup criteria.
+         * @param limit - The maximum number of results to retrieve from the index.
+         * @returns A list of storage objects matching the query criteria.
+         * @throws {TypeError, GoError}
+         */
+        storageIndexList(idnexName: string, query: string, limit: number): StorageObject[];
 
         /**
          * Get Satori object.

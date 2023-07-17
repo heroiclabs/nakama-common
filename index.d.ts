@@ -2315,6 +2315,18 @@ declare namespace nkruntime {
         registerSubscriptionNotificationGoogle(fn: SubscriptionNotificationGoogleFunction): void;
 
         /**
+         * List entries from an existing configured storage index.
+         *
+         * @param name - Name of the new index. Must be unique.
+         * @param collection - Collection of storage engine to index objects from.
+         * @param key - Opt. Key of storage objects to index. Set to null, undefined or emtpy string to index all objects of collection.
+         * @param fields - Array of fields of object to index. The values of these fields will be searchable in the index.
+         * @param maxEntries - Maximum number of entries to keep in the index.
+         * @throws {TypeError, GoError}
+         */
+        registerStorageIndex(name: string, collection: string, key: string, fields: string[], maxEntries: number): void;
+
+        /**
          * Register purchase notification Google handler.
          *
          * @param indexName - The name of the configured index to attach the custom filtering function to.

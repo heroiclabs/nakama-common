@@ -6,6 +6,10 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Added
 - Add storage object indexing support and related runtime functions.
+- Add missing TypeScript validated subscription fields.
+- Add TypeScript error code mappings to HTTP status codes.
+- Add rank count parameter to leaderboard score listings.
+- Add rank count parameter to tournament score listings.
 
 ### Changed
 - Remove incorrect category start and category end parameters from runtime leaderboard list functions.

@@ -848,6 +848,7 @@ declare namespace nkruntime {
         ownerRecords?: LeaderboardRecord[]
         nextCursor?: string
         prevCursor?: string
+        rankCount?: number
     }
 
     export interface MatchList {
@@ -872,6 +873,7 @@ declare namespace nkruntime {
         ownerRecords?: LeaderboardRecord[]
         prevCursor?: string
         nextCursor?: string
+        rankCount?: number
     }
 
     export interface TournamentList {

@@ -5,6 +5,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+
 ## [1.28.0] - 2023-07-19
 ### Added
 - Add storage object indexing support and related runtime functions.

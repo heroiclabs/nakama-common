@@ -4830,6 +4830,7 @@ declare namespace nkruntime {
     export interface PropertiesUpdate {
         default?: {[key: string]: string}
         custom?: {[key: string]: string}
+        recompute?: boolean
     }
 
     export interface SatoriEvent {

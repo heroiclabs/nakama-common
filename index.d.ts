@@ -1055,7 +1055,7 @@ declare namespace nkruntime {
          * @param id - The ID of the RPC function.
          * @param func - The Hook function logic to execute before the RPC is called.
          */
-        registerRtBefore(id: RtHookMessage, func: RtBeforeHookFunction<Envelope>): void;
+        registerRtBefore<T extends Envelope>(id: RtHookMessage, func: RtBeforeHookFunction<T>): void;
 
         /**
          * Register a hook function to be run after an RPC function is invoked.
@@ -1064,7 +1064,7 @@ declare namespace nkruntime {
          * @param id - The ID of the RPC function.
          * @param func - The Hook function logic to execute after the RPC is called.
          */
-        registerRtAfter(id: RtHookMessage, func: RtAfterHookFunction<Envelope>): void;
+        registerRtAfter<T extends Envelope>(id: RtHookMessage, func: RtAfterHookFunction<T>): void;
 
         /**
          * Register Before Hook for RPC getAccount function.

@@ -5,6 +5,15 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.28.1] - 2023-08-23
+### Added
+- Add Satori `recompute` optional input parameter to relevant operations.
+
+### Changed
+- Use generics in realtime before and after TS runtime hook definitions.
+
+### Fixed
+- Use correct Satori live event active start and end time field type.
 
 ## [1.28.0] - 2023-07-19
 ### Added

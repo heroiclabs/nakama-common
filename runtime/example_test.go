@@ -125,6 +125,9 @@ func ExampleInitializer_disableFeatures() {
 		// returning nil as for the result disables the functionality
 		return nil, nil
 	})
+	if err != nil {
+		log.Fatalf("could not instantiate module: %v", err)
+	}
 
 	err = initializer.RegisterBeforeRt("StatusFollow", func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, envelope *rtapi.Envelope) (*rtapi.Envelope, error) {
 		// returning nil as for the result disables the functionality

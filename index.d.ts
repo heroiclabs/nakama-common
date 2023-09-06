@@ -2321,12 +2321,13 @@ declare namespace nkruntime {
          *
          * @param name - Name of the new index. Must be unique.
          * @param collection - Collection of storage engine to index objects from.
-         * @param key - Opt. Key of storage objects to index. Set to null, undefined or emtpy string to index all objects of collection.
+         * @param key - Key of storage objects to index. Set to null, undefined or emtpy string to index all objects of collection.
          * @param fields - Array of fields of object to index. The values of these fields will be searchable in the index.
          * @param maxEntries - Maximum number of entries to keep in the index.
+         * @param indexOnly - Opt. The returned values are fetched from the index only instead of the db, which might return a partial value. Defaults to false.
          * @throws {TypeError, GoError}
          */
-        registerStorageIndex(name: string, collection: string, key: string, fields: string[], maxEntries: number): void;
+        registerStorageIndex(name: string, collection: string, key: string | void, fields: string[], maxEntries: number, indexOnly: boolean): void;
 
         /**
          * Register purchase notification Google handler.

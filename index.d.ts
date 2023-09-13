@@ -2324,10 +2324,9 @@ declare namespace nkruntime {
          * @param key - Key of storage objects to index. Set to null, undefined or emtpy string to index all objects of collection.
          * @param fields - Array of fields of object to index. The values of these fields will be searchable in the index.
          * @param maxEntries - Maximum number of entries to keep in the index.
-         * @param indexOnly - Opt. The returned values are fetched from the index only instead of the db, which might return a partial value. Defaults to false.
          * @throws {TypeError, GoError}
          */
-        registerStorageIndex(name: string, collection: string, key: string | void, fields: string[], maxEntries: number, indexOnly: boolean): void;
+        registerStorageIndex(name: string, collection: string, key: string | void, fields: string[], maxEntries: number): void;
 
         /**
          * Register purchase notification Google handler.
@@ -4790,10 +4789,11 @@ declare namespace nkruntime {
          * @param indexName - Index to query.
          * @param query - The query to specify the index lookup criteria.
          * @param limit - The maximum number of results to retrieve from the index.
+         * @param indexOnly - Opt. Read results from the index only without going to the db. Will only return values of indexed fields. Defaults to false.
          * @returns A list of storage objects matching the query criteria.
          * @throws {TypeError, GoError}
          */
-        storageIndexList(idnexName: string, query: string, limit: number): StorageObject[];
+        storageIndexList(idnexName: string, query: string, limit: number, indexOnly: boolean): StorageObject[];
 
         /**
          * Get Satori object.

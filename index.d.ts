@@ -4784,6 +4784,13 @@ declare namespace nkruntime {
         localcacheDelete(key: string): void;
 
         /**
+         * Flush local cache data.
+         *
+         * @throws {TypeError, GoError}
+         */
+        localcacheFlush(): void;
+
+        /**
          * List entries from an existing configured storage index.
          *
          * @param indexName - Index to query.

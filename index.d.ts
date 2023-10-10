@@ -4091,10 +4091,11 @@ declare namespace nkruntime {
          * @param collection - Opt. Storage collection.
          * @param limit - Opt. Maximum number of items to list. Defaults to 100.
          * @param cursor - Opt. Pagination cursor.
+         * @param callerId - Opt. User ID of the caller, will apply permissions checks of the user. If empty defaults to system user and permissions are bypassed.
          * @returns Object containing an array of storage objects and a cursor for the next page of results, if there is one.
          * @throws {TypeError, GoError}
          */
-        storageList(userId: string | null | undefined, collection: string, limit?: number, cursor?: string): StorageObjectList;
+        storageList(userId: string | void, collection: string, limit?: number, cursor?: string, callerId?: string | void): StorageObjectList;
 
         /**
          * Get all storage objects matching the parameters.
@@ -4790,10 +4791,11 @@ declare namespace nkruntime {
          * @param indexName - Index to query.
          * @param query - The query to specify the index lookup criteria.
          * @param limit - The maximum number of results to retrieve from the index.
+         * @param callerId - Opt. User ID of the caller, will apply permissions checks of the user. If empty defaults to system user and permissions are bypassed.
          * @returns A list of storage objects matching the query criteria.
          * @throws {TypeError, GoError}
          */
-        storageIndexList(idnexName: string, query: string, limit: number): StorageObject[];
+        storageIndexList(indexName: string, query: string, limit: number, callerId?: string | void): StorageObject[];
 
         /**
          * Get Satori object.

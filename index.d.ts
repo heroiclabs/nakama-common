@@ -4173,7 +4173,7 @@ declare namespace nkruntime {
          * @returns The leaderboards data.
          * @throws {TypeError, GoError}
          */
-         leaderboardList(limit?: number, cursor?: string): LeaderboardList;
+        leaderboardList(limit?: number, cursor?: string): LeaderboardList;
 
         /**
          * List records of a leaderboard.
@@ -4187,6 +4187,18 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         leaderboardRecordsList(leaderboardID: string, leaderboardOwners?: string[], limit?: number, cursor?: string, overrideExpiry?: number): LeaderboardRecordList;
+
+        /**
+         * Build a cursor to be used with leaderboardRecordsList to fetch records starting at a given rank.
+         * Only available if rank cache is not disabled for the leaderboard.
+         *
+         * @param leaderboardID - Leaderboard id.
+         * @param rank - The rank to start listing leaderboard records from.
+         * @param overrideExpiry - Opt. Override the expiryTime of the leaderboard to list older records.
+         * @returns A leaderboardRecordsList cursor.
+         * @throws {TypeError, GoError}
+         */
+        leaderboardRecordsListCursorFromRank(leaderboardId: string, rank: number, expiryTime?: number): string
 
         /**
          * Write a new leaderboard record.

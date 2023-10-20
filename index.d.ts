@@ -4198,7 +4198,7 @@ declare namespace nkruntime {
          * @returns A leaderboardRecordsList cursor.
          * @throws {TypeError, GoError}
          */
-        leaderboardListCursorFromRank(leaderboardId: string, rank: number, expiryTime?: number): string
+        leaderboardRecordsListCursorFromRank(leaderboardId: string, rank: number, expiryTime?: number): string
 
         /**
          * Write a new leaderboard record.

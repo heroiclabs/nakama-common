@@ -4,8 +4,11 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+## [1.29.0] - 2023-10-24
 ### Added
-- Runtime functions to build a leaderboardList cursor to start listing from a given rank.
+- Runtime functions to build a leaderboard record list cursor to start listing from a given rank.
+- Runtime storage list operations now accept a caller user identifier.
 
 ### Fixed
 - Fix linter-found test issue.

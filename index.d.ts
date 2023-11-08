@@ -4646,15 +4646,15 @@ declare namespace nkruntime {
         purchaseValidateHuawei(userID: string, receipt: string, signature: string, persist?: boolean): ValidatePurchaseResponse
 
         /**
-         * Validate a FB Instant purchase payload.
+         * Validate a Facebook Instant purchase payload.
          *
          * @param userID - User ID.
-         * @param signedRequest - FB Instant signedRequest receipt to validate.
+         * @param signedRequest - Facebook Instant signedRequest receipt to validate.
          * @param persist - Opt. Whether to persist the receipt validation. Defaults to true.
          * @returns The result of the validated and stored purchases from the receipt.
          * @throws {TypeError, GoError}
          */
-        purchaseValidateFBInstant(userID: string, signedRequest: string, persist?: boolean): ValidatePurchaseResponse
+        purchaseValidateFacebookInstant(userID: string, signedRequest: string, persist?: boolean): ValidatePurchaseResponse
 
         /**
          * Get a validated purchase data by transaction ID.

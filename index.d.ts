@@ -4796,9 +4796,10 @@ declare namespace nkruntime {
          *
          * @param key - local cache key.
          * @param value - local cache value.
+         * @param ttl - (optional) lifespan of this cache record, in seconds.
          * @throws {TypeError, GoError}
          */
-        localcachePut(key: string, value: any): void;
+        localcachePut(key: string, value: any, ttl?: number): void;
 
         /**
          * Delete local cache data by key.

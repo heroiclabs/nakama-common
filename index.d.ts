@@ -4796,9 +4796,10 @@ declare namespace nkruntime {
          *
          * @param key - local cache key.
          * @param value - local cache value.
+         * @param ttl - (optional) lifespan of this cache record, in seconds.
          * @throws {TypeError, GoError}
          */
-        localcachePut(key: string, value: any): void;
+        localcachePut(key: string, value: any, ttl?: number): void;
 
         /**
          * Delete local cache data by key.
@@ -4807,6 +4808,13 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         localcacheDelete(key: string): void;
+
+        /**
+         * Clears local cache data.
+         *
+         * @throws {TypeError, GoError}
+         */
+        localcacheClear(): void;
 
         /**
          * List entries from an existing configured storage index.

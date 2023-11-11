@@ -4902,9 +4902,10 @@ declare namespace nkruntime {
          * Create identity.
          *
          * @param id - Identity identifier.
+         * @param ipAddress - Opt. Client IP address to pass on to Satori for geo-IP lookup.
          * @throws {TypeError, GoError}
          */
-        authenticate(id: string): void
+        authenticate(id: string, ipAddress?: string): void
 
         /**
          * Get identity properties.

@@ -5,6 +5,15 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.30.0] - 2023-11-11
+### Added
+- Add optional client IP address passthrough to runtime Satori client.
+- Add Lua runtime function to clear all localcache data.
+- Add JavaScript runtime function to clear all localcache data.
+- Add support for per-key TTL in Lua runtime localcache.
+- Add support for per-key TTL in JavaScript runtime localcache.
+- Add IAP purchase validation support for Facebook Instant Games.
+
 ## [1.29.0] - 2023-10-24
 ### Added
 - Runtime functions to build a leaderboard record list cursor to start listing from a given rank.

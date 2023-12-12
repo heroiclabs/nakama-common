@@ -4749,6 +4749,20 @@ declare namespace nkruntime {
          */
          channelMessageUpdate(channelId: string, messageId: string, content?: {[key: string]: any}, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
 
+
+        /**
+         * Delete channel message.
+         *
+         * @param channelId - Channel ID.
+         * @param messageId - Message ID of message to be deleted.
+         * @param senderId - Opt. Message sender ID.
+         * @param senderUsername - Opt. Sender username. Defaults to system user.
+         * @param persist - Opt. Delete stored message. Defaults to true.
+         * @returns Ack of deleted message.
+         * @throws {TypeError, GoError}
+         */
+         channelMessageRemove(channelId: string, messageId: string, senderId?: string, senderUsername?: string, persist?: boolean): ChannelMessageSendAck
+
         /**
          * List channel messages.
          *

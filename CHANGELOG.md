@@ -5,6 +5,10 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.30.1] - 2023-12-15
+### Added
+- Add JavaScript runtime `channelMessageRemove` function definition.
+
 ## [1.30.0] - 2023-11-11
 ### Added
 - Add optional client IP address passthrough to runtime Satori client.

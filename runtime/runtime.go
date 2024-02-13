@@ -850,6 +850,9 @@ type Initializer interface {
 
 	// RegisterStorageIndexFilter can be used to define a filtering function for a given storage index.
 	RegisterStorageIndexFilter(indexName string, fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, write *StorageWrite) bool) error
+
+	// RegisterFleetManager can be used to register a FleetManager implementation that can be retrieved from the runtime using GetFleetManager().
+	RegisterFleetManager(fleetManager FleetManager) error
 }
 
 type PresenceReason uint8
@@ -1155,10 +1158,105 @@ type NakamaModule interface {
 	ChannelMessagesList(ctx context.Context, channelId string, limit int, forward bool, cursor string) (messages []*api.ChannelMessage, nextCursor string, prevCursor string, err error)
 
 	GetSatori() Satori
+	GetFleetManager() FleetManager
 }
 
 /*
-Satori runtime integration defintions.
+Nakama fleet manager definitions.
+*/
+type InstanceInfo struct {
+	// A platform-specific unique instance identifier. Identifiers may be recycled for
+	// future use, but the underlying Fleet Manager platform is expected to ensure
+	// uniqueness at least among concurrently running instances.
+	Id string `json:"id"`
+	// Connection information in a platform-specific format, usually "address:port"
+	ConnectionInfo *ConnectionInfo `json:"connectionInfo"`
+	// When this instance was first created.
+	CreateTime time.Time `json:"createTime"`
+	// Number of active player sessions on the server
+	PlayerCount int `json:"playerCount"`
+	// Status
+	Status string `json:"status"`
+	// Application-specific data for use in indexing and listings.
+	Metadata map[string]any `json:"metadata"`
+}
+
+type ConnectionInfo struct {
+	IpAddr  string `json:"ipAddr"`
+	DnsName string `json:"dnsName"`
+	Port    int    `json:"port"`
+}
+
+type JoinInfo struct {
+	InstanceInfo *InstanceInfo  `json:"instanceInfo"`
+	SessionInfo  []*SessionInfo `json:"sessionInfo"`
+}
+
+type SessionInfo struct {
+	UserId    string `json:"userId"`
+	SessionId string `json:"sessionId"`
+}
+
+type FmCreateStatus int
+
+const (
+	// Create successfully created a new game instance.
+	CreateSuccess FmCreateStatus = iota
+	// Create request could not find a suitable instance within the configured timeout.
+	CreateTimeout
+	// Create failed to create a new game instance.
+	CreateError
+)
+
+type FmCallbackHandler interface {
+	GeneratePlacementId() string
+	SetCallback(placementId string, fn FmCreateCallbackFn)
+	InvokeCallback(placementId string, status FmCreateStatus, instanceInfo *InstanceInfo, sessionInfo []*SessionInfo, metadata map[string]any, err error)
+}
+
+// FmCreateCallbackFn is the function that is invoked when Create asynchronously succeeds or fails (due to timeout or issues bringing up a new instance).
+// The function params include all the information needed to inform a client with a realtime connection to the server of the status of the Create request,
+// including the new instance connection information in case of success.
+// If status != CreateSuccess, then instanceInfo, sessionInfo and metadata will be nil and err will contain an error message.
+// If no userIds were provided to Create, then sessionInfo will be nil regardless of successful instance creation.
+type FmCreateCallbackFn func(status FmCreateStatus, instanceInfo *InstanceInfo, sessionInfo []*SessionInfo, metadata map[string]any, err error)
+
+type FleetManager interface {
+	// Init function - it is called internally by RegisterFleetManager to expose NakamaModule and FmCallbackHandler.
+	// The implementation should keep references to nk and callbackHandler.
+	Init(nk NakamaModule, callbackHandler FmCallbackHandler) error
+
+	// Get retrieves the most up-to-date information about an instance currently running
+	// in the Fleet Manager platform. An error is expected if the instance does not exist,
+	// either because it never existed or it was otherwise removed at some point.
+	Get(ctx context.Context, id string) (instance *InstanceInfo, err error)
+
+	// List retrieves a set of instances, optionally filtered by a platform-specific query.
+	// The limit and previous cursor inputs are used as part of pagination, if supported.
+	List(ctx context.Context, query string, limit int, previousCursor string) (list []*InstanceInfo, nextCursor string, err error)
+
+	// Create issues a request to the underlying Fleet Manager platform to create a new
+	// instance and initialize it with the given metadata. The metadata is expected to be
+	// application-specific and only relevant to the application itself, not the platform.
+	// The instance creation happens asynchronously - the passed callback is invoked once the
+	// creation process was either successful or failed.
+	// If a list of userIds is optionally provided, the new instance (on successful creation) will reserve slots
+	// for the respective clients to connect, and the callback will contain the required []*SessionInfo.
+	Create(ctx context.Context, maxPlayers int, userIds []string, metadata map[string]any, callback FmCreateCallbackFn) (err error)
+
+	// Join reserves a number of player slots in the target instance. These slots are reserved for a minute, after which,
+	// if clients do not connect to the instance to claim them, the returned SessionInfo will become invalid and the
+	// player slots will become available to new player sessions.
+	Join(ctx context.Context, id string, userIds []string, metadata map[string]string) (joinInfo *JoinInfo, err error)
+
+	// Delete issues a request to the underlying Fleet Manager platform to shut down a
+	// running instance by its identifier. The operation is expected to be idempotent, so
+	// deleting an instance that never existed or was already shut down should succeed.
+	Delete(ctx context.Context, id string) error
+}
+
+/*
+Satori runtime integration definitions.
 */
 type Satori interface {
 	Authenticate(ctx context.Context, id string, ipAddress ...string) error

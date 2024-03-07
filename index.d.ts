@@ -2341,11 +2341,12 @@ declare namespace nkruntime {
          * @param collection - Collection of storage engine to index objects from.
          * @param key - Key of storage objects to index. Set to null, undefined or emtpy string to index all objects of collection.
          * @param fields - Array of fields of object to index. The values of these fields will be searchable in the index.
+         * @param sortableFields - Opt. Array of fields of object. The values of these fields will be sortable in an index search. The fields must exist within the previously specified fields to be indexed.
          * @param maxEntries - Maximum number of entries to keep in the index.
          * @param indexOnly - Opt. The returned values are fetched from the index only instead of the db, which might return a partial value. Defaults to false.
          * @throws {TypeError, GoError}
          */
-        registerStorageIndex(name: string, collection: string, key: string | void, fields: string[], maxEntries: number, indexOnly: boolean): void;
+        registerStorageIndex(name: string, collection: string, key: string | void, fields: string[], sortableFields: string[], maxEntries: number, indexOnly: boolean): void;
 
         /**
          * Register purchase notification Google handler.
@@ -4865,11 +4866,12 @@ declare namespace nkruntime {
          * @param indexName - Index to query.
          * @param query - The query to specify the index lookup criteria.
          * @param limit - The maximum number of results to retrieve from the index.
+         * @param order - Opt. The storage object fields to sort the query results by. The prefix '-' before a field name indicates descending order. All specified fields must be indexed and sortable.
          * @param callerId - Opt. User ID of the caller, will apply permissions checks of the user. If empty defaults to system user and permissions are bypassed.
          * @returns A list of storage objects matching the query criteria.
          * @throws {TypeError, GoError}
          */
-        storageIndexList(indexName: string, query: string, limit: number, callerId?: string | void): StorageObject[];
+        storageIndexList(indexName: string, query: string, limit: number, order: string[], callerId?: string | void): StorageObject[];
 
         /**
          * Get Satori object.

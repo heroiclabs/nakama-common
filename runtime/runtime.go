@@ -1170,11 +1170,11 @@ type InstanceInfo struct {
 	// uniqueness at least among concurrently running instances.
 	Id string `json:"id"`
 	// Connection information in a platform-specific format, usually "address:port"
-	ConnectionInfo *ConnectionInfo `json:"connectionInfo"`
+	ConnectionInfo *ConnectionInfo `json:"connection_info"`
 	// When this instance was first created.
-	CreateTime time.Time `json:"createTime"`
+	CreateTime time.Time `json:"create_time"`
 	// Number of active player sessions on the server
-	PlayerCount int `json:"playerCount"`
+	PlayerCount int `json:"player_count"`
 	// Status
 	Status string `json:"status"`
 	// Application-specific data for use in indexing and listings.
@@ -1182,19 +1182,19 @@ type InstanceInfo struct {
 }
 
 type ConnectionInfo struct {
-	IpAddress string `json:"ipAddress"`
-	DnsName   string `json:"dnsName"`
+	IpAddress string `json:"ip_address"`
+	DnsName   string `json:"dns_name"`
 	Port      int    `json:"port"`
 }
 
 type JoinInfo struct {
-	InstanceInfo *InstanceInfo  `json:"instanceInfo"`
-	SessionInfo  []*SessionInfo `json:"sessionInfo"`
+	InstanceInfo *InstanceInfo  `json:"instance_info"`
+	SessionInfo  []*SessionInfo `json:"session_info"`
 }
 
 type SessionInfo struct {
-	UserId    string `json:"userId"`
-	SessionId string `json:"sessionId"`
+	UserId    string `json:"user_id"`
+	SessionId string `json:"session_id"`
 }
 
 type FmCreateStatus int

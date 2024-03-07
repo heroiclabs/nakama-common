@@ -1182,9 +1182,9 @@ type InstanceInfo struct {
 }
 
 type ConnectionInfo struct {
-	IpAddr  string `json:"ipAddr"`
-	DnsName string `json:"dnsName"`
-	Port    int    `json:"port"`
+	IpAddress string `json:"ipAddress"`
+	DnsName   string `json:"dnsName"`
+	Port      int    `json:"port"`
 }
 
 type JoinInfo struct {

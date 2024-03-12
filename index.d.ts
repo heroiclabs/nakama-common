@@ -4130,12 +4130,13 @@ declare namespace nkruntime {
          *
          * @param accountUpdates - Array of account updates.
          * @param storageObjectsUpdates - Array of storage objects updates.
+         * @param storageObjectsDeletes - Array of storage objects deletes.
          * @param walletUpdates - Array of wallet updates.
          * @param updateLedger - Opt. Wether if the wallet update should also update the wallet ledger. Defaults to false.
          * @returns An object with the results from wallets and storage objects updates.
          * @throws {TypeError, GoError}
          */
-        multiUpdate(accountUpdates: UserUpdateAccount[] | null, storageObjectsUpdates: StorageWriteRequest[] | null, walletUpdates: WalletUpdate[] | null, updateLedger?: boolean): {storageWriteAcks: StorageWriteAck[], walletUpdateAcks: WalletUpdateResult[]};
+        multiUpdate(accountUpdates: UserUpdateAccount[] | null, storageObjectsUpdates: StorageWriteRequest[] | null, storageObjectsDeletes: StorageDeleteRequest[] | null, walletUpdates: WalletUpdate[] | null, updateLedger?: boolean): {storageWriteAcks: StorageWriteAck[], walletUpdateAcks: WalletUpdateResult[]};
 
         /**
          * Create a new leaderboard.

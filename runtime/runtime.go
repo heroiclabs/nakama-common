@@ -1209,9 +1209,21 @@ const (
 )
 
 type FmCallbackHandler interface {
-	GeneratePlacementId() string
-	SetCallback(placementId string, fn FmCreateCallbackFn)
-	InvokeCallback(placementId string, status FmCreateStatus, instanceInfo *InstanceInfo, sessionInfo []*SessionInfo, metadata map[string]any, err error)
+	// Generate a new callback id.
+	GenerateCallbackId() string
+	// Set the callback indexed by the generated id.
+	SetCallback(callbackId string, fn FmCreateCallbackFn)
+	// Invoke a callback by callback Id.
+	InvokeCallback(callbackId string, status FmCreateStatus, instanceInfo *InstanceInfo, sessionInfo []*SessionInfo, metadata map[string]any, err error) error
+}
+
+type FleetUserLatencies struct {
+	// User id
+	UserId string
+	// Latency experienced by the user contacting a server in a fleet instance region.
+	LatencyInMilliseconds float32
+	// Region associated to the experienced latency value.
+	RegionIdentifier string
 }
 
 // FmCreateCallbackFn is the function that is invoked when Create asynchronously succeeds or fails (due to timeout or issues bringing up a new instance).
@@ -1242,7 +1254,8 @@ type FleetManager interface {
 	// creation process was either successful or failed.
 	// If a list of userIds is optionally provided, the new instance (on successful creation) will reserve slots
 	// for the respective clients to connect, and the callback will contain the required []*SessionInfo.
-	Create(ctx context.Context, maxPlayers int, userIds []string, metadata map[string]any, callback FmCreateCallbackFn) (err error)
+	// Latencies is optional and its support depends on the Fleet Manager provider.
+	Create(ctx context.Context, maxPlayers int, userIds []string, latencies []FleetUserLatencies, metadata map[string]any, callback FmCreateCallbackFn) (err error)
 
 	// Join reserves a number of player slots in the target instance. These slots are reserved for a minute, after which,
 	// if clients do not connect to the instance to claim them, the returned SessionInfo will become invalid and the

@@ -852,7 +852,7 @@ type Initializer interface {
 	RegisterStorageIndexFilter(indexName string, fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, write *StorageWrite) bool) error
 
 	// RegisterFleetManager can be used to register a FleetManager implementation that can be retrieved from the runtime using GetFleetManager().
-	RegisterFleetManager(fleetManager FleetManager) error
+	RegisterFleetManager(fleetManagerInit FleetManagerInitializer) error
 }
 
 type PresenceReason uint8
@@ -1214,7 +1214,7 @@ type FmCallbackHandler interface {
 	// Set the callback indexed by the generated id.
 	SetCallback(callbackId string, fn FmCreateCallbackFn)
 	// Invoke a callback by callback Id.
-	InvokeCallback(callbackId string, status FmCreateStatus, instanceInfo *InstanceInfo, sessionInfo []*SessionInfo, metadata map[string]any, err error) error
+	InvokeCallback(callbackId string, status FmCreateStatus, instanceInfo *InstanceInfo, sessionInfo []*SessionInfo, metadata map[string]any, err error)
 }
 
 type FleetUserLatencies struct {
@@ -1234,10 +1234,6 @@ type FleetUserLatencies struct {
 type FmCreateCallbackFn func(status FmCreateStatus, instanceInfo *InstanceInfo, sessionInfo []*SessionInfo, metadata map[string]any, err error)
 
 type FleetManager interface {
-	// Init function - it is called internally by RegisterFleetManager to expose NakamaModule and FmCallbackHandler.
-	// The implementation should keep references to nk and callbackHandler.
-	Init(nk NakamaModule, callbackHandler FmCallbackHandler) error
-
 	// Get retrieves the most up-to-date information about an instance currently running
 	// in the Fleet Manager platform. An error is expected if the instance does not exist,
 	// either because it never existed or it was otherwise removed at some point.
@@ -1261,10 +1257,14 @@ type FleetManager interface {
 	// if clients do not connect to the instance to claim them, the returned SessionInfo will become invalid and the
 	// player slots will become available to new player sessions.
 	Join(ctx context.Context, id string, userIds []string, metadata map[string]string) (joinInfo *JoinInfo, err error)
+}
 
-	// Delete issues a request to the underlying Fleet Manager platform to shut down a
-	// running instance by its identifier. The operation is expected to be idempotent, so
-	// deleting an instance that never existed or was already shut down should succeed.
+type FleetManagerInitializer interface {
+	FleetManager
+	// Init function - it is called internally by RegisterFleetManager to expose NakamaModule and FmCallbackHandler.
+	// The implementation should keep references to nk and callbackHandler.
+	Init(nk NakamaModule, callbackHandler FmCallbackHandler) error
+	Update(ctx context.Context, id string, playerCount int, metadata map[string]any) error
 	Delete(ctx context.Context, id string) error
 }
 

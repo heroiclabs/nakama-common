@@ -4788,6 +4788,16 @@ declare namespace nkruntime {
         channelIdBuild(sender: string, target: string, chanType: ChanType): string
 
         /**
+         * Parses a CRON expression and a timestamp in UTC seconds, and returns the previous matching timestamp in UTC seconds.
+         *
+         * @param cron - The cron expression.
+         * @param timestamp - UTC unix seconds timestamp.
+         * @returns The previous cron matching timestamp in UTC seconds.
+         * @throws {TypeError, GoError}
+         */
+        cronPrev(cron: string, timestamp: number): number
+
+        /**
          * Parses a CRON expression and a timestamp in UTC seconds, and returns the next matching timestamp in UTC seconds.
          *
          * @param cron - The cron expression.

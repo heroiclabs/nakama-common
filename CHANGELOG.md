@@ -5,6 +5,14 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.31.0] - 2024-03-17
+### Added
+- Add Fleet Manager API to power session-based multiplayer integrations. See [the documentation](https://heroiclabs.com/docs/nakama/concepts/multiplayer/session-based/) for more details.
+- Add CRON next and previous functions to Go runtime.
+- Add CRON previous function to Lua runtime.
+- Add CRON previous function to TypeScript/JavaScript runtime.
+- Add support for storage deletes in runtime multi-update functions.
+
 ## [1.30.1] - 2023-12-15
 ### Added
 - Add JavaScript runtime `channelMessageRemove` function definition.

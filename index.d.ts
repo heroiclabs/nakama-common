@@ -247,6 +247,17 @@ declare namespace nkruntime {
         (ctx: Context, logger: Logger, nk: Nakama, leaderboard: Leaderboard, reset: number): void;
     }
 
+    export interface ShutdownFunction {
+        /**
+         * A Shutdown hook function definition.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama): void;
+    }
+
     /**
      * Purchase Notification Apple function definition.
      */
@@ -2287,6 +2298,13 @@ declare namespace nkruntime {
          * @param fn - The function to execute after a leaderboard resets.
          */
         registerLeaderboardReset(fn: LeaderboardResetFunction): void;
+
+        /**
+         * Register shutdown function.
+         *
+         * @param fn - The function to execute when the server receives a shutdown signal. It is only executed if grace_period_sec setting is > 0.
+         */
+        registerShutdown(fn: ShutdownFunction): void;
 
         /**
          * Register purchase notification Apple handler.

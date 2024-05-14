@@ -934,10 +934,10 @@ declare namespace nkruntime {
          * @param ctx - The context for the execution.
          * @param logger - The server logger.
          * @param nk - The Nakama server APIs.
-         * @param params - Match create http request parameters.
+         * @param params - Parameters that were passed to nk.matchCreate, if any.
          * @returns An object with the match state, tick rate and labels.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, params: {[key: string]: string}): {state: State, tickRate: number, label: string};
+        (ctx: Context, logger: Logger, nk: Nakama, params: {[key: string]: any}): {state: State, tickRate: number, label: string};
     }
 
     /**

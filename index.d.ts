@@ -4871,7 +4871,7 @@ declare namespace nkruntime {
          * @returns A list of storage objects matching the query criteria.
          * @throws {TypeError, GoError}
          */
-        storageIndexList(indexName: string, query: string, limit: number, order: string[], callerId?: string | void): StorageObject[];
+        storageIndexList(indexName: string, query: string, limit: number, order?: string[], callerId?: string | void): StorageObject[];
 
         /**
          * Get Satori object.

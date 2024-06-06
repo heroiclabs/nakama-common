@@ -538,6 +538,11 @@ declare namespace nkruntime {
         cursor?: string
     }
 
+    export interface ListFriendsOfFriendsRequest {
+        limit?: number
+        cursor?: string
+    }
+
     export interface AddFriendsRequest {
         ids?: string[]
         usernames?: string[]
@@ -834,6 +839,16 @@ declare namespace nkruntime {
     export interface FriendList {
         friends?: Friend[]
         cursor?: string
+    }
+
+    export interface FriendsOfFriendsList {
+        friends_of_friends?: FriendOfFriend[]
+        cursor?: string
+    }
+
+    export interface FriendOfFriend {
+        referrer: string
+        user: User
     }
 
     const enum GroupUserState {
@@ -1286,20 +1301,36 @@ declare namespace nkruntime {
         registerAfterListChannelMessages(fn: AfterHookFunction<ChannelMessageList, ListChannelMessagesRequest>): void;
 
         /**
-         * Register before Hook for RPC BeforeListFriends function.
+         * Register before Hook for RPC ListFriends function.
          *
-         * @param fn - The function to execute before BeforeListFriends.
+         * @param fn - The function to execute before ListFriends.
          * @throws {TypeError}
          */
         registerBeforeListFriends(fn: BeforeHookFunction<ListFriendsRequest>): void;
 
         /**
-         * Register after Hook for RPC BeforeListFriends function.
+         * Register after Hook for RPC ListFriends function.
          *
-         * @param fn - The function to execute after BeforeListFriends.
+         * @param fn - The function to execute after ListFriends.
          * @throws {TypeError}
          */
         registerAfterListFriends(fn: AfterHookFunction<FriendList, ListFriendsRequest>): void;
+
+        /**
+         * Register before Hook for RPC ListFriendsOfFriends function.
+         *
+         * @param fn - The function to execute before ListFriendsOfFriends.
+         * @throws {TypeError}
+         */
+        registerBeforeListFriendsOfFriends(fn: BeforeHookFunction<ListFriendsOfFriendsRequest>): void;
+
+        /**
+         * Register after Hook for RPC ListFriendsOfFriends function.
+         *
+         * @param fn - The function to execute after ListFriendsOfFriends.
+         * @throws {TypeError}
+         */
+        registerAfterListFriendsOfFriends(fn: AfterHookFunction<FriendsOfFriendsList, ListFriendsOfFriendsRequest>): void;
 
         /**
          * Register before Hook for RPC AddFriends function.
@@ -4518,6 +4549,17 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         friendsList(userId: string, limit?: number, state?: number, cursor?: string): FriendList;
+
+        /**
+         * List a user's friends of friends.
+         *
+         * @param userId - User ID.
+         * @param limit - Opt. Max number of returned results. Defaults to 100.
+         * @param cursor - Opt. A cursor used to fetch the next page when applicable.
+         * @returns A list of friends of friends.
+         * @throws {TypeError, GoError}
+         */
+        friendsOfFriendsList(userId: string, limit?: number, cursor?: string): FriendsOfFriendsList;
 
         /**
          * Add friends to a user.

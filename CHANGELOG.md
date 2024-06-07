@@ -7,6 +7,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Added
 - Add runtime support for registering a shutdown hook function.
 - Add support to custom sorting in storage index search.
+- New friends of friends listing API and runtime functions.
 
 ## [1.31.0] - 2024-03-17
 ### Added

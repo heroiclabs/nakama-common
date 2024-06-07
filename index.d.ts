@@ -842,7 +842,7 @@ declare namespace nkruntime {
     }
 
     export interface FriendsOfFriendsList {
-        friends_of_friends?: FriendOfFriend[]
+        friendsOfFriends?: FriendOfFriend[]
         cursor?: string
     }
 

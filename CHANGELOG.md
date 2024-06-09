@@ -6,8 +6,14 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Added
 - Add runtime support for registering a shutdown hook function.
-- Add support to custom sorting in storage index search.
+- Add support for custom sorting in storage index search.
 - New friends of friends listing API and runtime functions.
+
+### Changed
+- Update to Protobuf v1.34.1 dependency.
+
+### Fixed
+- Fix JavaScript runtime `MatchInit` parameter type.
 
 ## [1.31.0] - 2024-03-17
 ### Added

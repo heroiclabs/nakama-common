@@ -4205,7 +4205,7 @@ declare namespace nkruntime {
             sortOrder?: SortOrder,
             operator?: Operator,
             resetSchedule?: null | string,
-            metadata?: {[key: string]: any},
+            metadata?: {[key: string]: any} | null,
         ): void;
 
         /**

@@ -2781,7 +2781,8 @@ declare namespace nkruntime {
         startActive: number;
         endActive: number;
         canEnter: boolean;
-        nextReset: string;
+        prevReset: number;
+        nextReset: number;
         metadata: {[key: string]: any};
         createTime: number;
         startTime: number;

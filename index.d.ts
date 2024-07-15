@@ -4108,17 +4108,19 @@ declare namespace nkruntime {
          * Get multiple notifications by id.
          *
          * @param ids - Array of notification ids.
+         * @param userId - Opt. userID to scope results to that user only.
          * @throws {TypeError, GoError}
          */
-        notificationsGetId(ids: string[]): Notification[];
+        notificationsGetId(ids: string[], userId?: string): Notification[];
 
         /**
          * Delete multiple notifications.
          *
          * @param ids - Array of notification ids.
+         * @param userId - Opt. userID to scope deletions to that user only.
          * @throws {TypeError, GoError}
          */
-        notificationsDeleteId(ids: string[]): void;
+        notificationsDeleteId(ids: string[], userId?: string): void;
 
         /**
          * Update user wallet.

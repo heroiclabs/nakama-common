@@ -4221,11 +4221,12 @@ declare namespace nkruntime {
          * Create a new leaderboard.
          *
          * @param leaderboardID - Leaderboard id.
-         * @param authoritative - Opt. Authoritative Leaderboard if true.
+         * @param authoritative - Opt. Whether to only allow authoritative score submissions.
          * @param sortOrder - Opt. Sort leaderboard in desc or asc order. Defauts to "desc".
          * @param operator - Opt. Score operator "best", "set" or "incr" (refer to the docs for more info). Defaults to "best".
          * @param resetSchedule - Cron string to set the periodicity of the leaderboard reset. Set as null to never reset.
          * @param metadata - Opt. metadata object.
+         * @param enableRank - Opt. Enable ranks for the leaderboard. Defaults to false.
          * @throws {TypeError, GoError}
          */
         leaderboardCreate(
@@ -4235,6 +4236,7 @@ declare namespace nkruntime {
             operator?: Operator,
             resetSchedule?: null | string,
             metadata?: {[key: string]: any} | null,
+            enableRank?: boolean,
         ): void;
 
         /**
@@ -4330,7 +4332,7 @@ declare namespace nkruntime {
          * Create a new tournament.
          *
          * @param tournamentID - Tournament id.
-         * @param authoritative - Opt. Whether or not to only allow authoritative score submissions.
+         * @param authoritative - Opt. Whether to only allow authoritative score submissions.
          * @param sortOrder - Opt. Sort tournament in desc or asc order. Defaults to "desc".
          * @param operator - Opt. Score operator "best", "set" or "incr" (refer to the docs for more info). Defaults to "best".
          * @param duration - Opt. Duration of the tournament (unix epoch).
@@ -4344,6 +4346,7 @@ declare namespace nkruntime {
          * @param maxSize - Opt. Maximum size of participants in a tournament.
          * @param maxNumScore - Opt. Maximum submission attempts for a tournament record.
          * @param joinRequired - Opt. Whether the tournament needs to be joint before a record write is allowed.
+         * @param enableRank - Opt. Enable ranks for the leaderboard. Defaults to false.
          * @throws {TypeError, GoError}
          */
         tournamentCreate(
@@ -4362,6 +4365,7 @@ declare namespace nkruntime {
             maxSize?: number | null,
             maxNumScore?: number | null,
             joinRequired?: boolean,
+            enableRank?: boolean,
         ): void;
 
         /**

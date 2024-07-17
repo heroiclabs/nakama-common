@@ -6,6 +6,11 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Added
 - New runtime functions to get and delete notifications by id.
+- Add runtime function to disable ranks for an active leaderboard.
+
+### Changed
+- Add leaderboard and tournament create param to enable or disable ranks.
+
 ### Fixed
 - Add ErrGracePeriodExpired.
 

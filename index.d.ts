@@ -2606,13 +2606,23 @@ declare namespace nkruntime {
     /**
      * Notification Object
      */
-    export interface Notification {
+    export interface NotificationApi {
         code: number;
         content: {[key: string]: any};
         persistent: boolean;
         senderId: string;
         subject: string;
+        createTime: number;
+    }
+
+    export interface Notification {
+        code: number;
+        content: {[key: string]: any};
+        persistent: boolean;
+        senderId: string;
         userId: string;
+        subject: string;
+        createTime: number;
     }
 
     export interface NotificationDeleteRequest {
@@ -2630,7 +2640,7 @@ declare namespace nkruntime {
     }
 
     export interface NotificationList {
-        notifications?: Notification[];
+        notifications?: NotificationApi[];
         cacheableCursor?: string;
     }
 
@@ -4093,6 +4103,24 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         notificationsDelete(notifications: NotificationDeleteRequest[]): void;
+
+        /**
+         * Get multiple notifications by id.
+         *
+         * @param ids - Array of notification ids.
+         * @param userId - Opt. userID to scope results to that user only.
+         * @throws {TypeError, GoError}
+         */
+        notificationsGetId(ids: string[], userId?: string): Notification[];
+
+        /**
+         * Delete multiple notifications.
+         *
+         * @param ids - Array of notification ids.
+         * @param userId - Opt. userID to scope deletions to that user only.
+         * @throws {TypeError, GoError}
+         */
+        notificationsDeleteId(ids: string[], userId?: string): void;
 
         /**
          * Update user wallet.

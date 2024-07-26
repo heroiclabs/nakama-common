@@ -1109,6 +1109,22 @@ declare namespace nkruntime {
         registerAfterGetAccount(fn: AfterHookFunction<Account, void>): void;
 
         /**
+         * Register Before Hook for RPC getMatchmakerStats function.
+         *
+         * @param fn - The function to execute before getMatchmakerStats.
+         * @throws {TypeError}
+         */
+        registerBeforeGetMatchmakerStats(fn: BeforeHookFunction<void>): void;
+
+        /**
+         * Register After Hook for RPC getMatchmakerStats function.
+         *
+         * @param fn - The function to execute after getMatchmakerStats.
+         * @throws {TypeError}
+         */
+        registerAfterGetMatchmakerStats(fn: AfterHookFunction<MatchmakerStats, void>): void;
+
+        /**
          * Register before Hook for RPC updateAccount function.
          *
          * @param fn - The function to execute before updateAccount.
@@ -2529,6 +2545,17 @@ declare namespace nkruntime {
         customId: string
         verifyTime: number
         disableTime: number
+    }
+
+    export interface MatchmakerStats {
+        ticketCount: number
+        oldestTicketCreateTime: string
+        completions: MatchmakerStatsCompletion[]
+    }
+
+    export interface MatchmakerStatsCompletion {
+        createTime: string
+        completeTime: string
     }
 
     /**

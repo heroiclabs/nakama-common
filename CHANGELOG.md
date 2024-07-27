@@ -4,6 +4,8 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+## [1.33.0] - 2024-07-27
 ### Added
 - New runtime functions to get and delete notifications by id.
 - Add runtime function to disable ranks for an active leaderboard.

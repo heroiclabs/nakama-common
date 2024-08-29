@@ -2268,7 +2268,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute before ValidatePurchaseGoogle.
          * @throws {TypeError}
          */
-        registerBeforeValidatePurchaseGoogle(fn: BeforeHookFunction<ValidateSubscriptionGoogleRequest>): void;
+        registerBeforeValidateSubscriptionGoogle(fn: BeforeHookFunction<ValidateSubscriptionGoogleRequest>): void;
 
         /**
          * Register after Hook for RPC ValidatePurchaseGoogle function.
@@ -2276,7 +2276,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ValidatePurchaseGoogle.
          * @throws {TypeError}
          */
-        registerAfterValidatePurchaseGoogle(fn: AfterHookFunction<ValidateSubscriptionResponse, ValidateSubscriptionGoogleRequest>): void;
+        registerAfterValidateSubscriptionGoogle(fn: AfterHookFunction<ValidateSubscriptionResponse, ValidateSubscriptionGoogleRequest>): void;
 
         /**
          * Register before Hook for RPC ValidatePurchaseHuawei function.

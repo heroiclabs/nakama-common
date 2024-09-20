@@ -90,12 +90,12 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"google.golang.org/protobuf/types/known/timestamppb"
 	"os"
 	"time"
 
 	"github.com/heroiclabs/nakama-common/api"
 	"github.com/heroiclabs/nakama-common/rtapi"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 const (
@@ -1384,10 +1384,10 @@ type LiveEvent struct {
 }
 
 type MessageList struct {
-	Messages  []*Message `json:"messages,omitempty"`
-	NextCursor      string           `json:"next_cursor,omitempty"`
-	PrevCursor      string           `json:"prev_cursor,omitempty"`
-	CacheableCursor string           `json:"cacheable_cursor,omitempty"`
+	Messages        []*Message `json:"messages,omitempty"`
+	NextCursor      string     `json:"next_cursor,omitempty"`
+	PrevCursor      string     `json:"prev_cursor,omitempty"`
+	CacheableCursor string     `json:"cacheable_cursor,omitempty"`
 }
 
 type Message struct {
@@ -1404,7 +1404,7 @@ type Message struct {
 	ImageUrl    string         `json:"image_url,omitempty"`
 }
 
-type SatoriMessageUpdate struct {
+type MessageUpdate struct {
 	ReadTime    int64 `json:"read_time,omitempty"`
 	ConsumeTime int64 `json:"consume_time,omitempty"`
 }

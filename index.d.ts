@@ -5051,14 +5051,14 @@ declare namespace nkruntime {
         resetCron: string
     }
 
-    export interface SatoriMessagesList {
-        messages: SatoriMessage[]
+    export interface MessagesList {
+        messages: Message[]
         nextCursor: string
         prevCursor: string
         cacheableCursor: string
     }
 
-    export interface SatoriMessage {
+    export interface Message {
         scheduleId: string
         sendTime: number
         metadata: {[key: string]: string}

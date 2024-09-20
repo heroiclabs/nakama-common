@@ -5014,6 +5014,11 @@ declare namespace nkruntime {
         recompute?: boolean
     }
 
+    export interface AuthPropertiesUpdate {
+        default?: {[key: string]: string}
+        custom?: {[key: string]: string}
+    }
+
     export interface SatoriEvent {
         name: string
         id: string
@@ -5039,6 +5044,32 @@ declare namespace nkruntime {
         value: string
         activeStartTime: number
         activeEndTime: number
+        id: string
+        startTime: number
+        endTime: number
+        duration: number
+        resetCron: string
+    }
+
+    export interface MessagesList {
+        messages: Message[]
+        nextCursor: string
+        prevCursor: string
+        cacheableCursor: string
+    }
+
+    export interface Message {
+        scheduleId: string
+        sendTime: number
+        metadata: {[key: string]: string}
+        createTime: number
+        updateTime: number
+        readTime: number
+        consumeTime: number
+        text: string
+        id: string
+        title: string
+        imageUrl: string
     }
 
     /**
@@ -5049,10 +5080,11 @@ declare namespace nkruntime {
          * Create identity.
          *
          * @param id - Identity identifier.
+         * @param properties - Opt. Properties to update.
          * @param ipAddress - Opt. Client IP address to pass on to Satori for geo-IP lookup.
          * @throws {TypeError, GoError}
          */
-        authenticate(id: string, ipAddress?: string): void
+        authenticate(id: string, properties?: AuthPropertiesUpdate, ipAddress?: string): void
 
         /**
          * Get identity properties.
@@ -5086,6 +5118,7 @@ declare namespace nkruntime {
          *
          * @param id - Identity identifier.
          * @param names - Opt. List of experiment names.
+         * @returns a list of experiments.
          * @throws {TypeError, GoError}
          */
         experimentsList(id: string, names?: string[]): Experiment[]
@@ -5095,6 +5128,7 @@ declare namespace nkruntime {
          *
          * @param id - Identity identifier.
          * @param names - Opt. List of flag names.
+         * @returns a List of flags.
          * @throws {TypeError, GoError}
          */
         flagsList(id: string, names?: string[]): Flag[]
@@ -5104,8 +5138,40 @@ declare namespace nkruntime {
          *
          * @param id - Identity identifier.
          * @param names - Opt. List of live event names.
+         * @returns a list of live-events.
          * @throws {TypeError, GoError}
          */
         liveEventsList(id: string, names?: string[]): LiveEvent[]
+
+        /**
+         * List messages.
+         *
+         * @param id - Identity identifier.
+         * @param limit - Opt. The max number of messages to return.
+         * @param forward - Opt. True if listing should be older messages to newer, false if reverse.
+         * @param cursor - Opt. A pagination cursor, if any.
+         * @returns A list of messages.
+         * @throws {TypeError, GoError}
+         */
+        messagesList(id: string, limit?: number, forward?: boolean, cursor?: string): MessagesList[]
+
+        /**
+         * Update a message.
+         *
+         * @param id - Identity identifier.
+         * @param readTime - The time the message was read at the client.
+         * @param consumeTime - Opt. The time the message was consumed by the identity.
+         * @throws {TypeError, GoError}
+         */
+        messageUpdate(id: string, messageId: string, readTime: number, consumeTime?: number)
+
+        /**
+         * Delete a message.
+         *
+         * @param id - Identity identifier.
+         * @param messageId - The identifier of the message.
+         * @throws {TypeError, GoError}
+         */
+        messageDelete(id: string, messageId: string)
     }
 }

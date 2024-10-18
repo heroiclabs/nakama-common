@@ -4,6 +4,9 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Added
+- New runtime function to list user notifications.
+
 ### Fixed
 - Ensure optional TypeScript context fields are marked appropriately.
 

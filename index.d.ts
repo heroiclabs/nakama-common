@@ -1890,7 +1890,7 @@ declare namespace nkruntime {
          * @param fn - The function to execute after ListNotifications.
          * @throws {TypeError}
          */
-        registerAfterListNotifications(fn: AfterHookFunction<NotificationList, ListNotificationsRequest>): void;
+        registerAfterListNotifications(fn: AfterHookFunction<ApiNotificationList, ListNotificationsRequest>): void;
 
         /**
          * Register before Hook for RPC DeleteNotifications function.
@@ -2637,7 +2637,7 @@ declare namespace nkruntime {
         code: number;
         content: {[key: string]: any};
         persistent: boolean;
-        senderId: string;
+        sender: string;
         subject: string;
         createTime: number;
     }
@@ -2666,9 +2666,14 @@ declare namespace nkruntime {
         userId: string;
     }
 
-    export interface NotificationList {
+    export interface ApiNotificationList {
         notifications?: NotificationApi[];
         cacheableCursor?: string;
+    }
+
+    export interface NotificationsList {
+      notifications: Notification[];
+      cursor: string;
     }
 
     /**
@@ -4122,6 +4127,16 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         notificationSendAll(subject: string, content: {[key: string]: any}, code: number, persistent?: boolean): void;
+
+        /**
+         * List notifications by user ID.
+         *
+         * @param userId - User identifier.
+         * @param limit - Opt. Number of notifications per result page. Must be a value between 1 and 1000. Defaults to 100.
+         * @param cursor - Opt. Cursor to get next page of results, if any.
+         * @throws {TypeError, GoError}
+         */
+        notificationsList(userId: string, limit?: number, cursor?: string): NotificationsList;
 
         /**
          * Delete multiple notifications.

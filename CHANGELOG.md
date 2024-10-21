@@ -4,6 +4,8 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+## [1.34.0] - 2024-10-21
 ### Added
 - New runtime function to list user notifications.
 - New Go runtime initializer function to register raw HTTP handlers.

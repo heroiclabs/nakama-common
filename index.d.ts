@@ -2633,21 +2633,23 @@ declare namespace nkruntime {
     /**
      * Notification Object
      */
-    export interface NotificationApi {
+    export interface ApiNotification {
+        id: string;
         code: number;
         content: {[key: string]: any};
         persistent: boolean;
-        sender: string;
+        senderId: string;
         subject: string;
         createTime: number;
     }
 
     export interface Notification {
+        id: string;
         code: number;
         content: {[key: string]: any};
         persistent: boolean;
-        senderId: string;
         userId: string;
+        senderId: string;
         subject: string;
         createTime: number;
     }
@@ -2667,13 +2669,13 @@ declare namespace nkruntime {
     }
 
     export interface ApiNotificationList {
-        notifications?: NotificationApi[];
+        notifications?: ApiNotification[];
         cacheableCursor?: string;
     }
 
     export interface NotificationsList {
-      notifications: Notification[];
-      cursor: string;
+        notifications: ApiNotification[];
+        cursor: string;
     }
 
     /**

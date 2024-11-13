@@ -5082,9 +5082,9 @@ declare namespace nkruntime {
 
     export interface SatoriEvent {
         name: string
-        id: string
+        id?: string
         metadata?: {[key: string]: string}
-        value: string
+        value?: string
         timestamp: number
     }
 

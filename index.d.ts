@@ -3693,6 +3693,7 @@ declare namespace nkruntime {
          * Export user account data to JSON encoded string
          *
          * @param userId - Target account.
+         * @returns JSON string of account data.
          * @throws {TypeError, GoError}
          */
         accountExportId(userId: string): string;
@@ -3702,6 +3703,7 @@ declare namespace nkruntime {
          *
          * @param userIds - User IDs. Pass null to fetch by facebookIds only.
          * @param facebookIds - Facebook IDs.
+         * @returns Array containing users data.
          * @throws {TypeError, GoError}
          */
         usersGetId(userIds: string[], facebookIds?: string[]): User[]
@@ -3710,6 +3712,7 @@ declare namespace nkruntime {
          * Get user data by usernames.
          *
          * @param usernames - Usernames.
+         * @returns Array containing users data.
          * @throws {TypeError, GoError}
          */
         usersGetUsername(usernames: string[]): User[]
@@ -3721,6 +3724,16 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         usersGetRandom(count: number): User[]
+
+        /**
+         * Get user data for a given number of random users.
+         *
+         * @param userId - Caller user ID.
+         * @param userIds - Target users to check friendship status with.
+         * @returns Array containing users friend data.
+         * @throws {TypeError, GoError}
+         */
+        usersGetFriendStatus(userId: string, userIds: string[]): Friend[]
 
         /**
          * Ban a group of users by id.

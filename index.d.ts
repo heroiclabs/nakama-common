@@ -3945,6 +3945,24 @@ declare namespace nkruntime {
         unlinkSteam(userId: string, token?: string): void;
 
         /**
+         * Follow users status changes on a given session.
+         *
+         * @param sessionId - User ID.
+         * @param userIds - Follow target userIds.
+         * @throws {TypeError, GoError}
+         */
+        statusFollow(sessionId: string, userIds: string[])
+
+        /**
+         * Unfollow users status changes on a given session.
+         *
+         * @param sessionId - User ID.
+         * @param userIds - Unfollow target userIds.
+         * @throws {TypeError, GoError}
+         */
+        statusUnfollow(sessionId: string, userIds: string[])
+
+        /**
          * List stream presences.
          *
          * @param stream - Stream object.
@@ -4183,6 +4201,14 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         notificationsDeleteId(ids: string[], userId?: string): void;
+
+        /**
+         * Update multiple notifications.
+         *
+         * @param updates - Array of notification updates objects.
+         * @throws {TypeError, GoError}
+         */
+        notificationsUpdate(updates: NotificationUpdate[]): void;
 
         /**
          * Update user wallet.
@@ -5056,9 +5082,9 @@ declare namespace nkruntime {
 
     export interface SatoriEvent {
         name: string
-        id: string
+        id?: string
         metadata?: {[key: string]: string}
-        value: string
+        value?: string
         timestamp: number
     }
 
@@ -5105,6 +5131,13 @@ declare namespace nkruntime {
         id: string
         title: string
         imageUrl: string
+    }
+
+    export interface NotificationUpdate {
+      id: string
+      content?: {[key: string]: any}
+      subject?: string
+      sender?: string
     }
 
     /**

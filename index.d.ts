@@ -1067,6 +1067,14 @@ declare namespace nkruntime {
      */
     export interface Initializer {
         /**
+         * Get subset of Nakama configs.
+         *
+         * @returns Object containing config values.
+         * @throws {TypeError}
+         */
+        getConfig(): Config;
+
+        /**
          * Register an RPC function by its ID to be called as a S2S function or by game clients.
          *
          * @param id - The ID of the function in the server.
@@ -3364,14 +3372,6 @@ declare namespace nkruntime {
      * The server APIs available in the game server.
      */
     export interface Nakama {
-        /**
-         * Get subset of Nakama configs.
-         *
-         * @returns Object containing config values.
-         * @throws {TypeError}
-         */
-        getConfig(): Config;
-
         /**
          * Convert binary data to string.
          *

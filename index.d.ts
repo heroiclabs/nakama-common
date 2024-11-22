@@ -3291,7 +3291,7 @@ declare namespace nkruntime {
 
     export interface ConfigSteam {
       publisher_key: string
-      app_id: string
+      app_id: number
     }
 
     export interface ConfigFacebookInstantGame {

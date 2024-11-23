@@ -1067,6 +1067,14 @@ declare namespace nkruntime {
      */
     export interface Initializer {
         /**
+         * Get subset of Nakama configs.
+         *
+         * @returns Object containing config values.
+         * @throws {TypeError}
+         */
+        getConfig(): Config;
+
+        /**
          * Register an RPC function by its ID to be called as a S2S function or by game clients.
          *
          * @param id - The ID of the function in the server.
@@ -3237,6 +3245,113 @@ declare namespace nkruntime {
         createTime: number
         updateTime: number
         persistent: boolean
+    }
+
+    export interface Config {
+      name: string
+      shutdown_grace_sec: number
+      logger: ConfigLogger
+      session: ConfigSession
+      socket: ConfigSocket
+      social: ConfigSocial
+      runtime: ConfigRuntime
+      iap: ConfigIAP
+      google_auth: ConfigGoogleAuth
+      satori: ConfigSatori
+    }
+
+    export interface ConfigLogger {
+      level: string
+    }
+
+    export interface ConfigSession {
+      encryption_key: string
+      token_expiry_sec: number
+      refresh_encryption_key: string
+      refresh_token_expiry_sec: number
+      single_socket: boolean
+      single_match: boolean
+      single_party: boolean
+      single_session: boolean
+    }
+
+    export interface ConfigSocket {
+      server_key: string
+      port: number
+      address: string
+      protocol: string
+    }
+
+    export interface ConfigSocial {
+      steam: ConfigSteam
+      facebookInstantGame: ConfigFacebookInstantGame
+      facebookLimitedLogin: ConfigFacebookLimitedLogin
+      apple: ConfigApple
+    }
+
+    export interface ConfigSteam {
+      publisher_key: string
+      app_id: number
+    }
+
+    export interface ConfigFacebookInstantGame {
+      app_secret: string
+    }
+
+    export interface ConfigFacebookLimitedLogin {
+      app_id: string
+    }
+
+    export interface ConfigApple {
+      bundle_id: string
+    }
+
+    export interface ConfigRuntime {
+      env: string[]
+      http_key: string
+    }
+
+    export interface ConfigIAP {
+      apple: ConfigIAPApple
+      google: ConfigIAPGoogle
+      huawei: ConfigIAPHuawei
+      facebook_instant: ConfigIAPFacebookInstant
+    }
+
+    export interface ConfigIAPApple {
+      shared_password: string
+      notifications_endpoint_id: string
+    }
+
+    export interface ConfigIAPGoogle {
+      client_email: string
+      private_key: string
+      notifications_endpoint_id: string
+      refund_check_period_min: number
+      package_name: string
+    }
+
+    export interface ConfigIAPHuawei {
+      public_key: string
+      client_id: string
+      client_secret: string
+    }
+
+    export interface ConfigIAPFacebookInstant {
+      public_key: string
+      client_id: string
+      client_secret: string
+    }
+
+    export interface ConfigGoogleAuth {
+      credentials_json: string
+    }
+
+    export interface ConfigSatori {
+      url: string
+      api_key_name: string
+      api_key: string
+      signing_key: string
     }
 
     const enum PresenceReason {

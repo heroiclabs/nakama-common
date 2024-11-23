@@ -10,6 +10,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - Add new NotificationsUpdate runtime API.
 - Add new initializers function to get config values.
 
+### Changed
+- Update to Protobuf v1.35.2 dependency.
+
 ## [1.34.0] - 2024-10-21
 ### Added
 - New runtime function to list user notifications.

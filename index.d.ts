@@ -4775,6 +4775,16 @@ declare namespace nkruntime {
         userGroupsList(userId: string, limit?: number, state?: number, cursor?: string): UserGroupList;
 
         /**
+         * Update friend metadata.
+         *
+         * @param userId - User ID.
+         * @param friendUserId - Friend User ID.
+         * @param metadata - Metadata to set. Overwrites existing metadata.
+         * @throws {TypeError, GoError}
+         */
+        friendMetadataUpdate(userId: string, friendUserId: string, metadata: {[key: string]: any}): void;
+
+        /**
          * List a user's friends.
          *
          * @param userId - User ID.

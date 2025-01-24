@@ -5276,10 +5276,11 @@ declare namespace nkruntime {
          *
          * @param id - Identity identifier.
          * @param properties - Opt. Properties to update.
+         * @param noSession - Opt. Whether authenticate should skip session tracking.
          * @param ipAddress - Opt. Client IP address to pass on to Satori for geo-IP lookup.
          * @throws {TypeError, GoError}
          */
-        authenticate(id: string, properties?: AuthPropertiesUpdate, ipAddress?: string): void
+        authenticate(id: string, properties?: AuthPropertiesUpdate, ipAddress?: string): Properties
 
         /**
          * Get identity properties.
@@ -5288,7 +5289,7 @@ declare namespace nkruntime {
          * @returns The identity properties.
          * @throws {TypeError, GoError}
          */
-        propertiesGet(id: string): Properties[]
+        propertiesGet(id: string): Properties
 
         /**
          * Update identity properties.

@@ -834,6 +834,7 @@ declare namespace nkruntime {
         user?: User
         state?: number
         updateTime?: number
+        metadata?: {[key: string]: any}
     }
 
     export interface FriendList {
@@ -4775,6 +4776,16 @@ declare namespace nkruntime {
         userGroupsList(userId: string, limit?: number, state?: number, cursor?: string): UserGroupList;
 
         /**
+         * Update friend metadata.
+         *
+         * @param userId - User ID.
+         * @param friendUserId - Friend User ID.
+         * @param metadata - Metadata to set. Overwrites existing metadata.
+         * @throws {TypeError, GoError}
+         */
+        friendMetadataUpdate(userId: string, friendUserId: string, metadata: {[key: string]: any}): void;
+
+        /**
          * List a user's friends.
          *
          * @param userId - User ID.
@@ -4804,9 +4815,10 @@ declare namespace nkruntime {
          * @param username - Username.
          * @param ids - The IDs of the users you want to add as friends.
          * @param usernames - The usernames of the users you want to add as friends.
+         * @param metadata - Opt. Metadata to set for friend.
          * @throws {TypeError, GoError}
          */
-        friendsAdd(userId: string, username: string, ids: string[], usernames: string[]): FriendList;
+        friendsAdd(userId: string, username: string, ids: string[], usernames: string[], metadata: {[key: string]: any}): FriendList;
 
         /**
          * Delete friends from a user.

@@ -5305,9 +5305,10 @@ declare namespace nkruntime {
          *
          * @param id - Identity identifier.
          * @param events - Events to publish.
+         * @param ipAddress - Opt. Client IP address to pass on to Satori for geo-IP lookup.
          * @throws {TypeError, GoError}
          */
-        eventsPublish(id: string, events: SatoriEvent[]): void
+        eventsPublish(id: string, events: SatoriEvent[], ipAddress?: string): void
 
         /**
          * List experiments.

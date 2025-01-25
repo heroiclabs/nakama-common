@@ -12,7 +12,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 - Additional runtime Satori authentication function options.
 
 ### Changed
-- Update to Protobuf v1.36.3 dependency.
+- Update to Protobuf v1.36.4 dependency.
 
 ## [1.35.0] - 2024-11-25
 ### Added

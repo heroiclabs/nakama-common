@@ -5094,7 +5094,7 @@ declare namespace nkruntime {
          * @returns The channelId.
          * @throws {TypeError, GoError}
          */
-        channelIdBuild(sender: string, target: string, chanType: ChanType): string
+        channelIdBuild(sender: string | void, target: string, chanType: ChanType): string
 
         /**
          * Parses a CRON expression and a timestamp in UTC seconds, and returns the previous matching timestamp in UTC seconds.

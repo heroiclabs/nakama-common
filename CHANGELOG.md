@@ -4,6 +4,8 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Added
+- Add Satori client API to list Flags Overrides.
 
 ## [1.36.0] - 2025-01-25
 ### Added

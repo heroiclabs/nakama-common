@@ -5226,6 +5226,19 @@ declare namespace nkruntime {
         conditionChanged: boolean
     }
 
+    export interface FlagOverrides {
+      flagName: string
+      overrides: FlagOverride[]
+    }
+
+    export interface FlagOverride {
+      "name": string
+      "type": string
+      "variantName": string
+      "value": string
+      "createTimeSec": number
+    }
+
     export interface LiveEvent {
         name: string
         description: string
@@ -5318,7 +5331,7 @@ declare namespace nkruntime {
          * @returns a list of experiments.
          * @throws {TypeError, GoError}
          */
-        experimentsList(id: string, names?: string[]): Experiment[]
+        experimentsList(id: string, names?: string[]): {"experiments": Experiment[]}
 
         /**
          * List flags.
@@ -5328,7 +5341,17 @@ declare namespace nkruntime {
          * @returns a List of flags.
          * @throws {TypeError, GoError}
          */
-        flagsList(id: string, names?: string[]): Flag[]
+        flagsList(id: string, names?: string[]): {"flags": Flag[]}
+
+        /**
+         * List flags overrides.
+         *
+         * @param id - Identity identifier.
+         * @param names - Opt. List of flag names.
+         * @returns a List of flags overrides.
+         * @throws {TypeError, GoError}
+         */
+        flagsOverridesList(id: string, names?: string[]): {"flags": FlagOverrides[]}
 
         /**
          * List live events.
@@ -5338,7 +5361,7 @@ declare namespace nkruntime {
          * @returns a list of live-events.
          * @throws {TypeError, GoError}
          */
-        liveEventsList(id: string, names?: string[]): LiveEvent[]
+        liveEventsList(id: string, names?: string[]): {"liveEvents": LiveEvent[]}
 
         /**
          * List messages.
@@ -5350,7 +5373,7 @@ declare namespace nkruntime {
          * @returns A list of messages.
          * @throws {TypeError, GoError}
          */
-        messagesList(id: string, limit?: number, forward?: boolean, cursor?: string): MessagesList[]
+        messagesList(id: string, limit?: number, forward?: boolean, cursor?: string): {"messages": MessagesList[]}
 
         /**
          * Update a message.
@@ -5360,7 +5383,7 @@ declare namespace nkruntime {
          * @param consumeTime - Opt. The time the message was consumed by the identity.
          * @throws {TypeError, GoError}
          */
-        messageUpdate(id: string, messageId: string, readTime: number, consumeTime?: number)
+        messageUpdate(id: string, messageId: string, readTime: number, consumeTime?: number): void
 
         /**
          * Delete a message.
@@ -5369,6 +5392,6 @@ declare namespace nkruntime {
          * @param messageId - The identifier of the message.
          * @throws {TypeError, GoError}
          */
-        messageDelete(id: string, messageId: string)
+        messageDelete(id: string, messageId: string): void
     }
 }

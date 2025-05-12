@@ -4,8 +4,13 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+## [1.37.0] - 2025-05-12
 ### Added
 - Add Satori client API to list Flags Overrides.
+
+### Changed
+- Update to Protobuf v1.36.6 dependency.
 
 ## [1.36.0] - 2025-01-25
 ### Added

@@ -4067,7 +4067,7 @@ declare namespace nkruntime {
          * @param userIds - Follow target userIds.
          * @throws {TypeError, GoError}
          */
-        statusFollow(sessionId: string, userIds: string[])
+        statusFollow(sessionId: string, userIds: string[]): void;
 
         /**
          * Unfollow users status changes on a given session.
@@ -4076,7 +4076,7 @@ declare namespace nkruntime {
          * @param userIds - Unfollow target userIds.
          * @throws {TypeError, GoError}
          */
-        statusUnfollow(sessionId: string, userIds: string[])
+        statusUnfollow(sessionId: string, userIds: string[]): void;
 
         /**
          * List stream presences.
@@ -4533,6 +4533,14 @@ declare namespace nkruntime {
         leaderboardRecordsHaystack(leaderboardId: string, ownerId: string, limit: number, cursor: string, overrideExpiry: number): LeaderboardRecordList;
 
         /**
+         * Disable a leaderboard rank cache freeing its allocated resources. If already disabled is a NOOP.
+         *
+         * @param leaderboardId - The leaderboard id.
+         * @throws {TypeError, GoError}
+         */
+        leaderboardRanksDisable(leaderboardId: string): void;
+        
+        /**
          * Create a new tournament.
          *
          * @param tournamentID - Tournament id.
@@ -4674,6 +4682,14 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         tournamentRecordsHaystack(id: string, ownerId: string, limit?: number, cursor?: string, expiry?: number): TournamentRecordList;
+
+        /**
+         * Disable a tournament rank cache freeing its allocated resources. If already disabled is a NOOP.
+         *
+         * @param tournamentId - The tournament id.
+         * @throws {TypeError, GoError}
+         */
+        tournamentRanksDisable(tournamentId: string): void;
 
         /**
          * Create a new group.

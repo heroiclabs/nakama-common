@@ -862,7 +862,7 @@ type Initializer interface {
 	// RegisterBeforeListParties can be used to perform additional logic before retrieving parties.
 	RegisterBeforeListParties(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ListPartiesRequest) (*api.ListPartiesRequest, error)) error
 
-	// RegisterAfterListParties can be used to perform additiona logic after retrieving parties.
+	// RegisterAfterListParties can be used to perform additional logic after retrieving parties.
 	RegisterAfterListParties(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.PartyList, in *api.ListPartiesRequest) error) error
 
 	// RegisterEvent can be used to define a function handler that triggers when custom events are received or generated.

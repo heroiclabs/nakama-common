@@ -94,8 +94,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/gofrs/uuid/v5"
 	"github.com/heroiclabs/nakama-common/api"
 	"github.com/heroiclabs/nakama-common/rtapi"
+	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -876,6 +878,9 @@ type Initializer interface {
 	// RegisterFleetManager can be used to register a FleetManager implementation that can be retrieved from the runtime using GetFleetManager().
 	RegisterFleetManager(fleetManagerInit FleetManagerInitializer) error
 
+	// RegisterIAPManager sets the relevant iapManger in the runtime object
+	RegisterIAPManager(platform string, iapManager interface{}) error
+
 	// RegisterShutdown can be used to register a function that is executed once the server receives a termination signal.
 	// This function only fires if shutdown_grace_sec > 0 and will be terminated early if its execution takes longer than the configured grace seconds.
 	RegisterShutdown(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule)) error
@@ -1327,6 +1332,17 @@ type FleetManagerInitializer interface {
 	Init(nk NakamaModule, callbackHandler FmCallbackHandler) error
 	Update(ctx context.Context, id string, playerCount int, metadata map[string]any) error
 	Delete(ctx context.Context, id string) error
+}
+
+type IAPGoogleManager interface {
+	ValidatePurchaseGoogle(ctx context.Context, logger *zap.Logger, db *sql.DB, userID uuid.UUID, config *IAPGoogleConfig, receipt string, persist bool) (*api.ValidatePurchaseResponse, error)
+	GoogleNotificationHandler(logger *zap.Logger, db *sql.DB, config *IAPGoogleConfig) http.HandlerFunc
+}
+
+type IAPAppleManager interface {
+	ValidatePurchasesApple(ctx context.Context, logger *zap.Logger, db *sql.DB, userID uuid.UUID, password, receipt string, persist bool) (*api.ValidatePurchaseResponse, error)
+	ValidateSubscriptionApple(ctx context.Context, logger *zap.Logger, db *sql.DB, userID uuid.UUID, password, receipt string, persist bool) (*api.ValidateSubscriptionResponse, error)
+	AppleNotificationHandler(logger *zap.Logger, db *sql.DB, purchaseNotificationCallback func(ctx context.Context, purchase *api.ValidatedPurchase, providerPayload string) error, subscriptionNotificationCallback func(ctx context.Context, subscription *api.ValidatedSubscription, providerPayload string) error) http.HandlerFunc
 }
 
 /*

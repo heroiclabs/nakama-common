@@ -94,8 +94,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/gofrs/uuid/v5"
 	"github.com/heroiclabs/nakama-common/api"
 	"github.com/heroiclabs/nakama-common/rtapi"
+	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -768,6 +770,12 @@ type Initializer interface {
 	// RegisterAfterValidatePurchaseGoogle can be used to perform additional logic after validating a Google Play Store IAP receipt.
 	RegisterAfterValidatePurchaseGoogle(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.ValidatePurchaseResponse, in *api.ValidatePurchaseGoogleRequest) error) error
 
+	// RegisterBeforeValidatePurchaseXbox can be used to perform additional logic before validating a Xbox Store receipt
+	RegisterBeforeValidatePurchaseXbox(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ValidatePurchaseXboxRequest) (*api.ValidatePurchaseXboxRequest, error)) error
+
+	// RegisterAfterValidatePurchaseXbox can be used to perform additional logic after validating a Xbox Store receipt
+	RegisterAfterValidatePurchaseXbox(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.ValidatePurchaseResponse, in *api.ValidatePurchaseXboxRequest) error) error
+
 	// RegisterBeforeValidateSubscriptionGoogle can be used to perform additional logic before validation an Google Store Subscription receipt.
 	RegisterBeforeValidateSubscriptionGoogle(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ValidateSubscriptionGoogleRequest) (*api.ValidateSubscriptionGoogleRequest, error)) error
 
@@ -875,6 +883,9 @@ type Initializer interface {
 
 	// RegisterFleetManager can be used to register a FleetManager implementation that can be retrieved from the runtime using GetFleetManager().
 	RegisterFleetManager(fleetManagerInit FleetManagerInitializer) error
+
+	// RegisterIAPManager sets the relevant iapManger in the runtime object
+	RegisterIAPManager(platform string, iapManager interface{}) error
 
 	// RegisterShutdown can be used to register a function that is executed once the server receives a termination signal.
 	// This function only fires if shutdown_grace_sec > 0 and will be terminated early if its execution takes longer than the configured grace seconds.
@@ -1327,6 +1338,10 @@ type FleetManagerInitializer interface {
 	Init(nk NakamaModule, callbackHandler FmCallbackHandler) error
 	Update(ctx context.Context, id string, playerCount int, metadata map[string]any) error
 	Delete(ctx context.Context, id string) error
+}
+
+type IAPXboxManager interface {
+	PurchaseValidateXbox(ctx context.Context, logger *zap.Logger, db *sql.DB, password, productId string, userID uuid.UUID, persist bool) (*api.ValidatePurchaseResponse, error)
 }
 
 /*

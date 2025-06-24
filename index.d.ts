@@ -2228,6 +2228,42 @@ declare namespace nkruntime {
         registerAfterGetUsers(fn: AfterHookFunction<Users, GetUsersRequest>): void;
 
         /**
+         * Register before Hook for RPC ValidatePurchase function.
+         *
+         * @param fn - The function to execute before ValidatePurchase.
+         * @throws {TypeError}
+         */
+        registerBeforeValidatePurchase(fn: BeforeHookFunction<ValidatePurchaseRequest>): void;
+
+        /**
+         * Register after Hook for RPC ValidatePurchase function.
+         *
+         * @param fn - The function to execute after ValidatePurchase.
+         * @throws {TypeError}
+         */
+        registerAfterValidatePurchase(fn: AfterHookFunction<ValidatePurchaseProviderResponse, ValidatePurchaseRequest>): void;
+
+
+        /**
+         * Register before Hook for RPC ValidateSubscription function.
+         *
+         * @param fn - The function to execute before ValidatePurchase.
+         * @throws {TypeError}
+         */
+        registerBeforeValidateSubscription(fn: BeforeHookFunction<ValidateSubscriptionRequest>): void;
+
+        /**
+         * Register after Hook for RPC ValidatePurchase function.
+         *
+         * @param fn - The function to execute after ValidatePurchase.
+         * @throws {TypeError}
+         */
+        registerAfterValidateSubscription(fn: AfterHookFunction<ValidatePurchaseProviderSubscriptionResponse, ValidateSubscriptionRequest>): void;
+
+
+
+
+      /**
          * Register before Hook for RPC ValidatePurchaseApple function.
          *
          * @param fn - The function to execute before ValidatePurchaseApple.
@@ -2324,6 +2360,22 @@ declare namespace nkruntime {
          * @throws {TypeError}
          */
          registerAfterValidatePurchaseSamsung(fn: AfterHookFunction<ValidatePurchaseResponse, ValidatePurchaseSamsungRequest>): void;
+
+        /**
+         * Register before Hook for RPC ListParties function.
+         *
+         * @param fn - The function to execute before ListParties.
+         * @throws {TypeError}
+         */
+        registerBeforeListParties(fn: BeforeHookFunction<ListPartiesRequest>): void;
+
+        /**
+         * Register after Hook for RPC ListParties function.
+         *
+         * @param fn - The function to execute after ListParties.
+         * @throws {TypeError}
+         */
+        registerAfterListParties(fn: AfterHookFunction<PartyList, ListPartiesRequest>): void;
 
         /**
          * Register before Hook for RPC ListParties function.
@@ -3203,6 +3255,19 @@ declare namespace nkruntime {
         cursor?: string
     }
 
+    export interface ValidatePurchaseRequest {
+        receipt: string
+        signature: string
+        platform: string
+        persist: boolean
+    }
+
+  export interface ValidateSubscriptionRequest {
+    receipt: string
+    platform: string
+    persist: boolean
+  }
+
     export interface ValidatePurchaseAppleRequest {
         receipt: string
     }
@@ -3240,8 +3305,16 @@ declare namespace nkruntime {
         validatedPurchases?: ValidatedPurchase[]
     }
 
+    export interface ValidatePurchaseProviderResponse {
+        validatedPurchase?: PurchaseProviderValidatedPurchase[]
+    }
+
     export interface ValidateSubscriptionResponse {
         validatedSubscription: ValidatedSubscription
+    }
+
+    export interface ValidatePurchaseProviderSubscriptionResponse {
+      validatedSubscription: ValidatedSubscription[]
     }
 
     export type ValidatedPurchaseStore = "APPLE_APP_STORE" | "GOOGLE_PLAY_STORE" | "HUAWEI_APP_GALLERY" | "FACEBOOK_INSTANT_STORE" | "SAMSUNG_GALAXY_STORE"
@@ -3260,6 +3333,19 @@ declare namespace nkruntime {
         providerResponse: string
         environment: ValidatedPurchaseEnvironment
         seenBefore: boolean
+    }
+
+    export interface PurchaseProviderValidatedPurchase {
+      userId: string
+      productId: string
+      transactionId: string
+      store: ValidatedPurchaseStore
+      purchaseTime: number
+      createTime: number
+      updateTime: number
+      refundTime: number
+      providerResponse: string
+      environment: ValidatedPurchaseEnvironment
     }
 
     export interface ValidatedSubscription {
@@ -5036,7 +5122,24 @@ declare namespace nkruntime {
          */
         fileRead(relPath: string): string;
 
-        /**
+      /**
+       * Validate a platform receipt containing purchases.
+       *
+       * @param userID - User ID.
+       * @param receipt - receipt to validate.
+       * @param platform - the platform the receipt belongs to.
+       * @param signature - The receipt signature
+       * @param persist - Opt. Whether to persist the receipt validation. Defaults to true.
+       * @param passwordOverride - Opt. Override the configured Apple Store Validation Password.
+       * @param clientEmailOverride - Opt. Override the configured Google Store client email
+       * @param privateKeyOverride - Opt. Override the configured Google Store private key
+       * @returns The result of the validated and stored purchases from the receipt.
+       * @throws {TypeError, GoError}
+       */
+        purchaseValidate(userID: string, receipt: string, platform: string, signature?: string, persist?: boolean, passwordOverride?: string, clientEmailOverride?: string, privateKeyOverride?: string): ValidatePurchaseProviderResponse
+
+
+      /**
          * Validate an Apple receipt containing purchases.
          *
          * @param userID - User ID.
@@ -5113,6 +5216,21 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         purchasesList(userID?: string, limit?: number, cursor?: string): ValidatedPurchaseList
+
+
+        /**
+         * Validate an receipt containing a subscription.
+         *
+         * @param userID - User ID.
+         * @param receipt - subscription receipt to validate.
+         * @param platform - The platform the subscription belongs to.
+         * @param persist - Opt. Whether to persist the subscription validation. Defaults to true.
+         * @param passwordOverride - Opt. Override the configured Apple Store Validation Password.
+         * @param clientEmailOverride - Opt. Override the configured Google Store client email
+         * @param privateKeyOverride - Opt. Override the configured Google Store private key         * @returns The result of the validated and stored purchases from the receipt.
+         * @throws {TypeError, GoError}
+         */
+        subscriptionValidate(userID: string, receipt: string, platform: string, persist?: boolean,  passwordOverride?: string, clientEmailOverride?: string, privateKeyOverride?: string): ValidatePurchaseProviderSubscriptionResponse
 
         /**
          * Validate an Apple receipt containing a subscription.

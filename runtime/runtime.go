@@ -90,6 +90,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/gofrs/uuid/v5"
 	"net/http"
 	"os"
 	"time"
@@ -232,6 +233,19 @@ var (
 	ErrDeferredBroadcastFull = errors.New("too many deferred message broadcasts per tick")
 
 	ErrSatoriConfigurationInvalid = errors.New("satori configuration is invalid")
+
+	ErrPurchaseProviderFunctionalityNotSupported = errors.New("purchase provider functionality not supported")
+
+	UnknownPlatformString     = "unknown"
+	ApplePlatformString       = "apple"
+	GooglePlatformString      = "google"
+	FacebookPlatformString    = "facebook"
+	HuaweiPlatformString      = "huawei"
+	XboxPlatformString        = "xbox"
+	PlaystationPlatformString = "playstation"
+	SteamPlatformString       = "steam"
+	EpicPlatformString        = "epic"
+	DiscordPlatformString     = "discord"
 )
 
 const (
@@ -264,6 +278,42 @@ For more information, please have a look at the following:
 type Error struct {
 	Message string
 	Code    int
+}
+
+type Platform int
+
+const (
+	Unknown Platform = iota
+	Apple
+	Google
+	Facebook
+	Huawei
+	Xbox
+	Playstation
+	Steam
+	Epic
+	Discord
+)
+
+func (enum Platform) String() string {
+	return [...]string{UnknownPlatformString, ApplePlatformString, GooglePlatformString, FacebookPlatformString, HuaweiPlatformString, XboxPlatformString, PlaystationPlatformString, SteamPlatformString, EpicPlatformString, DiscordPlatformString}[enum]
+}
+
+var AllPlatforms = []Platform{Unknown, Apple, Google, Facebook, Huawei, Xbox, Playstation, Steam, Epic, Discord}
+
+func PlatformFromString(s string) Platform {
+	return map[string]Platform{
+		UnknownPlatformString:     Unknown,
+		ApplePlatformString:       Apple,
+		GooglePlatformString:      Google,
+		FacebookPlatformString:    Facebook,
+		HuaweiPlatformString:      Huawei,
+		XboxPlatformString:        Xbox,
+		PlaystationPlatformString: Playstation,
+		EpicPlatformString:        Epic,
+		SteamPlatformString:       Steam,
+		DiscordPlatformString:     Discord,
+	}[s]
 }
 
 // Error returns the encapsulated error message.
@@ -314,6 +364,14 @@ type Logger interface {
 	Fields() map[string]interface{}
 }
 
+type PurchaseRefundFn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, purchase *api.ValidatedPurchase, providerPayload string) error
+type SubscriptionRefundFn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, subscription *api.ValidatedSubscription, providerPayload string) error
+
+type RefundFns struct {
+	Purchase     PurchaseRefundFn
+	Subscription SubscriptionRefundFn
+}
+
 /*
 Initializer is used to register various callback functions with the server.
 It is made available to the InitModule function as an input parameter when the function is invoked by the server when loading the module on server start.
@@ -325,6 +383,7 @@ type Initializer interface {
 		GetConfig returns a read only subset of the Nakama configuration values.
 	*/
 	GetConfig() (Config, error)
+
 	/*
 		RegisterRpc registers a function with the given ID. This ID can be used within client code to send an RPC message to
 		execute the function and return the result. Results are always returned as a JSON string (or optionally empty string).
@@ -383,6 +442,9 @@ type Initializer interface {
 
 	// RegisterSubscriptionNotificationGoogle
 	RegisterSubscriptionNotificationGoogle(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, notificationType NotificationType, subscription *api.ValidatedSubscription, providerPayload *SubscriptionV2GoogleResponse) error) error
+
+	// RegisterRefundHandler
+	RegisterRefundHandler(platform string, purchaseRefundFn PurchaseRefundFn, subscriptionRefundFn SubscriptionRefundFn) error
 
 	// RegisterBeforeGetAccount is used to register a function invoked when the server receives the relevant request.
 	RegisterBeforeGetAccount(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule) error) error
@@ -758,6 +820,18 @@ type Initializer interface {
 	// RegisterAfterListTournamentRecordsAroundOwner can be used to perform additional logic after listing tournament records.
 	RegisterAfterListTournamentRecordsAroundOwner(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.TournamentRecordList, in *api.ListTournamentRecordsAroundOwnerRequest) error) error
 
+	// RegisterBeforeValidatePurchase can be used to perform additional logic before generic validate purchase call
+	RegisterBeforeValidatePurchase(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ValidatePurchaseRequest) (*api.ValidatePurchaseRequest, error)) error
+
+	// RegisterAfterValidatePurchase can be used to perform additional logic after generic validate purchase call
+	RegisterAfterValidatePurchase(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.ValidatePurchaseProviderResponse, in *api.ValidatePurchaseRequest) error) error
+
+	// RegisterBeforeValidateSubscription can be used to perform additional logic before generic validate subscription call
+	RegisterBeforeValidateSubscription(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ValidateSubscriptionRequest) (*api.ValidateSubscriptionRequest, error)) error
+
+	// RegisterAfterValidateSubscription can be used to perform additional logic after generic validate subscription call
+	RegisterAfterValidateSubscription(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.ValidatePurchaseProviderSubscriptionResponse, in *api.ValidateSubscriptionRequest) error) error
+
 	// RegisterBeforeValidatePurchaseApple can be used to perform additional logic before validating an Apple Store IAP receipt.
 	RegisterBeforeValidatePurchaseApple(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ValidatePurchaseAppleRequest) (*api.ValidatePurchaseAppleRequest, error)) error
 
@@ -895,6 +969,9 @@ type Initializer interface {
 
 	// RegisterFleetManager can be used to register a FleetManager implementation that can be retrieved from the runtime using GetFleetManager().
 	RegisterFleetManager(fleetManagerInit FleetManagerInitializer) error
+
+	// RegisterPurchaseProvider adds the purchaseProvider to the in the runtime map
+	RegisterPurchaseProvider(platform string, purchaseProvider PurchaseProvider) error
 
 	// RegisterShutdown can be used to register a function that is executed once the server receives a termination signal.
 	// This function only fires if shutdown_grace_sec > 0 and will be terminated early if its execution takes longer than the configured grace seconds.
@@ -1176,6 +1253,7 @@ type NakamaModule interface {
 	LeaderboardsGetId(ctx context.Context, ids []string) ([]*api.Leaderboard, error)
 	LeaderboardRecordsHaystack(ctx context.Context, id, ownerID string, limit int, cursor string, expiry int64) (*api.LeaderboardRecordList, error)
 
+	PurchaseValidate(ctx context.Context, userID, receipt, signature, platform string, persist bool, overrides ...PurchaseProviderOverrides) (*api.ValidatePurchaseProviderResponse, error)
 	PurchaseValidateApple(ctx context.Context, userID, receipt string, persist bool, passwordOverride ...string) (*api.ValidatePurchaseResponse, error)
 	PurchaseValidateGoogle(ctx context.Context, userID, receipt string, persist bool, overrides ...struct {
 		ClientEmail string
@@ -1187,6 +1265,7 @@ type NakamaModule interface {
 	PurchasesList(ctx context.Context, userID string, limit int, cursor string) (*api.PurchaseList, error)
 	PurchaseGetByTransactionId(ctx context.Context, transactionID string) (*api.ValidatedPurchase, error)
 
+	SubscriptionValidate(ctx context.Context, userID, receipt, platform string, persist bool, overrides ...PurchaseProviderOverrides) (*api.ValidatePurchaseProviderSubscriptionResponse, error)
 	SubscriptionValidateApple(ctx context.Context, userID, receipt string, persist bool, passwordOverride ...string) (*api.ValidateSubscriptionResponse, error)
 	SubscriptionValidateGoogle(ctx context.Context, userID, receipt string, persist bool, overrides ...struct {
 		ClientEmail string
@@ -1356,6 +1435,21 @@ type FleetManagerInitializer interface {
 	Init(nk NakamaModule, callbackHandler FmCallbackHandler) error
 	Update(ctx context.Context, id string, playerCount int, metadata map[string]any) error
 	Delete(ctx context.Context, id string) error
+}
+
+type PurchaseProviderOverrides struct {
+	Password    string
+	ClientEmail string
+	PrivateKey  string
+}
+
+type PurchaseProvider interface {
+	Init(purchaseRefundFn PurchaseRefundFn, subscriptionRefundFn SubscriptionRefundFn)
+	PurchaseValidate(ctx context.Context, in *api.ValidatePurchaseRequest, userID string, overrides PurchaseProviderOverrides) ([]*StoragePurchase, error)
+	SubscriptionValidate(ctx context.Context, in *api.ValidateSubscriptionRequest, userID string, overrides PurchaseProviderOverrides) ([]*StorageSubscription, error)
+	HandleRefund(ctx context.Context) error
+	HandleRefundWrapper(ctx context.Context) (http.HandlerFunc, error)
+	GetProviderString() string
 }
 
 /*
@@ -1652,6 +1746,36 @@ type Message struct {
 type MessageUpdate struct {
 	ReadTime    int64 `json:"read_time,omitempty"`
 	ConsumeTime int64 `json:"consume_time,omitempty"`
+}
+
+type StoragePurchase struct {
+	UserID        uuid.UUID
+	Store         api.StoreProvider
+	ProductId     string
+	TransactionId string
+	RawResponse   string
+	PurchaseTime  time.Time
+	CreateTime    time.Time // Set by upsertPurchases
+	UpdateTime    time.Time // Set by upsertPurchases
+	RefundTime    time.Time
+	Environment   api.StoreEnvironment
+	SeenBefore    bool // Set by upsertPurchases
+}
+
+type StorageSubscription struct {
+	OriginalTransactionId string
+	UserID                uuid.UUID
+	Store                 api.StoreProvider
+	ProductId             string
+	PurchaseTime          time.Time
+	CreateTime            time.Time // Set by upsertSubscription
+	UpdateTime            time.Time // Set by upsertSubscription
+	RefundTime            time.Time
+	Environment           api.StoreEnvironment
+	ExpireTime            time.Time
+	RawResponse           string
+	RawNotification       string
+	Active                bool
 }
 
 /*

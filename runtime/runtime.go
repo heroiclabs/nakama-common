@@ -90,11 +90,11 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/gofrs/uuid/v5"
 	"net/http"
 	"os"
 	"time"
 
-	"github.com/gofrs/uuid/v5"
 	"github.com/heroiclabs/nakama-common/api"
 	"github.com/heroiclabs/nakama-common/rtapi"
 	"go.uber.org/zap"
@@ -377,6 +377,9 @@ type Initializer interface {
 
 	// RegisterSubscriptionNotificationGoogle
 	RegisterSubscriptionNotificationGoogle(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, subscription *api.ValidatedSubscription, providerPayload string) error) error
+
+	// RegisterPurchaseNotificationXbox
+	RegisterPurchaseNotificationXbox(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, purchase *api.ValidatedPurchase, providerPayload string) error) error
 
 	// RegisterBeforeGetAccount is used to register a function invoked when the server receives the relevant request.
 	RegisterBeforeGetAccount(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule) error) error
@@ -1340,8 +1343,12 @@ type FleetManagerInitializer interface {
 	Delete(ctx context.Context, id string) error
 }
 
-type IAPXboxManager interface {
-	PurchaseValidateXbox(ctx context.Context, logger *zap.Logger, db *sql.DB, password, productId string, userID uuid.UUID, persist bool) (*api.ValidatePurchaseResponse, error)
+type xboxRefundHookFn = func(ctx context.Context, logger *zap.Logger, db *sql.DB, nk NakamaModule, purchase *api.ValidatedPurchase, providerPayload string) error
+
+type IAPManager interface {
+	Init(fn xboxRefundHookFn)
+	PurchaseValidate(ctx context.Context, logger *zap.Logger, db *sql.DB, password, productId string, userID uuid.UUID, persist bool) (*api.ValidatePurchaseResponse, error)
+	HandleRefund(ctx context.Context, logger *zap.Logger, db *sql.DB) error
 }
 
 /*

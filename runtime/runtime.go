@@ -773,12 +773,6 @@ type Initializer interface {
 	// RegisterAfterValidatePurchaseGoogle can be used to perform additional logic after validating a Google Play Store IAP receipt.
 	RegisterAfterValidatePurchaseGoogle(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.ValidatePurchaseResponse, in *api.ValidatePurchaseGoogleRequest) error) error
 
-	// RegisterBeforeValidatePurchaseXbox can be used to perform additional logic before validating a Xbox Store receipt
-	RegisterBeforeValidatePurchaseXbox(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ValidatePurchaseXboxRequest) (*api.ValidatePurchaseXboxRequest, error)) error
-
-	// RegisterAfterValidatePurchaseXbox can be used to perform additional logic after validating a Xbox Store receipt
-	RegisterAfterValidatePurchaseXbox(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.ValidatePurchaseResponse, in *api.ValidatePurchaseXboxRequest) error) error
-
 	// RegisterBeforeValidateSubscriptionGoogle can be used to perform additional logic before validation an Google Store Subscription receipt.
 	RegisterBeforeValidateSubscriptionGoogle(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ValidateSubscriptionGoogleRequest) (*api.ValidateSubscriptionGoogleRequest, error)) error
 
@@ -796,6 +790,18 @@ type Initializer interface {
 
 	// RegisterAfterValidatePurchaseFacebookInstant can be used to perform additional logic after validating an Facebook Instant IAP receipt.
 	RegisterAfterValidatePurchaseFacebookInstant(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.ValidatePurchaseResponse, in *api.ValidatePurchaseFacebookInstantRequest) error) error
+
+	// RegisterBeforeValidatePurchaseXbox can be used to perform additional logic before validating a Xbox Store receipt
+	RegisterBeforeValidatePurchaseXbox(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ValidatePurchaseXboxRequest) (*api.ValidatePurchaseXboxRequest, error)) error
+
+	// RegisterAfterValidatePurchaseXbox can be used to perform additional logic after validating a Xbox Store receipt
+	RegisterAfterValidatePurchaseXbox(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.ValidatePurchaseResponse, in *api.ValidatePurchaseXboxRequest) error) error
+
+	// RegisterBeforeValidatePurchasePlaystation can be used to perform additonal logic before validating a Playstation Store receipt
+	RegisterBeforeValidatePurchasePlaystation(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ValidatePurchasePlaystationRequest) (*api.ValidatePurchasePlaystationRequest, error)) error
+
+	// RegisterAfterValidatePurchasePlaystation can be used to perform additional logic after validating a Playstation Store receipt
+	RegisterAfterValidatePurchasePlaystation(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, out *api.ValidatePurchaseResponse, in *api.ValidatePurchasePlaystationRequest) error) error
 
 	// RegisterBeforeListSubscriptions can be used to perform additional logic before listing subscriptions.
 	RegisterBeforeListSubscriptions(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, in *api.ListSubscriptionsRequest) (*api.ListSubscriptionsRequest, error)) error
@@ -888,7 +894,7 @@ type Initializer interface {
 	RegisterFleetManager(fleetManagerInit FleetManagerInitializer) error
 
 	// RegisterIAPManager sets the relevant iapManger in the runtime object
-	RegisterIAPManager(platform string, iapManager interface{}) error
+	RegisterIAPManager(platform string, iapManager IAPManager) error
 
 	// RegisterShutdown can be used to register a function that is executed once the server receives a termination signal.
 	// This function only fires if shutdown_grace_sec > 0 and will be terminated early if its execution takes longer than the configured grace seconds.
@@ -1347,7 +1353,7 @@ type xboxRefundHookFn = func(ctx context.Context, logger *zap.Logger, db *sql.DB
 
 type IAPManager interface {
 	Init(fn xboxRefundHookFn)
-	PurchaseValidate(ctx context.Context, logger *zap.Logger, db *sql.DB, password, productId string, userID uuid.UUID, persist bool) (*api.ValidatePurchaseResponse, error)
+	PurchaseValidate(ctx context.Context, logger *zap.Logger, db *sql.DB, password, environment, xboxProductId, playstationEntitlementLabel string, userID uuid.UUID, persist bool) (*api.ValidatePurchaseResponse, error)
 	HandleRefund(ctx context.Context, logger *zap.Logger, db *sql.DB) error
 }
 

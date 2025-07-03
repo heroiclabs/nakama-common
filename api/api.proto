@@ -1243,6 +1243,12 @@ message ValidatePurchaseXboxRequest {
   google.protobuf.BoolValue persist = 2;
 }
 
+// Playstation validation request
+message ValidatePurchasePlaystationRequest {
+  string entitlementLabel = 1;
+  google.protobuf.BoolValue persist = 2;
+}
+
 // Validated Purchase stored by Nakama.
 message ValidatedPurchase {
   // Purchase User ID.
@@ -1292,6 +1298,8 @@ enum StoreProvider {
   FACEBOOK_INSTANT_STORE = 3;
   // Xbox Store
   XBOX_STORE = 4;
+  // Playstation Store
+  PLAYSTATION_STORE = 5;
 }
 
 // Environment where a purchase/subscription took place,

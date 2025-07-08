@@ -130,6 +130,22 @@ type IAPXboxConfig interface {
 	GetToken() string
 }
 
+type IAPPlaystationConfig interface {
+	GetToken() string
+}
+
+type IAPEpicConfig interface {
+	GetToken() string
+}
+
+type IAPSteamConfig interface {
+	GetAppId() string
+}
+
+type IAPDiscordConfig interface {
+	GetToken() string
+}
+
 type GoogleAuthConfig interface {
 	GetCredentialsJSON() string
 }

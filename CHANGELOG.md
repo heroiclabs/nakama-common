@@ -5,7 +5,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
-## [1.38.0] - 2025-07-12
+## [1.38.0] - 2025-07-14
 ### Added
 - Expose matchmaker entry creation time.
 - Add party listing API and party labeling support.

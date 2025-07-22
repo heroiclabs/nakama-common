@@ -96,7 +96,6 @@ import (
 
 	"github.com/heroiclabs/nakama-common/api"
 	"github.com/heroiclabs/nakama-common/rtapi"
-	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -1355,7 +1354,8 @@ type PurchaseProvider interface {
 	Init(purchaseRefundFn PurchaseRefundFn, subscriptionRefundFn SubscriptionRefundFn)
 	PurchaseValidate(ctx context.Context, receipt, userID string, persist bool) (*api.ValidatePurchaseResponse, error)
 	SubscriptionValidate(ctx context.Context, userID, password, receipt string, persist bool) (*api.ValidateSubscriptionResponse, error)
-	HandleRefund(ctx context.Context, logger *zap.Logger, db *sql.DB) (http.HandlerFunc, error)
+	HandleRefund(ctx context.Context) (http.HandlerFunc, error)
+	ValidateRequest(in *api.ValidatePurchaseRequest) error
 }
 
 /*

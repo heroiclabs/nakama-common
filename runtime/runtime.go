@@ -90,7 +90,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"github.com/gofrs/uuid/v5"
 	"net/http"
 	"os"
 	"time"
@@ -1356,7 +1355,7 @@ type PurchaseProvider interface {
 	Init(purchaseRefundFn PurchaseRefundFn, subscriptionRefundFn SubscriptionRefundFn)
 	// token and environment is config
 	PurchaseValidate(ctx context.Context, receipt, userID string, persist bool) (*api.ValidatePurchaseResponse, error)
-	SubscriptionValidate(ctx context.Context, logger *zap.Logger, db *sql.DB, userID uuid.UUID, password, receipt string, persist bool) (*api.ValidateSubscriptionResponse, error)
+	SubscriptionValidate(ctx context.Context, userID, password, receipt string, persist bool) (*api.ValidateSubscriptionResponse, error)
 	HandleRefund(ctx context.Context, logger *zap.Logger, db *sql.DB) (http.HandlerFunc, error)
 }
 

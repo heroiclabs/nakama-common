@@ -387,7 +387,7 @@ type Initializer interface {
 	// RegisterSubscriptionNotificationGoogle
 	RegisterSubscriptionNotificationGoogle(fn func(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, subscription *api.ValidatedSubscription, providerPayload string) error) error
 
-	// RegisterPurchaseNotification
+	// RegisterRefundHandler
 	RegisterRefundHandler(platform string, purchaseRefundFn PurchaseRefundFn, subscriptionRefundFn SubscriptionRefundFn) error
 
 	// RegisterBeforeGetAccount is used to register a function invoked when the server receives the relevant request.
@@ -1355,7 +1355,7 @@ type FleetManagerInitializer interface {
 type PurchaseProvider interface {
 	Init(purchaseRefundFn PurchaseRefundFn, subscriptionRefundFn SubscriptionRefundFn)
 	// token and environment is config
-	PurchaseValidate(ctx context.Context, logger *zap.Logger, db *sql.DB, receipt string, userID uuid.UUID, persist bool, config IAPConfig) (*api.ValidatePurchaseResponse, error)
+	PurchaseValidate(ctx context.Context, logger *zap.Logger, db *sql.DB, receipt, userID string, persist bool, config IAPConfig) (*api.ValidatePurchaseResponse, error)
 	SubscriptionValidate(ctx context.Context, logger *zap.Logger, db *sql.DB, userID uuid.UUID, password, receipt string, persist bool) (*api.ValidateSubscriptionResponse, error)
 	HandleRefund(ctx context.Context, logger *zap.Logger, db *sql.DB) (http.HandlerFunc, error)
 }

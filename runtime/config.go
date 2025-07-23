@@ -17,6 +17,7 @@ package runtime
 // Config interface is the Nakama core configuration.
 type Config interface {
 	GetName() string
+	GetConfigFilePath() []string
 	GetShutdownGraceSec() int
 	GetLogger() LoggerConfig
 	GetSession() SessionConfig
@@ -93,7 +94,6 @@ type IAPConfig interface {
 	GetGoogle() IAPGoogleConfig
 	GetHuawei() IAPHuaweiConfig
 	GetFacebookInstant() IAPFacebookInstantConfig
-	GetXbox() IAPXboxConfig
 }
 
 type IAPAppleConfig interface {
@@ -124,26 +124,6 @@ type IAPHuaweiConfig interface {
 
 type IAPFacebookInstantConfig interface {
 	GetAppSecret() string
-}
-
-type IAPXboxConfig interface {
-	GetToken() string
-}
-
-type IAPPlaystationConfig interface {
-	GetToken() string
-}
-
-type IAPEpicConfig interface {
-	GetToken() string
-}
-
-type IAPSteamConfig interface {
-	GetAppId() string
-}
-
-type IAPDiscordConfig interface {
-	GetToken() string
 }
 
 type GoogleAuthConfig interface {

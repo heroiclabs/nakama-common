@@ -5292,6 +5292,11 @@ declare namespace nkruntime {
         name: string
         value: string
         conditionChanged: boolean
+        changeReason?: {
+            name: string
+            variant_name: string
+            type: number
+        }
     }
 
     export interface FlagOverrides {

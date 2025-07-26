@@ -7,6 +7,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Added
 - New "MatchmakerProcessor" hook to set custom matching behaviour tapping into the complete ticket pool.
 
+### Changed
+- Update Satori client to latest API spec.
+
 ## [1.38.0] - 2025-07-14
 ### Added
 - Expose matchmaker entry creation time.

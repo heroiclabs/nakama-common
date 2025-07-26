@@ -4575,7 +4575,7 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         leaderboardRanksDisable(leaderboardId: string): void;
-        
+
         /**
          * Create a new tournament.
          *
@@ -5277,6 +5277,10 @@ declare namespace nkruntime {
         metadata?: {[key: string]: string}
         value?: string
         timestamp: number
+        identityId: string
+        sessionId: string
+        sessionIssuedAt: number
+        sessionExpiresAt: number
     }
 
     export interface Experiment {
@@ -5288,6 +5292,11 @@ declare namespace nkruntime {
         name: string
         value: string
         conditionChanged: boolean
+        changeReason?: {
+            name: string
+            variant_name: string
+            type: number
+        }
     }
 
     export interface FlagOverrides {
@@ -5388,6 +5397,15 @@ declare namespace nkruntime {
         eventsPublish(id: string, events: SatoriEvent[], ipAddress?: string): void
 
         /**
+         * Publish events.
+         *
+         * @param events - Events to publish.
+         * @param ipAddress - Opt. Client IP address to pass on to Satori for geo-IP lookup.
+         * @throws {TypeError, GoError}
+         */
+        serverEventsPublish(events: SatoriEvent[], ipAddress?: string): void
+
+        /**
          * List experiments.
          *
          * @param id - Identity identifier.
@@ -5400,22 +5418,22 @@ declare namespace nkruntime {
         /**
          * List flags.
          *
-         * @param id - Identity identifier.
+         * @param id - Opt. Identity identifier. If id is not set, all flags are returned.
          * @param names - Opt. List of flag names.
          * @returns a List of flags.
          * @throws {TypeError, GoError}
          */
-        flagsList(id: string, names?: string[]): {"flags": Flag[]}
+        flagsList(id?: string, names?: string[]): {"flags": Flag[]}
 
         /**
          * List flags overrides.
          *
-         * @param id - Identity identifier.
+         * @param id - Opt. Identity identifier. If id is not set, all flag overrides are returned.
          * @param names - Opt. List of flag names.
          * @returns a List of flags overrides.
          * @throws {TypeError, GoError}
          */
-        flagsOverridesList(id: string, names?: string[]): {"flags": FlagOverrides[]}
+        flagsOverridesList(id?: string, names?: string[]): {"flags": FlagOverrides[]}
 
         /**
          * List live events.

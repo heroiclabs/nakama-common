@@ -5277,10 +5277,10 @@ declare namespace nkruntime {
         metadata?: {[key: string]: string}
         value?: string
         timestamp: number
-        identityId: string
-        sessionId: string
-        sessionIssuedAt: number
-        sessionExpiresAt: number
+        identityId?: string
+        sessionId?: string
+        sessionIssuedAt?: number
+        sessionExpiresAt?: number
     }
 
     export interface Experiment {

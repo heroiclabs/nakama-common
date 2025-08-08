@@ -9,6 +9,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Added
 - New "MatchmakerProcessor" hook to set custom matching behaviour tapping into the complete ticket pool.
 
+### Fixed
+- Fix Satori client type CreateTimeSec to expect a string instead of int64.
+
 ### Changed
 - Update Satori client to latest API spec.
 - Make TypeScript runtime Satori event session fields optional.

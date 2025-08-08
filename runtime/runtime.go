@@ -1416,7 +1416,7 @@ type FlagOverride struct {
 	Name          string `json:"name,omitempty"`
 	VariantName   string `json:"variant_name,omitempty"`
 	Value         string `json:"value,omitempty"`
-	CreateTimeSec int64  `json:"create_time_sec,omitempty"`
+	CreateTimeSec int64  `json:"create_time_sec,string,omitempty"`
 }
 
 type Flag struct {

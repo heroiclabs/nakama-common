@@ -5,6 +5,10 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.40.0] - 2025-08-10
+### Fixed
+- Correctly process Satori FlagOverride create times as Unix epoch strings.
+
 ## [1.39.0] - 2025-07-29
 ### Added
 - New "MatchmakerProcessor" hook to set custom matching behaviour tapping into the complete ticket pool.

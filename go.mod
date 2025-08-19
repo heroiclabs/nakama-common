@@ -2,6 +2,7 @@ module github.com/heroiclabs/nakama-common
 
 go 1.24.3
 
-require google.golang.org/protobuf v1.36.6
-
-require github.com/gofrs/uuid/v5 v5.3.2
+require (
+	github.com/gofrs/uuid/v5 v5.3.2
+	google.golang.org/protobuf v1.36.6
+)

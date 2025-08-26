@@ -2304,6 +2304,23 @@ declare namespace nkruntime {
          registerAfterValidatePurchaseHuawei(fn: AfterHookFunction<ValidatePurchaseResponse, ValidatePurchaseHuaweiRequest>): void;
 
         /**
+         * Register before Hook for RPC ListParties function.
+         *
+         * @param fn - The function to execute before ListParties.
+         * @throws {TypeError}
+         */
+        registerBeforeListParties(fn: BeforeHookFunction<ListPartiesRequest>): void;
+
+        /**
+         * Register after Hook for RPC ListParties function.
+         *
+         * @param fn - The function to execute after ListParties.
+         * @throws {TypeError}
+         */
+        registerAfterListParties(fn: AfterHookFunction<PartyList, ListPartiesRequest>): void;
+
+
+        /**
          * Register before Hook for RPC Event function.
          *
          * @param fn - The function to execute before Event.
@@ -3184,6 +3201,13 @@ declare namespace nkruntime {
         signature: string
     }
 
+    export interface ListPartiesRequest {
+        limit?: number
+        open?: boolean
+        query?: string
+        cursor?: string
+    }
+
     export interface ValidatePurchaseResponse {
         validatedPurchases?: ValidatedPurchase[]
     }
@@ -3353,6 +3377,18 @@ declare namespace nkruntime {
       api_key_name: string
       api_key: string
       signing_key: string
+    }
+
+    export interface Party {
+      partyId: string
+      maxSize: number
+      label: string
+      open: boolean
+    }
+
+    export interface PartyList {
+        parties: Party[]
+        cursor?: string
     }
 
     const enum PresenceReason {
@@ -4539,7 +4575,7 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         leaderboardRanksDisable(leaderboardId: string): void;
-        
+
         /**
          * Create a new tournament.
          *
@@ -5180,6 +5216,18 @@ declare namespace nkruntime {
         storageIndexList(indexName: string, query: string, limit: number, order?: string[], callerId?: string | void, cursor?: string): StorageIndexResult;
 
         /**
+         * List parties that have a label set and filter them by the label content and/or open state.
+         *
+         * @param limit - Opt. The maximum number of parties to list. Defaults to 10.
+         * @param open - Opt. The query to specify the index lookup criteria. Defaults to nul - parties are matched regardless of their open state.
+         * @param query - Opt. Additional query parameters to shortlist parties based on label content.
+         * @param cursor - Opt. Cursor to fetch the next page of results. If this is empty/null there are no further results.
+         * @returns A list of parties objects matching the filtering criteria.
+         * @throws {TypeError, GoError}
+         */
+        partyList(limit?: number, open?: boolean | void, query?: string, cursor?: string): PartyList;
+
+        /**
          * Get Satori object.
          *
          * @returns The satori integration interface.
@@ -5229,6 +5277,10 @@ declare namespace nkruntime {
         metadata?: {[key: string]: string}
         value?: string
         timestamp: number
+        identityId?: string
+        sessionId?: string
+        sessionIssuedAt?: number
+        sessionExpiresAt?: number
     }
 
     export interface Experiment {
@@ -5240,6 +5292,11 @@ declare namespace nkruntime {
         name: string
         value: string
         conditionChanged: boolean
+        changeReason?: {
+            name: string
+            variant_name: string
+            type: number
+        }
     }
 
     export interface FlagOverrides {
@@ -5340,6 +5397,15 @@ declare namespace nkruntime {
         eventsPublish(id: string, events: SatoriEvent[], ipAddress?: string): void
 
         /**
+         * Publish events.
+         *
+         * @param events - Events to publish.
+         * @param ipAddress - Opt. Client IP address to pass on to Satori for geo-IP lookup.
+         * @throws {TypeError, GoError}
+         */
+        serverEventsPublish(events: SatoriEvent[], ipAddress?: string): void
+
+        /**
          * List experiments.
          *
          * @param id - Identity identifier.
@@ -5352,22 +5418,22 @@ declare namespace nkruntime {
         /**
          * List flags.
          *
-         * @param id - Identity identifier.
+         * @param id - Opt. Identity identifier. If id is not set, all flags are returned.
          * @param names - Opt. List of flag names.
          * @returns a List of flags.
          * @throws {TypeError, GoError}
          */
-        flagsList(id: string, names?: string[]): {"flags": Flag[]}
+        flagsList(id?: string, names?: string[]): {"flags": Flag[]}
 
         /**
          * List flags overrides.
          *
-         * @param id - Identity identifier.
+         * @param id - Opt. Identity identifier. If id is not set, all flag overrides are returned.
          * @param names - Opt. List of flag names.
          * @returns a List of flags overrides.
          * @throws {TypeError, GoError}
          */
-        flagsOverridesList(id: string, names?: string[]): {"flags": FlagOverrides[]}
+        flagsOverridesList(id?: string, names?: string[]): {"flags": FlagOverrides[]}
 
         /**
          * List live events.

@@ -1,6 +1,6 @@
 module github.com/heroiclabs/nakama-common
 
-go 1.24.3
+go 1.24.5
 
 require (
 	github.com/gofrs/uuid/v5 v5.3.2

@@ -5,6 +5,26 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.40.0] - 2025-08-10
+### Fixed
+- Correctly process Satori FlagOverride create times as Unix epoch strings.
+
+## [1.39.0] - 2025-07-29
+### Added
+- New "MatchmakerProcessor" hook to set custom matching behaviour tapping into the complete ticket pool.
+
+### Fixed
+- Fix Satori client type CreateTimeSec to expect a string instead of int64.
+
+### Changed
+- Update Satori client to latest API spec.
+- Make TypeScript runtime Satori event session fields optional.
+
+## [1.38.0] - 2025-07-14
+### Added
+- Expose matchmaker entry creation time.
+- Add party listing API and party labeling support.
+
 ## [1.37.0] - 2025-05-12
 ### Added
 - Add Satori client API to list Flags Overrides.

@@ -1,15 +1,12 @@
-run:
-  # Enables skipping of directories:
-  # - vendor$, third_party$, testdata$, examples$, Godeps$, builtin$
-  skip-dirs-use-default: true
-  skip-dirs:
-    - internal/gopher-lua
-    - internal/cronexpr
-
+version: "2"
 linters:
-  enable:
-    - gofmt
-
-linters-settings:
-  gofmt:
-    simplify: false
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+  settings:
+    staticcheck:
+      checks: ["all", "-ST1005", "-ST1003"]

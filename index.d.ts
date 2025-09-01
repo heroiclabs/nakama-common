@@ -2857,6 +2857,7 @@ declare namespace nkruntime {
         createTime: number;
         startTime: number;
         endTime: number;
+        joinRequired: boolean;
     }
 
     /**

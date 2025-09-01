@@ -4,8 +4,14 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+## [1.41.0] - 2025-09-01
+### Changed
+- Update to Protobuf v1.36.8 dependency.
+- Update to Go toolchain 1.25.0.
+
 ### Fixed
-- Update Satori client types to match latest API spec.
+- Use correct Satori client types to match latest API spec.
 
 ### Added
 - Add join required field to tournament payload.

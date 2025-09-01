@@ -7,6 +7,9 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ### Fixed
 - Update Satori client types to match latest API spec.
 
+### Added
+- Add join required field to tournament payload.
+
 ## [1.40.0] - 2025-08-10
 ### Fixed
 - Correctly process Satori FlagOverride create times as Unix epoch strings.

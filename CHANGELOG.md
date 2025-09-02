@@ -5,16 +5,16 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
-## [1.41.0] - 2025-09-01
+## [1.41.0] - 2025-09-02
+### Added
+- Add API response field indicating if join is required for tournaments.
+
 ### Changed
 - Update to Protobuf v1.36.8 dependency.
 - Update to Go toolchain 1.25.0.
 
 ### Fixed
 - Use correct Satori client types to match latest API spec.
-
-### Added
-- Add join required field to tournament payload.
 
 ## [1.40.0] - 2025-08-10
 ### Fixed

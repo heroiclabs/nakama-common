@@ -1238,6 +1238,7 @@ type NakamaModule interface {
 	LeaderboardsGetId(ctx context.Context, ids []string) ([]*api.Leaderboard, error)
 	LeaderboardRecordsHaystack(ctx context.Context, id, ownerID string, limit int, cursor string, expiry int64) (*api.LeaderboardRecordList, error)
 
+	PurchaseValidate(ctx context.Context, userID, receipt, signature, platform string, persist bool, overrides ...PurchaseProviderOverrides) (*api.ValidatePurchaseProviderResponse, error)
 	PurchaseValidateApple(ctx context.Context, userID, receipt string, persist bool, passwordOverride ...string) (*api.ValidatePurchaseResponse, error)
 	PurchaseValidateGoogle(ctx context.Context, userID, receipt string, persist bool, overrides ...struct {
 		ClientEmail string
@@ -1248,6 +1249,7 @@ type NakamaModule interface {
 	PurchasesList(ctx context.Context, userID string, limit int, cursor string) (*api.PurchaseList, error)
 	PurchaseGetByTransactionId(ctx context.Context, transactionID string) (*api.ValidatedPurchase, error)
 
+	SubscriptionValidate(ctx context.Context, userID, receipt, platform string, persist bool, overrides ...PurchaseProviderOverrides) (*api.ValidatePurchaseProviderSubscriptionResponse, error)
 	SubscriptionValidateApple(ctx context.Context, userID, receipt string, persist bool, passwordOverride ...string) (*api.ValidateSubscriptionResponse, error)
 	SubscriptionValidateGoogle(ctx context.Context, userID, receipt string, persist bool, overrides ...struct {
 		ClientEmail string
@@ -1419,10 +1421,16 @@ type FleetManagerInitializer interface {
 	Delete(ctx context.Context, id string) error
 }
 
+type PurchaseProviderOverrides struct {
+	Password    string
+	ClientEmail string
+	PrivateKey  string
+}
+
 type PurchaseProvider interface {
 	Init(purchaseRefundFn PurchaseRefundFn, subscriptionRefundFn SubscriptionRefundFn)
-	PurchaseValidate(ctx context.Context, in *api.ValidatePurchaseRequest, userID string) ([]*StoragePurchase, error)
-	SubscriptionValidate(ctx context.Context, in *api.ValidateSubscriptionRequest, userID string) ([]*StorageSubscription, error)
+	PurchaseValidate(ctx context.Context, in *api.ValidatePurchaseRequest, userID string, overrides PurchaseProviderOverrides) ([]*StoragePurchase, error)
+	SubscriptionValidate(ctx context.Context, in *api.ValidateSubscriptionRequest, userID string, overrides PurchaseProviderOverrides) ([]*StorageSubscription, error)
 	HandleRefund(ctx context.Context) error
 	HandleRefundWrapper(ctx context.Context) (http.HandlerFunc, error)
 	GetProviderString() string

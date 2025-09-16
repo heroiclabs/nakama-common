@@ -7,7 +7,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [1.42.0] - 2025-09-16
 ### Changed
-- IAP notifications callback functions now handle other status changes besides refunds.
+- In-App Purchase runtime callback functions now handle other status changes besides refunds.
 
 ## [1.41.0] - 2025-09-02
 ### Added

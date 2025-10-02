@@ -1932,7 +1932,7 @@ type SubscriptionV2GoogleResponse struct {
 		ReplacementCancellation        struct{} `json:"replacementCancellation"`
 	} `json:"cancelStateContext"`
 	TestPurchase               *struct{} `json:"testPurchase"`
-	AcknowledgementState       int       `json:"acknowledgementState"`
+	AcknowledgementState       string    `json:"acknowledgementState"`
 	ExternalAccountIdentifiers struct {
 		ExternalAccountId           string `json:"externalAccountId"`
 		ObfuscatedExternalAccountId string `json:"obfuscatedExternalAccountId"`

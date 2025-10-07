@@ -1770,31 +1770,31 @@ type GoogleOneTimeProductNotification struct {
 
 type GoogleSubscriptionNotification struct {
 	Version          string                             `json:"version"`
-	NotificationType GoogleSubscritpionNotificationType `json:"notificationType"`
+	NotificationType GoogleSubscriptionNotificationType `json:"notificationType"`
 	PurchaseToken    string                             `json:"purchaseToken"`
 }
 
-type GoogleSubscritpionNotificationType int
+type GoogleSubscriptionNotificationType int
 
 const (
-	GoogleSubscriptionRecovered               GoogleSubscritpionNotificationType = 1
-	GoogleSubscriptionRenewed                 GoogleSubscritpionNotificationType = 2
-	GoogleSubscriptionCanceled                GoogleSubscritpionNotificationType = 3
-	GoogleSubscriptionPurchased               GoogleSubscritpionNotificationType = 4
-	GoogleSubscriptionOnHold                  GoogleSubscritpionNotificationType = 5
-	GoogleSubscriptionInGracePeriod           GoogleSubscritpionNotificationType = 6
-	GoogleSubscriptionRestarted               GoogleSubscritpionNotificationType = 7
-	GoogleSubscriptionPriceChangeConfirmed    GoogleSubscritpionNotificationType = 8 // Deprecated
-	GoogleSubscriptionDeferred                GoogleSubscritpionNotificationType = 9
-	GoogleSubscriptionPaused                  GoogleSubscritpionNotificationType = 10
-	GoogleSubscriptionPauseScheduleChanged    GoogleSubscritpionNotificationType = 11
-	GoogleSubscriptionRevoked                 GoogleSubscritpionNotificationType = 12
-	GoogleSubscriptionExpired                 GoogleSubscritpionNotificationType = 13
-	GoogleSubscriptionPendingPurchaseCanceled GoogleSubscritpionNotificationType = 20
-	GoogleSubscriptionPriceChangeUpdated      GoogleSubscritpionNotificationType = 19
+	GoogleSubscriptionRecovered               GoogleSubscriptionNotificationType = 1
+	GoogleSubscriptionRenewed                 GoogleSubscriptionNotificationType = 2
+	GoogleSubscriptionCanceled                GoogleSubscriptionNotificationType = 3
+	GoogleSubscriptionPurchased               GoogleSubscriptionNotificationType = 4
+	GoogleSubscriptionOnHold                  GoogleSubscriptionNotificationType = 5
+	GoogleSubscriptionInGracePeriod           GoogleSubscriptionNotificationType = 6
+	GoogleSubscriptionRestarted               GoogleSubscriptionNotificationType = 7
+	GoogleSubscriptionPriceChangeConfirmed    GoogleSubscriptionNotificationType = 8 // Deprecated
+	GoogleSubscriptionDeferred                GoogleSubscriptionNotificationType = 9
+	GoogleSubscriptionPaused                  GoogleSubscriptionNotificationType = 10
+	GoogleSubscriptionPauseScheduleChanged    GoogleSubscriptionNotificationType = 11
+	GoogleSubscriptionRevoked                 GoogleSubscriptionNotificationType = 12
+	GoogleSubscriptionExpired                 GoogleSubscriptionNotificationType = 13
+	GoogleSubscriptionPendingPurchaseCanceled GoogleSubscriptionNotificationType = 20
+	GoogleSubscriptionPriceChangeUpdated      GoogleSubscriptionNotificationType = 19
 )
 
-func (nt GoogleSubscritpionNotificationType) String() string {
+func (nt GoogleSubscriptionNotificationType) String() string {
 	switch nt {
 	case GoogleSubscriptionRecovered:
 		return "SUBSCRIBED"
@@ -1932,7 +1932,7 @@ type SubscriptionV2GoogleResponse struct {
 		ReplacementCancellation        struct{} `json:"replacementCancellation"`
 	} `json:"cancelStateContext"`
 	TestPurchase               *struct{} `json:"testPurchase"`
-	AcknowledgementState       int       `json:"acknowledgementState"`
+	AcknowledgementState       string    `json:"acknowledgementState"`
 	ExternalAccountIdentifiers struct {
 		ExternalAccountId           string `json:"externalAccountId"`
 		ObfuscatedExternalAccountId string `json:"obfuscatedExternalAccountId"`

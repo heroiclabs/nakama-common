@@ -1528,7 +1528,7 @@ type MessageUpdate struct {
 IAP Notifications.
 */
 type AppleNotificationData struct {
-	AppAppleId               string                            `json:"appAppleId"`               // The unique identifier of the app that the notification applies to. This property is available for apps that users download from the App Store. It isn’t present in the sandbox environment.
+	AppAppleId               int                               `json:"appAppleId"`               // The unique identifier of the app that the notification applies to. This property is available for apps that users download from the App Store. It isn’t present in the sandbox environment.
 	BundleId                 string                            `json:"bundleId"`                 // The bundle identifier of the app.
 	BundleVersion            string                            `json:"bundleVersion"`            // The version of the build that identifies an iteration of the bundle.
 	ConsumptionRequestReason string                            `json:"consumptionRequestReason"` // The reason the customer requested the refund. This field appears only for CONSUMPTION_REQUEST notifications, which the server sends when a customer initiates a refund request for a consumable in-app purchase or auto-renewable subscription.

@@ -5,6 +5,11 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.42.1] - 2025-10-17
+### Fixed
+- Use correct types for Google In-App Purchase subscription response fields.
+- Use correct type for Apple In-App Purchase application identifier field. 
+
 ## [1.42.0] - 2025-09-16
 ### Changed
 - In-App Purchase runtime callback functions now handle other status changes besides refunds.

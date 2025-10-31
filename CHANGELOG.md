@@ -5,6 +5,10 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.42.2] - 2025-10-31
+### Added
+- Add support for registering Hiro in the runtime.
+
 ## [1.42.1] - 2025-10-17
 ### Fixed
 - Use correct types for Google In-App Purchase subscription response fields.

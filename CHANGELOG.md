@@ -5,6 +5,12 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+### Added
+- New Go runtime initializer function to register raw console HTTP handlers.
+
+### Changed
+- Adjust support for registering Hiro in the runtime.
+
 ## [1.42.2] - 2025-10-31
 ### Added
 - Add support for registering Hiro in the runtime.

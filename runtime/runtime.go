@@ -1363,6 +1363,10 @@ type Satori interface {
 	MessageDelete(ctx context.Context, id, messageId string) error
 }
 
+type SatoriLabeled interface {
+	GetLabels() []string
+}
+
 type Properties struct {
 	Default  map[string]string `json:"default,omitempty"`
 	Custom   map[string]string `json:"custom,omitempty"`
@@ -1401,6 +1405,10 @@ type Experiment struct {
 	Labels []string `json:"labels,omitempty"`
 }
 
+func (e *Experiment) GetLabels() []string {
+	return e.Labels
+}
+
 type FlagList struct {
 	Flags []*Flag `json:"flags,omitempty"`
 }
@@ -1414,6 +1422,10 @@ type FlagOverrides struct {
 	Labels   []string `json:"labels,omitempty"`
 	// The list of configuration that affect the value of the flag.
 	Overrides []*FlagOverride `json:"overrides,omitempty"`
+}
+
+func (fo *FlagOverrides) GetLabels() []string {
+	return fo.Labels
 }
 
 type FlagOverride struct {
@@ -1463,6 +1475,10 @@ type Flag struct {
 	} `json:"change_reason,omitempty"`
 }
 
+func (f *Flag) GetLabels() []string {
+	return f.Labels
+}
+
 type FlagType int
 
 const (
@@ -1503,6 +1519,10 @@ type LiveEvent struct {
 	EndTimeSec         int64    `json:"end_time_sec,string,omitempty"`
 	DurationSec        int64    `json:"duration_sec,string,omitempty"`
 	ResetCronExpr      string   `json:"reset_cron,omitempty"`
+}
+
+func (le *LiveEvent) GetLabels() []string {
+	return le.Labels
 }
 
 type MessageList struct {

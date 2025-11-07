@@ -10,6 +10,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ### Changed
 - Adjust support for registering Hiro in the runtime.
+- Satori client functions now allow filtering by both names and labels.
 
 ## [1.42.2] - 2025-10-31
 ### Added

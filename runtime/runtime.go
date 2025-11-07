@@ -1354,10 +1354,10 @@ type Satori interface {
 	PropertiesUpdate(ctx context.Context, id string, properties *PropertiesUpdate) error
 	EventsPublish(ctx context.Context, id string, events []*Event, ipAddress ...string) error
 	ServerEventsPublish(ctx context.Context, events []*Event, ipAddress ...string) error
-	ExperimentsList(ctx context.Context, id string, names ...string) (*ExperimentList, error)
-	FlagsList(ctx context.Context, id string, names ...string) (*FlagList, error)
-	FlagsOverridesList(ctx context.Context, id string, names ...string) (*FlagOverridesList, error)
-	LiveEventsList(ctx context.Context, id string, names ...string) (*LiveEventList, error)
+	ExperimentsList(ctx context.Context, id string, names, labels []string) (*ExperimentList, error)
+	FlagsList(ctx context.Context, id string, names, labels []string) (*FlagList, error)
+	FlagsOverridesList(ctx context.Context, id string, names, labels []string) (*FlagOverridesList, error)
+	LiveEventsList(ctx context.Context, id string, names, labels []string) (*LiveEventList, error)
 	MessagesList(ctx context.Context, id string, limit int, forward bool, cursor string) (*MessageList, error)
 	MessageUpdate(ctx context.Context, id, messageId string, readTime, consumeTime int64) error
 	MessageDelete(ctx context.Context, id, messageId string) error

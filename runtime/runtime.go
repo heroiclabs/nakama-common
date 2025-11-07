@@ -1396,8 +1396,9 @@ type ExperimentList struct {
 }
 
 type Experiment struct {
-	Name  string `json:"name,omitempty"`
-	Value string `json:"value,omitempty"`
+	Name   string   `json:"name,omitempty"`
+	Value  string   `json:"value,omitempty"`
+	Labels []string `json:"labels,omitempty"`
 }
 
 type FlagList struct {
@@ -1409,7 +1410,8 @@ type FlagOverridesList struct {
 }
 
 type FlagOverrides struct {
-	FlagName string `protobuf:"bytes,1,opt,name=flag_name,json=flagName,proto3" json:"flag_name,omitempty"`
+	FlagName string   `json:"flag_name,omitempty"`
+	Labels   []string `json:"labels,omitempty"`
 	// The list of configuration that affect the value of the flag.
 	Overrides []*FlagOverride `json:"overrides,omitempty"`
 }
@@ -1450,9 +1452,10 @@ func (ot OverrideType) String() string {
 }
 
 type Flag struct {
-	Name              string `json:"name,omitempty"`
-	Value             string `json:"value,omitempty"`
-	ConditionChanged  bool   `json:"condition_changed,omitempty"`
+	Name              string   `json:"name,omitempty"`
+	Value             string   `json:"value,omitempty"`
+	Labels            []string `json:"labels,omitempty"`
+	ConditionChanged  bool     `json:"condition_changed,omitempty"`
 	ValueChangeReason *struct {
 		Type        FlagType `json:"type,omitempty"`
 		Name        string   `json:"name,omitempty"`
@@ -1489,16 +1492,17 @@ type LiveEventList struct {
 }
 
 type LiveEvent struct {
-	Name               string `json:"name,omitempty"`
-	Description        string `json:"description,omitempty"`
-	Value              string `json:"value,omitempty"`
-	ActiveStartTimeSec int64  `json:"active_start_time_sec,string,omitempty"`
-	ActiveEndTimeSec   int64  `json:"active_end_time_sec,string,omitempty"`
-	Id                 string `json:"id,omitempty"`
-	StartTimeSec       int64  `json:"start_time_sec,string,omitempty"`
-	EndTimeSec         int64  `json:"end_time_sec,string,omitempty"`
-	DurationSec        int64  `json:"duration_sec,string,omitempty"`
-	ResetCronExpr      string `json:"reset_cron,omitempty"`
+	Name               string   `json:"name,omitempty"`
+	Description        string   `json:"description,omitempty"`
+	Value              string   `json:"value,omitempty"`
+	Labels             []string `json:"labels,omitempty"`
+	ActiveStartTimeSec int64    `json:"active_start_time_sec,string,omitempty"`
+	ActiveEndTimeSec   int64    `json:"active_end_time_sec,string,omitempty"`
+	Id                 string   `json:"id,omitempty"`
+	StartTimeSec       int64    `json:"start_time_sec,string,omitempty"`
+	EndTimeSec         int64    `json:"end_time_sec,string,omitempty"`
+	DurationSec        int64    `json:"duration_sec,string,omitempty"`
+	ResetCronExpr      string   `json:"reset_cron,omitempty"`
 }
 
 type MessageList struct {

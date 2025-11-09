@@ -5411,40 +5411,44 @@ declare namespace nkruntime {
          *
          * @param id - Identity identifier.
          * @param names - Opt. List of experiment names.
+         * @param labels - Opt. List of experiment labels.
          * @returns a list of experiments.
          * @throws {TypeError, GoError}
          */
-        experimentsList(id: string, names?: string[]): {"experiments": Experiment[]}
+        experimentsList(id: string, names?: string[], labels?: string[]): {"experiments": Experiment[]}
 
         /**
          * List flags.
          *
          * @param id - Opt. Identity identifier. If id is not set, all flags are returned.
          * @param names - Opt. List of flag names.
+         * @param labels - Opt. List of flag labels.
          * @returns a List of flags.
          * @throws {TypeError, GoError}
          */
-        flagsList(id?: string, names?: string[]): {"flags": Flag[]}
+        flagsList(id?: string, names?: string[], labels?: string[]): {"flags": Flag[]}
 
         /**
          * List flags overrides.
          *
          * @param id - Opt. Identity identifier. If id is not set, all flag overrides are returned.
          * @param names - Opt. List of flag names.
+         * @param labels - Opt. List of flag labels.
          * @returns a List of flags overrides.
          * @throws {TypeError, GoError}
          */
-        flagsOverridesList(id?: string, names?: string[]): {"flags": FlagOverrides[]}
+        flagsOverridesList(id?: string, names?: string[], labels?: string[]): {"flags": FlagOverrides[]}
 
         /**
          * List live events.
          *
          * @param id - Identity identifier.
          * @param names - Opt. List of live event names.
+         * @param labels - Opt. List of live event labels.
          * @returns a list of live-events.
          * @throws {TypeError, GoError}
          */
-        liveEventsList(id: string, names?: string[]): {"liveEvents": LiveEvent[]}
+        liveEventsList(id: string, names?: string[], labels?: string[]): {"liveEvents": LiveEvent[]}
 
         /**
          * List messages.

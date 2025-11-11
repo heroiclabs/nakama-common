@@ -3674,6 +3674,15 @@ declare namespace nkruntime {
         bcryptCompare(hash: string, password: string): boolean;
 
         /**
+         * Generate secure random bytes.
+         *
+         * @param count - number of bytes to generate.
+         * @returns securely generated random bytes.
+         * @throws {TypeError, GoError}
+         */
+        secureRandomBytes(count: number): ArrayBuffer;
+
+        /**
          * Authenticate with Apple.
          *
          * @param token - Apple token.

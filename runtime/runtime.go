@@ -1364,7 +1364,7 @@ type Satori interface {
 	MessagesList(ctx context.Context, id string, limit int, forward bool, cursor string, messageIDs []string) (*MessageList, error)
 	MessageUpdate(ctx context.Context, id, messageId string, readTime, consumeTime int64) error
 	MessageDelete(ctx context.Context, id, messageId string) error
-	ConsoleDirectMessageSend(ctx context.Context, templateId string, recipientIDs []string, integrations []SatoriMessageIntegration, persist bool, channels map[SatoriMessageIntegration]*SatoriMessageIntegrationChannels, templateOverride *SatoriMessageTemplateOverride) error
+	ConsoleDirectMessageSend(ctx context.Context, templateId string, recipientIDs []string, integrations []SatoriMessageIntegration, persist bool, channels map[SatoriMessageIntegration]*SatoriMessageIntegrationChannels, templateOverride *SatoriMessageTemplateOverride) (*SatoriMessageSendResults, error)
 }
 
 type SatoriMessageIntegration int

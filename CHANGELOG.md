@@ -5,6 +5,11 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+### Added
+- Add trace identifier to RPC function contexts.
+- Add runtime Satori client feature to send direct messages.
+- Add runtime Satori client option to fetch messages by a set of identifiers.
+
 ## [1.43.0] - 2025-11-09
 ### Added
 - New Go runtime initializer function to register raw console HTTP handlers.

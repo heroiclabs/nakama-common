@@ -5,10 +5,13 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.43.1] - 2025-11-12
 ### Added
 - Add trace identifier to RPC function contexts.
 - Add runtime Satori client feature to send direct messages.
 - Add runtime Satori client option to fetch messages by a set of identifiers.
+- New TypeScript/JavaScript runtime function to generate secure random bytes.
+- New Lua runtime function to generate secure random bytes.
 
 ## [1.43.0] - 2025-11-09
 ### Added

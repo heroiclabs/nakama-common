@@ -5310,16 +5310,16 @@ declare namespace nkruntime {
     }
 
     export interface FlagOverrides {
-      flagName: string
-      overrides: FlagOverride[]
+        flagName: string
+        overrides: FlagOverride[]
     }
 
     export interface FlagOverride {
-      "name": string
-      "type": string
-      "variantName": string
-      "value": string
-      "createTimeSec": number
+        "name": string
+        "type": string
+        "variantName": string
+        "value": string
+        "createTimeSec": number
     }
 
     export interface LiveEvent {
@@ -5333,6 +5333,7 @@ declare namespace nkruntime {
         endTime: number
         duration: number
         resetCron: string
+        status: string
     }
 
     export interface MessagesList {
@@ -5357,10 +5358,10 @@ declare namespace nkruntime {
     }
 
     export interface NotificationUpdate {
-      id: string
-      content?: {[key: string]: any}
-      subject?: string
-      sender?: string
+        id: string
+        content?: {[key: string]: any}
+        subject?: string
+        sender?: string
     }
 
     /**
@@ -5454,10 +5455,23 @@ declare namespace nkruntime {
          * @param id - Identity identifier.
          * @param names - Opt. List of live event names.
          * @param labels - Opt. List of live event labels.
+         * @param pastRunCount - Opt. The maximum number of past event runs to return for each live event.
+         * @param futureRunCount - Opt. The maximum number of future event runs to return for each live event.
+         * @param startTimeSec - Opt. Start time of the time window filter to apply.
+         * @param endTimeSec - Opt. End time of the time window filter to apply.
          * @returns a list of live-events.
          * @throws {TypeError, GoError}
          */
-        liveEventsList(id: string, names?: string[], labels?: string[]): {"liveEvents": LiveEvent[]}
+        liveEventsList(id: string, names?: string[], labels?: string[], pastRunCount?: number, futureRunCount?: number, startTimeSec?: number, endTimeSec?: number): {"liveEvents": LiveEvent[], "explicitJoinLiveEvents": LiveEvent[]}
+
+        /**
+         * Join a live event.
+         *
+         * @param id - Identity identifier.
+         * @param liveEventId - Identifier of the live event to join.
+         * @throws {TypeError, GoError}
+         */
+        liveEventJoin(id: string, liveEventId: string): void
 
         /**
          * List messages.

@@ -5,6 +5,10 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.44.0] - 2025-12-02
+### Changed
+- Update runtime Satori client for new Live Event previous and future iteration options.
+
 ## [1.43.1] - 2025-11-12
 ### Added
 - Add trace identifier to RPC function contexts.

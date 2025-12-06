@@ -22,13 +22,13 @@ To build the codebase and generate all sources use these steps.
 2. Intall the protoc-gen-go plugin to generate Go code.
 
    ```shell
-   go install "google.golang.org/protobuf/cmd/protoc-gen-go"
+   go install tool
    ```
 
 3. Use the Go generate command to generate all Go stubs.
 
    ```shell
-   env PATH="$HOME/go/bin:$PATH" go generate -x ./...
+   go generate -x ./...
    ```
 
 These steps have been tested with the Go 1.14 toolchain. Earlier Go toolchain versions may work though YMMV.

@@ -6,7 +6,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 
 ## [1.44.1] - 2026-01-13
-## Changed
+### Changed
 - Update to Protobuf v1.36.11 dependency.
 - Update to Go toolchain 1.25.5.
 

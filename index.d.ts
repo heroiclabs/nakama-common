@@ -258,6 +258,8 @@ declare namespace nkruntime {
         (ctx: Context, logger: Logger, nk: Nakama): void;
     }
 
+    type IAPNotificationType = "SUBSCRIBED" | "RENEWED" | "EXPIRED" | "CANCELLED" | "REFUNDED"
+
     /**
      * Purchase Notification Apple function definition.
      */
@@ -269,9 +271,10 @@ declare namespace nkruntime {
          * @param logger - The server logger.
          * @param nk - The Nakama server APIs.
          * @param purchase - The notification purchase.
-         * @param providerPayload - The raw payload of the provider notificaton.
+         * @param providerPayload - The raw payload of the provider notification.
+         * @param notificationType - The type of notification received.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, purchase: ValidatedPurchase, providerPayload: string): void;
+        (ctx: Context, logger: Logger, nk: Nakama, purchase: ValidatedPurchase, providerPayload: string, notificationType: IAPNotificationType): void;
     }
 
     /**
@@ -285,9 +288,10 @@ declare namespace nkruntime {
          * @param logger - The server logger.
          * @param nk - The Nakama server APIs.
          * @param subscription - The notification subscription.
-         * @param providerPayload - The raw payload of the provider notificaton.
+         * @param providerPayload - The raw payload of the provider notification.
+         * @param notificationType - The type of notification received.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, subscription: ValidatedSubscription, providerPayload: string): void;
+        (ctx: Context, logger: Logger, nk: Nakama, subscription: ValidatedSubscription, providerPayload: string, notificationType: IAPNotificationType): void;
     }
 
     /**
@@ -301,9 +305,10 @@ declare namespace nkruntime {
          * @param logger - The server logger.
          * @param nk - The Nakama server APIs.
          * @param purchase - The notification purchase.
-         * @param providerPayload - The raw payload of the provider notificaton.
+         * @param providerPayload - The raw payload of the provider notification.
+         * @param notificationType - The type of notification received.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, purchase: ValidatedPurchase, providerPayload: string): void;
+        (ctx: Context, logger: Logger, nk: Nakama, purchase: ValidatedPurchase, providerPayload: string, notificationType: IAPNotificationType): void;
     }
 
     /**
@@ -317,9 +322,10 @@ declare namespace nkruntime {
          * @param logger - The server logger.
          * @param nk - The Nakama server APIs.
          * @param subscription - The notification subscription.
-         * @param providerPayload - The raw payload of the provider notificaton.
+         * @param providerPayload - The raw payload of the provider notification.
+         * @param notificationType - The type of notification received.
          */
-        (ctx: Context, logger: Logger, nk: Nakama, subscription: ValidatedSubscription, providerPayload: string): void;
+        (ctx: Context, logger: Logger, nk: Nakama, subscription: ValidatedSubscription, providerPayload: string, notificationType: IAPNotificationType): void;
     }
 
     /**

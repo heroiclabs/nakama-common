@@ -4,6 +4,8 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Fixed
+- Add In-App Purchase notification type to JS/Lua callback functions.
 
 ## [1.44.1] - 2026-01-13
 ### Changed
@@ -37,7 +39,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [1.42.1] - 2025-10-17
 ### Fixed
 - Use correct types for Google In-App Purchase subscription response fields.
-- Use correct type for Apple In-App Purchase application identifier field. 
+- Use correct type for Apple In-App Purchase application identifier field.
 
 ## [1.42.0] - 2025-09-16
 ### Changed

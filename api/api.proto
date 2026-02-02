@@ -505,7 +505,7 @@ message GroupList {
 }
 
 // The group role status.
-enum GroupUserList_GroupUser_State {
+enum GroupRoleStatus {
   // The user is a superadmin with full control of the group.
   SUPERADMIN = 0;
   // The user is an admin with additional privileges.
@@ -1155,20 +1155,6 @@ message User {
   // The Apple Sign In ID in the user's account.
   string apple_id = 18;
 }
-
-/*
-// The group role status.
-enum UserGroupList_UserGroup_State {
-  // The user is a superadmin with full control of the group.
-  SUPERADMIN = 0;
-  // The user is an admin with additional privileges.
-  ADMIN = 1;
-  // The user is a regular member.
-  MEMBER = 2;
-  // The user has requested to join the group
-  JOIN_REQUEST = 3;
-}
-*/
 
 // A single group-role pair.
 message UserGroupList_UserGroup {

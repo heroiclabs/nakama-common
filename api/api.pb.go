@@ -98,28 +98,28 @@ func (Friend_State) EnumDescriptor() ([]byte, []int) {
 }
 
 // The group role status.
-type GroupUserList_GroupUser_State int32
+type GroupRoleStatus int32
 
 const (
 	// The user is a superadmin with full control of the group.
-	GroupUserList_GroupUser_State_SUPERADMIN GroupUserList_GroupUser_State = 0
+	GroupRoleStatus_SUPERADMIN GroupRoleStatus = 0
 	// The user is an admin with additional privileges.
-	GroupUserList_GroupUser_State_ADMIN GroupUserList_GroupUser_State = 1
+	GroupRoleStatus_ADMIN GroupRoleStatus = 1
 	// The user is a regular member.
-	GroupUserList_GroupUser_State_MEMBER GroupUserList_GroupUser_State = 2
+	GroupRoleStatus_MEMBER GroupRoleStatus = 2
 	// The user has requested to join the group
-	GroupUserList_GroupUser_State_JOIN_REQUEST GroupUserList_GroupUser_State = 3
+	GroupRoleStatus_JOIN_REQUEST GroupRoleStatus = 3
 )
 
-// Enum value maps for GroupUserList_GroupUser_State.
+// Enum value maps for GroupRoleStatus.
 var (
-	GroupUserList_GroupUser_State_name = map[int32]string{
+	GroupRoleStatus_name = map[int32]string{
 		0: "SUPERADMIN",
 		1: "ADMIN",
 		2: "MEMBER",
 		3: "JOIN_REQUEST",
 	}
-	GroupUserList_GroupUser_State_value = map[string]int32{
+	GroupRoleStatus_value = map[string]int32{
 		"SUPERADMIN":   0,
 		"ADMIN":        1,
 		"MEMBER":       2,
@@ -127,30 +127,30 @@ var (
 	}
 )
 
-func (x GroupUserList_GroupUser_State) Enum() *GroupUserList_GroupUser_State {
-	p := new(GroupUserList_GroupUser_State)
+func (x GroupRoleStatus) Enum() *GroupRoleStatus {
+	p := new(GroupRoleStatus)
 	*p = x
 	return p
 }
 
-func (x GroupUserList_GroupUser_State) String() string {
+func (x GroupRoleStatus) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (GroupUserList_GroupUser_State) Descriptor() protoreflect.EnumDescriptor {
+func (GroupRoleStatus) Descriptor() protoreflect.EnumDescriptor {
 	return file_api_proto_enumTypes[1].Descriptor()
 }
 
-func (GroupUserList_GroupUser_State) Type() protoreflect.EnumType {
+func (GroupRoleStatus) Type() protoreflect.EnumType {
 	return &file_api_proto_enumTypes[1]
 }
 
-func (x GroupUserList_GroupUser_State) Number() protoreflect.EnumNumber {
+func (x GroupRoleStatus) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use GroupUserList_GroupUser_State.Descriptor instead.
-func (GroupUserList_GroupUser_State) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use GroupRoleStatus.Descriptor instead.
+func (GroupRoleStatus) EnumDescriptor() ([]byte, []int) {
 	return file_api_proto_rawDescGZIP(), []int{1}
 }
 
@@ -9444,8 +9444,8 @@ const file_api_proto_rawDesc = "" +
 	"\x06FRIEND\x10\x00\x12\x0f\n" +
 	"\vINVITE_SENT\x10\x01\x12\x13\n" +
 	"\x0fINVITE_RECEIVED\x10\x02\x12\v\n" +
-	"\aBLOCKED\x10\x03*X\n" +
-	"\x1dGroupUserList_GroupUser_State\x12\x0e\n" +
+	"\aBLOCKED\x10\x03*J\n" +
+	"\x0fGroupRoleStatus\x12\x0e\n" +
 	"\n" +
 	"SUPERADMIN\x10\x00\x12\t\n" +
 	"\x05ADMIN\x10\x01\x12\n" +
@@ -9486,7 +9486,7 @@ var file_api_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
 var file_api_proto_msgTypes = make([]protoimpl.MessageInfo, 133)
 var file_api_proto_goTypes = []any{
 	(Friend_State)(0),                                            // 0: nakama.api.Friend_State
-	(GroupUserList_GroupUser_State)(0),                           // 1: nakama.api.GroupUserList_GroupUser_State
+	(GroupRoleStatus)(0),                                         // 1: nakama.api.GroupRoleStatus
 	(StoreProvider)(0),                                           // 2: nakama.api.StoreProvider
 	(StoreEnvironment)(0),                                        // 3: nakama.api.StoreEnvironment
 	(Operator)(0),                                                // 4: nakama.api.Operator

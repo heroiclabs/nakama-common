@@ -156,24 +156,24 @@ message Channel {
   string user_id_two = 7;
 }
 
+// The type of chat channel.
+enum ChannelJoin_Type {
+  // Default case. Assumed as ROOM type.
+  TYPE_UNSPECIFIED = 0;
+  // A room which anyone can join to chat.
+  ROOM = 1;
+  // A private channel for 1-on-1 chat.
+  DIRECT_MESSAGE = 2;
+  // A channel for group chat.
+  GROUP = 3;
+}
+
 // Join operation for a realtime chat channel.
 message ChannelJoin {
-  // The type of chat channel.
-  enum Type {
-    // Default case. Assumed as ROOM type.
-    TYPE_UNSPECIFIED = 0;
-    // A room which anyone can join to chat.
-    ROOM = 1;
-    // A private channel for 1-on-1 chat.
-    DIRECT_MESSAGE = 2;
-    // A channel for group chat.
-    GROUP = 3;
-  }
-
   // The user ID to DM with, group ID to chat with, or room channel name to join.
   string target = 1;
   // The type of the chat channel.
-  int32 type = 2; // one of "ChannelId.Type".
+  int32 type = 2; // one of "ChannelJoin_Type".
   // Whether messages sent on this channel should be persistent.
   google.protobuf.BoolValue persistence = 3;
   // Whether the user should appear in the channel's presence list and events.
@@ -256,29 +256,29 @@ message ChannelPresenceEvent {
   string user_id_two = 7;
 }
 
+// The selection of possible error codes.
+enum Error_Code {
+  // An unexpected result from the server.
+  RUNTIME_EXCEPTION = 0;
+  // The server received a message which is not recognised.
+  UNRECOGNIZED_PAYLOAD = 1;
+  // A message was expected but contains no content.
+  MISSING_PAYLOAD = 2;
+  // Fields in the message have an invalid format.
+  BAD_INPUT = 3;
+  // The match id was not found.
+  MATCH_NOT_FOUND = 4;
+  // The match join was rejected.
+  MATCH_JOIN_REJECTED = 5;
+  // The runtime function does not exist on the server.
+  RUNTIME_FUNCTION_NOT_FOUND = 6;
+  // The runtime function executed with an error.
+  RUNTIME_FUNCTION_EXCEPTION = 7;
+}
+
 // A logical error which may occur on the server.
 message Error {
-  // The selection of possible error codes.
-  enum Code {
-    // An unexpected result from the server.
-    RUNTIME_EXCEPTION = 0;
-    // The server received a message which is not recognised.
-    UNRECOGNIZED_PAYLOAD = 1;
-    // A message was expected but contains no content.
-    MISSING_PAYLOAD = 2;
-    // Fields in the message have an invalid format.
-    BAD_INPUT = 3;
-    // The match id was not found.
-    MATCH_NOT_FOUND = 4;
-    // The match join was rejected.
-    MATCH_JOIN_REJECTED = 5;
-    // The runtime function does not exist on the server.
-    RUNTIME_FUNCTION_NOT_FOUND = 6;
-    // The runtime function executed with an error.
-    RUNTIME_FUNCTION_EXCEPTION = 7;
-  }
-
-  // The error code which should be one of "Error.Code" enums.
+  // The error code which should be one of "Error_Code" enums.
   int32 code = 1;
   // A message in English to help developers debug the response.
   string message = 2;
@@ -380,19 +380,19 @@ message MatchmakerAdd {
   google.protobuf.Int32Value count_multiple = 6;
 }
 
+message MatchmakerMatched_MatchmakerUser {
+  // User info.
+  UserPresence presence = 1;
+  // Party identifier, if this user was matched as a party member.
+  string party_id = 2;
+  // String properties.
+  map<string, string> string_properties = 5;
+  // Numeric properties.
+  map<string, double> numeric_properties = 6;
+}
+
 // A successful matchmaking result.
 message MatchmakerMatched {
-  message MatchmakerUser {
-    // User info.
-    UserPresence presence = 1;
-    // Party identifier, if this user was matched as a party member.
-    string party_id = 2;
-    // String properties.
-    map<string, string> string_properties = 5;
-    // Numeric properties.
-    map<string, double> numeric_properties = 6;
-  }
-
   // The matchmaking ticket that has completed.
   string ticket = 1;
   // The match token or match ID to join.
@@ -403,9 +403,9 @@ message MatchmakerMatched {
     string token = 3;
   }
   // The users that have been matched together, and information about their matchmaking data.
-  repeated MatchmakerUser users = 4;
+  repeated MatchmakerMatched_MatchmakerUser users = 4;
   // A reference to the current user and their properties.
-  MatchmakerUser self = 5;
+  MatchmakerMatched_MatchmakerUser self = 5;
 }
 
 // Cancel an existing ongoing matchmaking process.

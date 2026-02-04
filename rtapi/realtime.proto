@@ -380,19 +380,19 @@ message MatchmakerAdd {
   google.protobuf.Int32Value count_multiple = 6;
 }
 
+message MatchmakerMatched_MatchmakerUser {
+  // User info.
+  UserPresence presence = 1;
+  // Party identifier, if this user was matched as a party member.
+  string party_id = 2;
+  // String properties.
+  map<string, string> string_properties = 5;
+  // Numeric properties.
+  map<string, double> numeric_properties = 6;
+}
+
 // A successful matchmaking result.
 message MatchmakerMatched {
-  message MatchmakerUser {
-    // User info.
-    UserPresence presence = 1;
-    // Party identifier, if this user was matched as a party member.
-    string party_id = 2;
-    // String properties.
-    map<string, string> string_properties = 5;
-    // Numeric properties.
-    map<string, double> numeric_properties = 6;
-  }
-
   // The matchmaking ticket that has completed.
   string ticket = 1;
   // The match token or match ID to join.
@@ -403,9 +403,9 @@ message MatchmakerMatched {
     string token = 3;
   }
   // The users that have been matched together, and information about their matchmaking data.
-  repeated MatchmakerUser users = 4;
+  repeated MatchmakerMatched_MatchmakerUser  users = 4;
   // A reference to the current user and their properties.
-  MatchmakerUser self = 5;
+  MatchmakerMatched_MatchmakerUser self = 5;
 }
 
 // Cancel an existing ongoing matchmaking process.

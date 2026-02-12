@@ -4,8 +4,10 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+## [1.44.2] - 2026-02-12
 ### Fixed
-- Add In-App Purchase notification type to JS/Lua callback functions.
+- Add In-App Purchase notification type to TypeScript/JavaScript runtime callback functions.
 
 ## [1.44.1] - 2026-01-13
 ### Changed

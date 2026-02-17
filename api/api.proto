@@ -1272,6 +1272,35 @@ message ValidatePurchaseResponse {
   repeated ValidatedPurchase validated_purchases = 1;
 }
 
+message ValidatedSubscription {
+  // Subscription User ID.
+  string user_id = 1;
+  // Purchase Product ID.
+  string product_id = 2;
+  // Purchase Original transaction ID (we only keep track of the original subscription, not subsequent renewals).
+  string original_transaction_id = 3;
+  // Store identifier
+  StoreProvider store = 4;
+  // UNIX Timestamp when the purchase was done.
+  google.protobuf.Timestamp purchase_time = 5;
+  // UNIX Timestamp when the receipt validation was stored in DB.
+  google.protobuf.Timestamp create_time = 6;
+  // UNIX Timestamp when the receipt validation was updated in DB.
+  google.protobuf.Timestamp update_time = 7;
+  // Whether the purchase was done in production or sandbox environment.
+  StoreEnvironment environment = 8;
+  // Subscription expiration time. The subscription can still be auto-renewed to extend the expiration time further.
+  google.protobuf.Timestamp expiry_time = 9;
+  // Subscription refund time. If this time is set, the subscription was refunded.
+  google.protobuf.Timestamp refund_time = 10;
+  // Raw provider validation response body.
+  string provider_response = 11;
+  // Raw provider notification body.
+  string provider_notification = 12;
+  // Whether the subscription is currently active or not.
+  bool active = 13;
+} 
+
 // Validate Subscription response.
 message ValidateSubscriptionResponse {
   ValidatedSubscription validated_subscription = 1;
@@ -1309,35 +1338,6 @@ message PurchaseList {
   // The cursor to send when retrieving the previous page, if any.
   string prev_cursor = 3;
 }
-
-message ValidatedSubscription {
-  // Subscription User ID.
-  string user_id = 1;
-  // Purchase Product ID.
-  string product_id = 2;
-  // Purchase Original transaction ID (we only keep track of the original subscription, not subsequent renewals).
-  string original_transaction_id = 3;
-  // Store identifier
-  StoreProvider store = 4;
-  // UNIX Timestamp when the purchase was done.
-  google.protobuf.Timestamp purchase_time = 5;
-  // UNIX Timestamp when the receipt validation was stored in DB.
-  google.protobuf.Timestamp create_time = 6;
-  // UNIX Timestamp when the receipt validation was updated in DB.
-  google.protobuf.Timestamp update_time = 7;
-  // Whether the purchase was done in production or sandbox environment.
-  StoreEnvironment environment = 8;
-  // Subscription expiration time. The subscription can still be auto-renewed to extend the expiration time further.
-  google.protobuf.Timestamp expiry_time = 9;
-  // Subscription refund time. If this time is set, the subscription was refunded.
-  google.protobuf.Timestamp refund_time = 10;
-  // Raw provider validation response body.
-  string provider_response = 11;
-  // Raw provider notification body.
-  string provider_notification = 12;
-  // Whether the subscription is currently active or not.
-  bool active = 13;
-} 
 
 // A list of validated subscriptions stored by Nakama.
 message SubscriptionList {

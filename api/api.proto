@@ -71,6 +71,14 @@ message User {
   string apple_id = 18;
 }
 
+// Send a device to the server. Used with authenticate/link/unlink and user.
+message AccountDevice {
+  // A device identifier. Should be obtained by a platform-specific device API.
+  string id = 1;
+  // Extra information that will be bundled in the session token.
+  map<string, string> vars = 2;
+} 
+
 // A user with additional account details. Always the current user.
 message Account {
   // The user object.
@@ -113,13 +121,6 @@ message AccountCustom {
   map<string, string> vars = 2;
 }
 
-// Send a device to the server. Used with authenticate/link/unlink and user.
-message AccountDevice {
-  // A device identifier. Should be obtained by a platform-specific device API.
-  string id = 1;
-  // Extra information that will be bundled in the session token.
-  map<string, string> vars = 2;
-}
 
 // Send an email with password to the server. Used with authenticate/link/unlink.
 message AccountEmail {
@@ -1298,6 +1299,17 @@ enum StoreEnvironment {
   PRODUCTION = 2;
 }
 
+
+// A list of validated purchases stored by Nakama.
+message PurchaseList {
+  // Stored validated purchases.
+  repeated ValidatedPurchase validated_purchases = 1;
+  // The cursor to send when retrieving the next page, if any.
+  string cursor = 2;
+  // The cursor to send when retrieving the previous page, if any.
+  string prev_cursor = 3;
+}
+
 message ValidatedSubscription {
   // Subscription User ID.
   string user_id = 1;
@@ -1325,17 +1337,7 @@ message ValidatedSubscription {
   string provider_notification = 12;
   // Whether the subscription is currently active or not.
   bool active = 13;
-}
-
-// A list of validated purchases stored by Nakama.
-message PurchaseList {
-  // Stored validated purchases.
-  repeated ValidatedPurchase validated_purchases = 1;
-  // The cursor to send when retrieving the next page, if any.
-  string cursor = 2;
-  // The cursor to send when retrieving the previous page, if any.
-  string prev_cursor = 3;
-}
+} 
 
 // A list of validated subscriptions stored by Nakama.
 message SubscriptionList {

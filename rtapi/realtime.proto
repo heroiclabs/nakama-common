@@ -138,6 +138,20 @@ message Envelope {
   }
 }
 
+// A user session associated to a stream, usually through a list operation or a join/leave event.
+message UserPresence {
+  // The user this presence belongs to.
+  string user_id = 1;
+  // A unique session ID identifying the particular connection, because the user may have many.
+  string session_id = 2;
+  // The username for display purposes.
+  string username = 3;
+  // Whether this presence generates persistent data/messages, if applicable for the stream type.
+  bool persistence = 4;
+  // A user-set status message for this stream, if applicable.
+  google.protobuf.StringValue status = 5;
+}
+
 // A realtime chat channel.
 message Channel {
   // The ID of the channel.
@@ -675,16 +689,3 @@ message StreamPresenceEvent {
   repeated UserPresence leaves = 3;
 }
 
-// A user session associated to a stream, usually through a list operation or a join/leave event.
-message UserPresence {
-  // The user this presence belongs to.
-  string user_id = 1;
-  // A unique session ID identifying the particular connection, because the user may have many.
-  string session_id = 2;
-  // The username for display purposes.
-  string username = 3;
-  // Whether this presence generates persistent data/messages, if applicable for the stream type.
-  bool persistence = 4;
-  // A user-set status message for this stream, if applicable.
-  google.protobuf.StringValue status = 5;
-}

@@ -5386,6 +5386,14 @@ declare namespace nkruntime {
         authenticate(id: string, properties?: AuthPropertiesUpdate, ipAddress?: string): Properties
 
         /**
+         * Delete an identity and all its associated data.
+         *
+         * @param id - Identity identifier.
+         * @throws {TypeError, GoError}
+         */
+        identityDelete(id: string): void
+
+        /**
          * Get identity properties.
          *
          * @param id - Identity identifier.

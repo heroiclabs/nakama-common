@@ -7,6 +7,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ### Added
 - Add runtime Satori client feature to delete identities.
+- Add missing "no session" parameter to TypeScript/JavaScript Satori client authentication signature.
 
 ## [1.44.2] - 2026-02-12
 ### Fixed

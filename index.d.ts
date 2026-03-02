@@ -5383,7 +5383,7 @@ declare namespace nkruntime {
          * @param ipAddress - Opt. Client IP address to pass on to Satori for geo-IP lookup.
          * @throws {TypeError, GoError}
          */
-        authenticate(id: string, properties?: AuthPropertiesUpdate, ipAddress?: string): Properties
+        authenticate(id: string, properties?: AuthPropertiesUpdate, noSession?: boolean, ipAddress?: string): Properties
 
         /**
          * Delete an identity and all its associated data.

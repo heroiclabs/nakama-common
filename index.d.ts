@@ -3816,7 +3816,7 @@ declare namespace nkruntime {
         authenticateTokenGenerate(userId: string, username?: string, exp?: number, vars?: {[key: string]: string}): TokenGenerateResult;
 
         /**
-         * Get account data by id.
+         * Get account data by user identifier.
          *
          * @param userId - User ID.
          * @returns Object with account data.
@@ -3825,13 +3825,14 @@ declare namespace nkruntime {
         accountGetId(userId: string): Account
 
         /**
-         * Get accounts data by ids.
+         * Get accounts data by user or device identifiers.
          *
          * @param userIds - User IDs.
+         * @param deviceIds - Device IDs.
          * @returns Array containing accounts data.
          * @throws {TypeError, GoError}
          */
-        accountsGetId(userIds: string[]): Account[]
+        accountsGetId(userIds?: string[], deviceIds?: string[]): Account[]
 
         /**
          * Update user account.
@@ -3865,6 +3866,16 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         accountExportId(userId: string): string;
+
+        /**
+         * Import user account data, optionally overwriting a given user
+         *
+         * @param data - An account export string to import.
+         * @param userId - Optional target account.
+         * @returns JSON string of account data.
+         * @throws {TypeError, GoError}
+         */
+        accountImportId(data: string, userId?: string): Account;
 
         /**
          * Get user data by ids.

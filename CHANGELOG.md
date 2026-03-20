@@ -5,12 +5,16 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 
 ## [Unreleased]
 
+## [1.45.0] - 2026-03-20
 ### Added
 - Add runtime Satori client feature to delete identities.
 - Add missing "no session" parameter to TypeScript/JavaScript Satori client authentication signature.
 - Add device identifiers as lookup options for runtime account get operations.
 - Add Go runtime function to import an account export snapshot.
 - Add TypeScript/JavaScript runtime function to import an account export snapshot.
+
+### Changed
+- Update to Go toolchain 1.26.1.
 
 ## [1.44.2] - 2026-02-12
 ### Fixed

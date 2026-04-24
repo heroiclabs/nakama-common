@@ -4462,6 +4462,15 @@ declare namespace nkruntime {
         storageWrite(keys: StorageWriteRequest[]): StorageWriteAck[];
 
         /**
+         * Write storage objects.
+         *
+         * @param keys - Array of storage objects to write.
+         * @returns List of written objects acks.
+         * @throws {TypeError, GoError}
+         */
+        storageWriteRetry(keys: StorageReadRequest[], updateFn: (objects: StorageObject[]) => StorageWriteRequest[], maxRetries: number): StorageWriteAck[];
+
+        /**
          * Delete storage objects.
          *
          * @param keys - Array of storage objects to write.

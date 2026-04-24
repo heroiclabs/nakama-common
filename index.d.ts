@@ -4462,9 +4462,12 @@ declare namespace nkruntime {
         storageWrite(keys: StorageWriteRequest[]): StorageWriteAck[];
 
         /**
-         * Write storage objects.
+         * Write storage objects with retries. The retries are only triggered if the writes fail due to storage
+         * version mismatch.
          *
-         * @param keys - Array of storage objects to write.
+         * @param keys - Array of storage objects to read.
+         * @param updateFn - Function that receives the read objects and returns the modified objects to write.
+         * @param maxRetries - The amount of maximum retries. Must be a value between 1 and 10.
          * @returns List of written objects acks.
          * @throws {TypeError, GoError}
          */

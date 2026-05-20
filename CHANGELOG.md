@@ -4,8 +4,14 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+## [1.46.0] - 2026-05-20
 ### Added
+- Add return value to Fleet Manager Create interface function.
+
+### Changed
 - Update Satori client to match latest API spec.
+- Update to Go toolchain 1.26.3.
 
 ## [1.45.0] - 2026-03-20
 ### Added

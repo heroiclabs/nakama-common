@@ -8,6 +8,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [1.46.0] - 2026-05-20
 ### Added
 - Update Satori client to match latest API spec.
+- Add return value to Fleet Manager Create interface function. 
 - Update to Go toolchain 1.26.3.
 
 ## [1.45.0] - 2026-03-20

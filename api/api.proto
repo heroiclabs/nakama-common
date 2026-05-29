@@ -30,22 +30,44 @@ option java_package = "com.heroiclabs.nakama.api";
 
 option csharp_namespace = "Nakama.Protobuf";
 
-// A user with additional account details. Always the current user.
-message Account {
-  // The user object.
-  User user = 1;
-  // The user's wallet data.
-  string wallet = 2;
-  // The email address of the user.
-  string email = 3;
-  // The devices which belong to the user's account.
-  repeated AccountDevice devices = 4;
-  // The custom id in the user's account.
-  string custom_id = 5;
-  // The UNIX time (for gRPC clients) or ISO string (for REST clients) when the user's email was verified.
-  google.protobuf.Timestamp verify_time = 6;
-  // The UNIX time (for gRPC clients) or ISO string (for REST clients) when the user's account was disabled/banned.
-  google.protobuf.Timestamp disable_time = 7;
+// A user in the server.
+message User {
+  // The id of the user's account.
+  string id = 1;
+  // The username of the user's account.
+  string username = 2;
+  // The display name of the user.
+  string display_name = 3;
+  // A URL for an avatar image.
+  string avatar_url = 4;
+  // The language expected to be a tag which follows the BCP-47 spec.
+  string lang_tag = 5;
+  // The location set by the user.
+  string location = 6;
+  // The timezone set by the user.
+  string timezone = 7;
+  // Additional information stored as a JSON object.
+  string metadata = 8;
+  // The Facebook id in the user's account.
+  string facebook_id = 9;
+  // The Google id in the user's account.
+  string google_id = 10;
+  // The Apple Game Center in of the user's account.
+  string gamecenter_id = 11;
+  // The Steam id in the user's account.
+  string steam_id = 12;
+  // Indicates whether the user is currently online.
+  bool online = 13;
+  // Number of related edges to this user.
+  int32 edge_count = 14;
+  // The UNIX time (for gRPC clients) or ISO string (for REST clients) when the user was created.
+  google.protobuf.Timestamp create_time = 15;
+  // The UNIX time (for gRPC clients) or ISO string (for REST clients) when the user was last updated.
+  google.protobuf.Timestamp update_time = 16;
+  // The Facebook Instant Game ID in the user's account.
+  string facebook_instant_game_id = 17;
+  // The Apple Sign In ID in the user's account.
+  string apple_id = 18;
 }
 
 // Obtain a new authentication token using a refresh token.
@@ -140,6 +162,24 @@ message AccountSteam {
   string token = 1;
   // Extra information that will be bundled in the session token.
   map<string, string> vars = 2;
+}
+
+// A user with additional account details. Always the current user.
+message Account {
+  // The user object.
+  User user = 1;
+  // The user's wallet data.
+  string wallet = 2;
+  // The email address of the user.
+  string email = 3;
+  // The devices which belong to the user's account.
+  repeated AccountDevice devices = 4;
+  // The custom id in the user's account.
+  string custom_id = 5;
+  // The UNIX time (for gRPC clients) or ISO string (for REST clients) when the user's email was verified.
+  google.protobuf.Timestamp verify_time = 6;
+  // The UNIX time (for gRPC clients) or ISO string (for REST clients) when the user's account was disabled/banned.
+  google.protobuf.Timestamp disable_time = 7;
 }
 
 // Add one or more friends to the current user.
@@ -565,6 +605,20 @@ message KickGroupUsersRequest {
   string group_id = 1;
   // The users to kick.
   repeated string user_ids = 2;
+}
+
+// Operator that can be used to override the one set in the leaderboard.
+enum Operator {
+  // Do not override the leaderboard operator.
+  NO_OVERRIDE = 0;
+  // Override the leaderboard operator with BEST.
+  BEST = 1;
+  // Override the leaderboard operator with SET.
+  SET = 2;
+  // Override the leaderboard operator with INCREMENT.
+  INCREMENT = 3;
+  // Override the leaderboard operator with DECREMENT.
+  DECREMENT = 4;
 }
 
 // A leaderboard on the server.
@@ -1115,46 +1169,6 @@ message UpdateGroupRequest {
   google.protobuf.BoolValue open = 6;
 }
 
-// A user in the server.
-message User {
-  // The id of the user's account.
-  string id = 1;
-  // The username of the user's account.
-  string username = 2;
-  // The display name of the user.
-  string display_name = 3;
-  // A URL for an avatar image.
-  string avatar_url = 4;
-  // The language expected to be a tag which follows the BCP-47 spec.
-  string lang_tag = 5;
-  // The location set by the user.
-  string location = 6;
-  // The timezone set by the user.
-  string timezone = 7;
-  // Additional information stored as a JSON object.
-  string metadata = 8;
-  // The Facebook id in the user's account.
-  string facebook_id = 9;
-  // The Google id in the user's account.
-  string google_id = 10;
-  // The Apple Game Center in of the user's account.
-  string gamecenter_id = 11;
-  // The Steam id in the user's account.
-  string steam_id = 12;
-  // Indicates whether the user is currently online.
-  bool online = 13;
-  // Number of related edges to this user.
-  int32 edge_count = 14;
-  // The UNIX time (for gRPC clients) or ISO string (for REST clients) when the user was created.
-  google.protobuf.Timestamp create_time = 15;
-  // The UNIX time (for gRPC clients) or ISO string (for REST clients) when the user was last updated.
-  google.protobuf.Timestamp update_time = 16;
-  // The Facebook Instant Game ID in the user's account.
-  string facebook_instant_game_id = 17;
-  // The Apple Sign In ID in the user's account.
-  string apple_id = 18;
-}
-
 // A list of groups belonging to a user, along with the user's role in each group.
 message UserGroupList {
   // A single group-role pair.
@@ -1239,6 +1253,28 @@ message ValidatePurchaseFacebookInstantRequest {
   google.protobuf.BoolValue persist = 2;
 }
 
+// Validation Provider,
+enum StoreProvider {
+  // Apple App Store
+  APPLE_APP_STORE = 0;
+  // Google Play Store
+  GOOGLE_PLAY_STORE = 1;
+  // Huawei App Gallery
+  HUAWEI_APP_GALLERY = 2;
+  // Facebook Instant Store
+  FACEBOOK_INSTANT_STORE = 3;
+}
+
+// Environment where a purchase/subscription took place,
+enum StoreEnvironment {
+  // Unknown environment.
+  UNKNOWN = 0;
+  // Sandbox/test environment.
+  SANDBOX = 1;
+  // Production environment.
+  PRODUCTION = 2;
+}
+
 // Validated Purchase stored by Nakama.
 message ValidatedPurchase {
   // Purchase User ID.
@@ -1271,33 +1307,6 @@ message ValidatePurchaseResponse {
   repeated ValidatedPurchase validated_purchases = 1;
 }
 
-// Validate Subscription response.
-message ValidateSubscriptionResponse {
-  ValidatedSubscription validated_subscription = 1;
-}
-
-// Validation Provider,
-enum StoreProvider {
-  // Apple App Store
-  APPLE_APP_STORE = 0;
-  // Google Play Store
-  GOOGLE_PLAY_STORE = 1;
-  // Huawei App Gallery
-  HUAWEI_APP_GALLERY = 2;
-  // Facebook Instant Store
-  FACEBOOK_INSTANT_STORE = 3;
-}
-
-// Environment where a purchase/subscription took place,
-enum StoreEnvironment {
-  // Unknown environment.
-  UNKNOWN = 0;
-  // Sandbox/test environment.
-  SANDBOX = 1;
-  // Production environment.
-  PRODUCTION = 2;
-}
-
 message ValidatedSubscription {
   // Subscription User ID.
   string user_id = 1;
@@ -1325,6 +1334,11 @@ message ValidatedSubscription {
   string provider_notification = 12;
   // Whether the subscription is currently active or not.
   bool active = 13;
+}
+
+// Validate Subscription response.
+message ValidateSubscriptionResponse {
+  ValidatedSubscription validated_subscription = 1;
 }
 
 // A list of validated purchases stored by Nakama.
@@ -1407,20 +1421,6 @@ message WriteTournamentRecordRequest {
   string tournament_id = 1;
   // Record input.
   TournamentRecordWrite record = 2;
-}
-
-// Operator that can be used to override the one set in the leaderboard.
-enum Operator {
-  // Do not override the leaderboard operator.
-  NO_OVERRIDE = 0;
-  // Override the leaderboard operator with BEST.
-  BEST = 1;
-  // Override the leaderboard operator with SET.
-  SET = 2;
-  // Override the leaderboard operator with INCREMENT.
-  INCREMENT = 3;
-  // Override the leaderboard operator with DECREMENT.
-  DECREMENT = 4;
 }
 
 // A request to list parties.

@@ -1034,6 +1034,13 @@ type WalletLedgerItem interface {
 	GetMetadata() map[string]interface{}
 }
 
+// StorageTx is an opaque handle to an open database transaction obtained via NakamaModule.TxBegin.
+// Pass it to the transactional storage variants and close it with TxCommit or TxRollback.
+// Any open transaction is automatically rolled back when the RPC context is cancelled.
+type StorageTx struct {
+	ID string
+}
+
 type StorageRead struct {
 	Collection string
 	Key        string
@@ -1151,11 +1158,15 @@ type NakamaModule interface {
 	WalletLedgerList(ctx context.Context, userID string, limit int, cursor string) ([]WalletLedgerItem, string, error)
 
 	StorageList(ctx context.Context, callerID, userID, collection string, limit int, cursor string) ([]*api.StorageObject, string, error)
-	StorageRead(ctx context.Context, reads []*StorageRead) ([]*api.StorageObject, error)
-	StorageWrite(ctx context.Context, writes []*StorageWrite) ([]*api.StorageObjectAck, error)
+	StorageRead(ctx context.Context, reads []*StorageRead, tx ...*StorageTx) ([]*api.StorageObject, error)
+	StorageWrite(ctx context.Context, writes []*StorageWrite, tx ...*StorageTx) ([]*api.StorageObjectAck, error)
 	StorageWriteRetry(ctx context.Context, reads []*StorageRead, updateFn func(objects []*api.StorageObject) ([]*StorageWrite, error), maxRetries int) ([]*api.StorageObjectAck, error)
-	StorageDelete(ctx context.Context, deletes []*StorageDelete) error
+	StorageDelete(ctx context.Context, deletes []*StorageDelete, tx ...*StorageTx) error
 	StorageIndexList(ctx context.Context, callerID, indexName, query string, limit int, order []string, cursor string) (*api.StorageObjects, string, error)
+
+	TxBegin(ctx context.Context) (*StorageTx, error)
+	TxCommit(ctx context.Context, tx *StorageTx) error
+	TxRollback(ctx context.Context, tx *StorageTx) error
 
 	MultiUpdate(ctx context.Context, accountUpdates []*AccountUpdate, storageWrites []*StorageWrite, storageDeletes []*StorageDelete, walletUpdates []*WalletUpdate, updateLedger bool) ([]*api.StorageObjectAck, []*WalletUpdateResult, error)
 

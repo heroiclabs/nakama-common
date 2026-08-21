@@ -430,6 +430,18 @@ declare namespace nkruntime {
         vars?: SessionVars
     }
 
+    export interface AccountProvider {
+        provider?: string
+        payload?: string
+        vars?: SessionVars
+    }
+
+    export interface AuthenticateProviderRequest {
+        account?: AccountProvider
+        create?: boolean
+        username?: string
+    }
+
     export interface AuthenticateCustomRequest {
         account?: AccountCustom
         create?: boolean
@@ -1204,6 +1216,22 @@ declare namespace nkruntime {
         registerAfterAuthenticateCustom(fn: AfterHookFunction<Session, AuthenticateCustomRequest>): void;
 
         /**
+         * Register before Hook for RPC AuthenticateProvider function.
+         *
+         * @param fn - The function to execute before AuthenticateProvider.
+         * @throws {TypeError}
+         */
+        registerBeforeAuthenticateProvider(fn: BeforeHookFunction<AuthenticateProviderRequest>): void;
+
+        /**
+         * Register after Hook for RPC AuthenticateProvider function.
+         *
+         * @param fn - The function to execute after AuthenticateProvider.
+         * @throws {TypeError}
+         */
+        registerAfterAuthenticateProvider(fn: AfterHookFunction<Session, AuthenticateProviderRequest>): void;
+
+        /**
          * Register before Hook for RPC AuthenticateDevice function.
          *
          * @param fn - The function to execute before AuthenticateDevice.
@@ -1764,6 +1792,22 @@ declare namespace nkruntime {
         registerAfterLinkCustom(fn: AfterHookFunction<void, AccountCustom>): void;
 
         /**
+         * Register before Hook for RPC LinkProvider function.
+         *
+         * @param fn - The function to execute before LinkProvider.
+         * @throws {TypeError}
+         */
+        registerBeforeLinkProvider(fn: BeforeHookFunction<AccountProvider>): void;
+
+        /**
+         * Register after Hook for RPC LinkProvider function.
+         *
+         * @param fn - The function to execute after LinkProvider.
+         * @throws {TypeError}
+         */
+        registerAfterLinkProvider(fn: AfterHookFunction<void, AccountProvider>): void;
+
+        /**
          * Register before Hook for RPC LinkDevice function.
          *
          * @param fn - The function to execute before LinkDevice.
@@ -2098,6 +2142,22 @@ declare namespace nkruntime {
          * @throws {TypeError}
          */
         registerAfterUnlinkCustom(fn: AfterHookFunction<void, AccountCustom>): void;
+
+        /**
+         * Register before Hook for RPC UnlinkProvider function.
+         *
+         * @param fn - The function to execute before UnlinkProvider.
+         * @throws {TypeError}
+         */
+        registerBeforeUnlinkProvider(fn: BeforeHookFunction<AccountProvider>): void;
+
+        /**
+         * Register after Hook for RPC UnlinkProvider function.
+         *
+         * @param fn - The function to execute after UnlinkProvider.
+         * @throws {TypeError}
+         */
+        registerAfterUnlinkProvider(fn: AfterHookFunction<void, AccountProvider>): void;
 
         /**
          * Register before Hook for RPC UnlinkDevice function.
@@ -2593,6 +2653,12 @@ declare namespace nkruntime {
         customId: string
         verifyTime: number
         disableTime: number
+        providers: AccountProviderIdentity[]
+    }
+
+    export interface AccountProviderIdentity {
+        provider?: string
+        providerUserId?: string
     }
 
     export interface MatchmakerStats {
@@ -3737,6 +3803,19 @@ declare namespace nkruntime {
         authenticateCustom(id: string, username?: string, create?: boolean): AuthResult;
 
         /**
+         * Authenticate through a provider registered by the Go runtime.
+         *
+         * @param provider - name the provider was registered under.
+         * @param payload - Opt. payload handed to the provider.
+         * @param userID - Opt. user ID to assign if an account is created. If not provided one will be generated.
+         * @param username - username. If not provided a random username will be generated.
+         * @param create - create user if not exists, defaults to true
+         * @returns Object with authenticated user data.
+         * @throws {TypeError, GoError}
+         */
+        authenticateProvider(provider: string, payload?: string, userID?: string, username?: string, create?: boolean): AuthResult;
+
+        /**
          * Authenticate using a device identifier.
          *
          * @param id - device identifier.
@@ -3975,6 +4054,16 @@ declare namespace nkruntime {
         linkCustom(userId: string, customID: string): void;
 
         /**
+         * Link an account to a provider identity.
+         *
+         * @param userId - User ID.
+         * @param provider - name the provider was registered under.
+         * @param payload - Opt. payload handed to the provider.
+         * @throws {TypeError, GoError}
+         */
+        linkProvider(userId: string, provider: string, payload?: string): void;
+
+        /**
          * Link account to a custom device.
          *
          * @param userId - User ID.
@@ -4072,6 +4161,15 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         unlinkCustom(userId: string, customID?: string): void;
+
+        /**
+         * Unlink a provider identity from an account.
+         *
+         * @param userId - User ID.
+         * @param provider - name the provider was registered under.
+         * @throws {TypeError, GoError}
+         */
+        unlinkProvider(userId: string, provider: string): void;
 
         /**
          * Unlink a custom device from an account.

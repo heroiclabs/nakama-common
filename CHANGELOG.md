@@ -3,6 +3,10 @@ All notable changes to this project are documented below.
 
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
+## [Unreleased]
+### Added
+- Update to Go toolchain 1.27.1.
+
 ## [1.46.0] - 2026-07-13
 ### Added
 - Add Samsung Galaxy Store purchase validation request type and `SAMSUNG_GALAXY_STORE` store provider enum.

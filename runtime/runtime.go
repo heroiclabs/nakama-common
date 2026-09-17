@@ -1105,11 +1105,12 @@ AuthenticateProvider is a named authentication backend registered through Initia
 
 Authenticate receives the opaque JSON payload supplied by the caller that must be validated by the implementer of this interface.
 
-GetFriends is used to import friend relationships from the external provider, if available.
+GetFriends is used to import friend relationships from the external provider, if available. Also returns a boolean flag
+indicating if the user's existing friends list must be reset and completely replaced.
 */
 type AuthenticateProvider interface {
 	Authenticate(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, payload map[string]any) (AuthenticateProviderResult, error)
-	GetFriends(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, payload map[string]any, result AuthenticateProviderResult) ([]string, error)
+	GetFriends(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, payload map[string]any, result AuthenticateProviderResult) ([]string, bool, error)
 }
 
 var _ AuthenticateProviderResult = (*DefaultAuthenticateProviderResult)(nil)

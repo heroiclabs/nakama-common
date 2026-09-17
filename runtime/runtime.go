@@ -1178,7 +1178,7 @@ type NakamaModule interface {
 	UsersBanId(ctx context.Context, userIDs []string) error
 	UsersUnbanId(ctx context.Context, userIDs []string) error
 
-	Link(ctx context.Context, userID, provider string, payload map[string]any) error
+	Link(ctx context.Context, userID, username, provider string, payload map[string]any) error
 	LinkApple(ctx context.Context, userID, token string) error
 	LinkCustom(ctx context.Context, userID, customID string) error
 	LinkDevice(ctx context.Context, userID, deviceID string) error

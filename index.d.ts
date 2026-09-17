@@ -4039,11 +4039,12 @@ declare namespace nkruntime {
          * Link an account to a provider identity.
          *
          * @param userId - User ID.
+         * @param username - Username.
          * @param provider - name the provider was registered under.
          * @param payload - Opt. payload handed to the provider.
          * @throws {TypeError, GoError}
          */
-        link(userId: string, provider: string, payload?: {[key: string]: any}): void;
+        link(userId: string, username: string, provider: string, payload?: {[key: string]: any}): void;
 
         /**
          * Link an account to Apple sign in.

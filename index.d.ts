@@ -1792,20 +1792,20 @@ declare namespace nkruntime {
         registerAfterLinkCustom(fn: AfterHookFunction<void, AccountCustom>): void;
 
         /**
-         * Register before Hook for RPC LinkProvider function.
+         * Register before Hook for RPC Link function.
          *
-         * @param fn - The function to execute before LinkProvider.
+         * @param fn - The function to execute before Link.
          * @throws {TypeError}
          */
-        registerBeforeLinkProvider(fn: BeforeHookFunction<AccountProvider>): void;
+        registerBeforeLink(fn: BeforeHookFunction<AccountProvider>): void;
 
         /**
-         * Register after Hook for RPC LinkProvider function.
+         * Register after Hook for RPC Link function.
          *
-         * @param fn - The function to execute after LinkProvider.
+         * @param fn - The function to execute after Link.
          * @throws {TypeError}
          */
-        registerAfterLinkProvider(fn: AfterHookFunction<void, AccountProvider>): void;
+        registerAfterLink(fn: AfterHookFunction<void, AccountProvider>): void;
 
         /**
          * Register before Hook for RPC LinkDevice function.
@@ -2144,20 +2144,20 @@ declare namespace nkruntime {
         registerAfterUnlinkCustom(fn: AfterHookFunction<void, AccountCustom>): void;
 
         /**
-         * Register before Hook for RPC UnlinkProvider function.
+         * Register before Hook for RPC Unlink function.
          *
-         * @param fn - The function to execute before UnlinkProvider.
+         * @param fn - The function to execute before Unlink.
          * @throws {TypeError}
          */
-        registerBeforeUnlinkProvider(fn: BeforeHookFunction<AccountProvider>): void;
+        registerBeforeUnlink(fn: BeforeHookFunction<AccountProvider>): void;
 
         /**
-         * Register after Hook for RPC UnlinkProvider function.
+         * Register after Hook for RPC Unlink function.
          *
-         * @param fn - The function to execute after UnlinkProvider.
+         * @param fn - The function to execute after Unlink.
          * @throws {TypeError}
          */
-        registerAfterUnlinkProvider(fn: AfterHookFunction<void, AccountProvider>): void;
+        registerAfterUnlink(fn: AfterHookFunction<void, AccountProvider>): void;
 
         /**
          * Register before Hook for RPC UnlinkDevice function.
@@ -3781,6 +3781,19 @@ declare namespace nkruntime {
         secureRandomBytes(count: number): ArrayBuffer;
 
         /**
+         * Authenticate through a provider registered by the Go runtime.
+         *
+         * @param provider - name the provider was registered under.
+         * @param payload - Opt. payload handed to the provider.
+         * @param userID - Opt. user ID to assign if an account is created. If not provided one will be generated.
+         * @param username - username. If not provided a random username will be generated.
+         * @param create - create user if not exists, defaults to true
+         * @returns Object with authenticated user data.
+         * @throws {TypeError, GoError}
+         */
+        authenticate(provider: string, payload?: {[key: string]: any}, userID?: string, username?: string, create?: boolean): AuthResult;
+
+        /**
          * Authenticate with Apple.
          *
          * @param token - Apple token.
@@ -3801,19 +3814,6 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         authenticateCustom(id: string, username?: string, create?: boolean): AuthResult;
-
-        /**
-         * Authenticate through a provider registered by the Go runtime.
-         *
-         * @param provider - name the provider was registered under.
-         * @param payload - Opt. payload handed to the provider.
-         * @param userID - Opt. user ID to assign if an account is created. If not provided one will be generated.
-         * @param username - username. If not provided a random username will be generated.
-         * @param create - create user if not exists, defaults to true
-         * @returns Object with authenticated user data.
-         * @throws {TypeError, GoError}
-         */
-        authenticateProvider(provider: string, payload?: string, userID?: string, username?: string, create?: boolean): AuthResult;
 
         /**
          * Authenticate using a device identifier.
@@ -4036,6 +4036,16 @@ declare namespace nkruntime {
         usersUnbanId(userIds: string[]): void;
 
         /**
+         * Link an account to a provider identity.
+         *
+         * @param userId - User ID.
+         * @param provider - name the provider was registered under.
+         * @param payload - Opt. payload handed to the provider.
+         * @throws {TypeError, GoError}
+         */
+        link(userId: string, provider: string, payload?: {[key: string]: any}): void;
+
+        /**
          * Link an account to Apple sign in.
          *
          * @param userId - User ID.
@@ -4052,16 +4062,6 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         linkCustom(userId: string, customID: string): void;
-
-        /**
-         * Link an account to a provider identity.
-         *
-         * @param userId - User ID.
-         * @param provider - name the provider was registered under.
-         * @param payload - Opt. payload handed to the provider.
-         * @throws {TypeError, GoError}
-         */
-        linkProvider(userId: string, provider: string, payload?: string): void;
 
         /**
          * Link account to a custom device.
@@ -4145,6 +4145,15 @@ declare namespace nkruntime {
         linkSteam(userId: string, username: string, token: string, importFriends: boolean): void;
 
         /**
+         * Unlink a provider identity from an account.
+         *
+         * @param userId - User ID.
+         * @param provider - name the provider was registered under.
+         * @throws {TypeError, GoError}
+         */
+        unlink(userId: string, provider: string): void;
+
+        /**
          * Unlink Apple sign in from an account.
          *
          * @param userId - User ID.
@@ -4161,15 +4170,6 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         unlinkCustom(userId: string, customID?: string): void;
-
-        /**
-         * Unlink a provider identity from an account.
-         *
-         * @param userId - User ID.
-         * @param provider - name the provider was registered under.
-         * @throws {TypeError, GoError}
-         */
-        unlinkProvider(userId: string, provider: string): void;
 
         /**
          * Unlink a custom device from an account.

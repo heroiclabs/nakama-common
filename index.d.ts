@@ -423,6 +423,7 @@ declare namespace nkruntime {
         account?: AccountApple
         create?: boolean
         username?: string
+        importEmail?: boolean
     }
 
     export interface AccountCustom {
@@ -471,6 +472,7 @@ declare namespace nkruntime {
         create?: boolean
         username?: string
         sync?: boolean
+        importEmail?: boolean
     }
 
     export interface AccountFacebook {
@@ -514,6 +516,7 @@ declare namespace nkruntime {
         account?: AccountGoogle
         create?: boolean
         username?: string
+        importEmail?: boolean
     }
 
     export interface AccountSteam {
@@ -3811,10 +3814,11 @@ declare namespace nkruntime {
          * @param token - Apple token.
          * @param username - username. If not provided a random username will be generated.
          * @param create - create user if not exists, defaults to true
+         * @param importEmail - import email from Apple account, defaults to false
          * @returns Object with authenticated user data.
          * @throws {TypeError, GoError}
          */
-        authenticateApple(token: string, username?: string, create?: boolean): AuthResult;
+        authenticateApple(token: string, username?: string, create?: boolean, importEmail?: boolean): AuthResult;
 
         /**
          * Authenticate using a custom identifier.

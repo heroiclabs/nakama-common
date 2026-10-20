@@ -1458,7 +1458,7 @@ type AuthenticateAppleRequest struct {
 	// Set the username on the account at register. Must be unique.
 	Username string `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
 	// Import an email coming from the provider, if available, and if no other email is already set.
-	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,4,opt,name=importEmail,proto3" json:"importEmail,omitempty"`
+	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,4,opt,name=import_email,json=importEmail,proto3" json:"import_email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1725,7 +1725,7 @@ type AuthenticateFacebookRequest struct {
 	// Import Facebook friends for the user.
 	Sync *wrapperspb.BoolValue `protobuf:"bytes,4,opt,name=sync,proto3" json:"sync,omitempty"`
 	// Import an email coming from the provider, if available, and if no other email is already set.
-	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,5,opt,name=importEmail,proto3" json:"importEmail,omitempty"`
+	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,5,opt,name=import_email,json=importEmail,proto3" json:"import_email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1933,7 +1933,7 @@ type AuthenticateGoogleRequest struct {
 	// Set the username on the account at register. Must be unique.
 	Username string `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
 	// Import an email coming from the provider, if available, and if no other email is already set.
-	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,4,opt,name=importEmail,proto3" json:"importEmail,omitempty"`
+	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,4,opt,name=import_email,json=importEmail,proto3" json:"import_email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4229,11 +4229,11 @@ func (x *LeaveGroupRequest) GetGroupId() string {
 type LinkAppleRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The Apple account details.
-	Account *AccountFacebook `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	Account *AccountApple `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
 	// Import Apple friends for the user.
 	Sync *wrapperspb.BoolValue `protobuf:"bytes,2,opt,name=sync,proto3" json:"sync,omitempty"`
 	// Import an email coming from the provider, if available, and if no other email is already set.
-	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,3,opt,name=importEmail,proto3" json:"importEmail,omitempty"`
+	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,3,opt,name=import_email,json=importEmail,proto3" json:"import_email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4268,7 +4268,7 @@ func (*LinkAppleRequest) Descriptor() ([]byte, []int) {
 	return file_api_proto_rawDescGZIP(), []int{58}
 }
 
-func (x *LinkAppleRequest) GetAccount() *AccountFacebook {
+func (x *LinkAppleRequest) GetAccount() *AccountApple {
 	if x != nil {
 		return x.Account
 	}
@@ -4297,7 +4297,7 @@ type LinkFacebookRequest struct {
 	// Import Facebook friends for the user.
 	Sync *wrapperspb.BoolValue `protobuf:"bytes,2,opt,name=sync,proto3" json:"sync,omitempty"`
 	// Import an email coming from the provider, if available, and if no other email is already set.
-	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,3,opt,name=importEmail,proto3" json:"importEmail,omitempty"`
+	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,3,opt,name=import_email,json=importEmail,proto3" json:"import_email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4359,7 +4359,7 @@ type LinkGoogleRequest struct {
 	// The Google account details.
 	Account *AccountGoogle `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
 	// Import an email coming from the provider, if available, and if no other email is already set.
-	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,2,opt,name=importEmail,proto3" json:"importEmail,omitempty"`
+	ImportEmail   *wrapperspb.BoolValue `protobuf:"bytes,2,opt,name=import_email,json=importEmail,proto3" json:"import_email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -9316,12 +9316,12 @@ const file_api_proto_rawDesc = "" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"Q\n" +
 	"\x14SessionLogoutRequest\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"\xdc\x01\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"\xdd\x01\n" +
 	"\x18AuthenticateAppleRequest\x122\n" +
 	"\aaccount\x18\x01 \x01(\v2\x18.nakama.api.AccountAppleR\aaccount\x122\n" +
 	"\x06create\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x06create\x12\x1a\n" +
-	"\busername\x18\x03 \x01(\tR\busername\x12<\n" +
-	"\vimportEmail\x18\x04 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\xa0\x01\n" +
+	"\busername\x18\x03 \x01(\tR\busername\x12=\n" +
+	"\fimport_email\x18\x04 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\xa0\x01\n" +
 	"\x19AuthenticateCustomRequest\x123\n" +
 	"\aaccount\x18\x01 \x01(\v2\x19.nakama.api.AccountCustomR\aaccount\x122\n" +
 	"\x06create\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x06create\x12\x1a\n" +
@@ -9333,13 +9333,13 @@ const file_api_proto_rawDesc = "" +
 	"\x18AuthenticateEmailRequest\x122\n" +
 	"\aaccount\x18\x01 \x01(\v2\x18.nakama.api.AccountEmailR\aaccount\x122\n" +
 	"\x06create\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x06create\x12\x1a\n" +
-	"\busername\x18\x03 \x01(\tR\busername\"\x92\x02\n" +
+	"\busername\x18\x03 \x01(\tR\busername\"\x93\x02\n" +
 	"\x1bAuthenticateFacebookRequest\x125\n" +
 	"\aaccount\x18\x01 \x01(\v2\x1b.nakama.api.AccountFacebookR\aaccount\x122\n" +
 	"\x06create\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x06create\x12\x1a\n" +
 	"\busername\x18\x03 \x01(\tR\busername\x12.\n" +
-	"\x04sync\x18\x04 \x01(\v2\x1a.google.protobuf.BoolValueR\x04sync\x12<\n" +
-	"\vimportEmail\x18\x05 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\xba\x01\n" +
+	"\x04sync\x18\x04 \x01(\v2\x1a.google.protobuf.BoolValueR\x04sync\x12=\n" +
+	"\fimport_email\x18\x05 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\xba\x01\n" +
 	"&AuthenticateFacebookInstantGameRequest\x12@\n" +
 	"\aaccount\x18\x01 \x01(\v2&.nakama.api.AccountFacebookInstantGameR\aaccount\x122\n" +
 	"\x06create\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x06create\x12\x1a\n" +
@@ -9347,12 +9347,12 @@ const file_api_proto_rawDesc = "" +
 	"\x1dAuthenticateGameCenterRequest\x127\n" +
 	"\aaccount\x18\x01 \x01(\v2\x1d.nakama.api.AccountGameCenterR\aaccount\x122\n" +
 	"\x06create\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x06create\x12\x1a\n" +
-	"\busername\x18\x03 \x01(\tR\busername\"\xde\x01\n" +
+	"\busername\x18\x03 \x01(\tR\busername\"\xdf\x01\n" +
 	"\x19AuthenticateGoogleRequest\x123\n" +
 	"\aaccount\x18\x01 \x01(\v2\x19.nakama.api.AccountGoogleR\aaccount\x122\n" +
 	"\x06create\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x06create\x12\x1a\n" +
-	"\busername\x18\x03 \x01(\tR\busername\x12<\n" +
-	"\vimportEmail\x18\x04 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\x9c\x01\n" +
+	"\busername\x18\x03 \x01(\tR\busername\x12=\n" +
+	"\fimport_email\x18\x04 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\x9c\x01\n" +
 	"\x13AuthenticateRequest\x125\n" +
 	"\aaccount\x18\x01 \x01(\v2\x1b.nakama.api.AccountProviderR\aaccount\x122\n" +
 	"\x06create\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x06create\x12\x1a\n" +
@@ -9555,18 +9555,18 @@ const file_api_proto_rawDesc = "" +
 	"\n" +
 	"rank_count\x18\x05 \x01(\x03R\trankCount\".\n" +
 	"\x11LeaveGroupRequest\x12\x19\n" +
-	"\bgroup_id\x18\x01 \x01(\tR\agroupId\"\xb7\x01\n" +
-	"\x10LinkAppleRequest\x125\n" +
-	"\aaccount\x18\x01 \x01(\v2\x1b.nakama.api.AccountFacebookR\aaccount\x12.\n" +
-	"\x04sync\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x04sync\x12<\n" +
-	"\vimportEmail\x18\x03 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\xba\x01\n" +
+	"\bgroup_id\x18\x01 \x01(\tR\agroupId\"\xb5\x01\n" +
+	"\x10LinkAppleRequest\x122\n" +
+	"\aaccount\x18\x01 \x01(\v2\x18.nakama.api.AccountAppleR\aaccount\x12.\n" +
+	"\x04sync\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x04sync\x12=\n" +
+	"\fimport_email\x18\x03 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\xbb\x01\n" +
 	"\x13LinkFacebookRequest\x125\n" +
 	"\aaccount\x18\x01 \x01(\v2\x1b.nakama.api.AccountFacebookR\aaccount\x12.\n" +
-	"\x04sync\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x04sync\x12<\n" +
-	"\vimportEmail\x18\x03 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\x86\x01\n" +
+	"\x04sync\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x04sync\x12=\n" +
+	"\fimport_email\x18\x03 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"\x87\x01\n" +
 	"\x11LinkGoogleRequest\x123\n" +
-	"\aaccount\x18\x01 \x01(\v2\x19.nakama.api.AccountGoogleR\aaccount\x12<\n" +
-	"\vimportEmail\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"v\n" +
+	"\aaccount\x18\x01 \x01(\v2\x19.nakama.api.AccountGoogleR\aaccount\x12=\n" +
+	"\fimport_email\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\vimportEmail\"v\n" +
 	"\x10LinkSteamRequest\x122\n" +
 	"\aaccount\x18\x01 \x01(\v2\x18.nakama.api.AccountSteamR\aaccount\x12.\n" +
 	"\x04sync\x18\x02 \x01(\v2\x1a.google.protobuf.BoolValueR\x04sync\"\xbc\x01\n" +
@@ -10162,7 +10162,7 @@ var file_api_proto_depIdxs = []int32{
 	139, // 17: nakama.api.SessionRefreshRequest.vars:type_name -> nakama.api.SessionRefreshRequest.VarsEntry
 	8,   // 18: nakama.api.AuthenticateAppleRequest.account:type_name -> nakama.api.AccountApple
 	148, // 19: nakama.api.AuthenticateAppleRequest.create:type_name -> google.protobuf.BoolValue
-	148, // 20: nakama.api.AuthenticateAppleRequest.importEmail:type_name -> google.protobuf.BoolValue
+	148, // 20: nakama.api.AuthenticateAppleRequest.import_email:type_name -> google.protobuf.BoolValue
 	9,   // 21: nakama.api.AuthenticateCustomRequest.account:type_name -> nakama.api.AccountCustom
 	148, // 22: nakama.api.AuthenticateCustomRequest.create:type_name -> google.protobuf.BoolValue
 	10,  // 23: nakama.api.AuthenticateDeviceRequest.account:type_name -> nakama.api.AccountDevice
@@ -10172,14 +10172,14 @@ var file_api_proto_depIdxs = []int32{
 	12,  // 27: nakama.api.AuthenticateFacebookRequest.account:type_name -> nakama.api.AccountFacebook
 	148, // 28: nakama.api.AuthenticateFacebookRequest.create:type_name -> google.protobuf.BoolValue
 	148, // 29: nakama.api.AuthenticateFacebookRequest.sync:type_name -> google.protobuf.BoolValue
-	148, // 30: nakama.api.AuthenticateFacebookRequest.importEmail:type_name -> google.protobuf.BoolValue
+	148, // 30: nakama.api.AuthenticateFacebookRequest.import_email:type_name -> google.protobuf.BoolValue
 	13,  // 31: nakama.api.AuthenticateFacebookInstantGameRequest.account:type_name -> nakama.api.AccountFacebookInstantGame
 	148, // 32: nakama.api.AuthenticateFacebookInstantGameRequest.create:type_name -> google.protobuf.BoolValue
 	14,  // 33: nakama.api.AuthenticateGameCenterRequest.account:type_name -> nakama.api.AccountGameCenter
 	148, // 34: nakama.api.AuthenticateGameCenterRequest.create:type_name -> google.protobuf.BoolValue
 	15,  // 35: nakama.api.AuthenticateGoogleRequest.account:type_name -> nakama.api.AccountGoogle
 	148, // 36: nakama.api.AuthenticateGoogleRequest.create:type_name -> google.protobuf.BoolValue
-	148, // 37: nakama.api.AuthenticateGoogleRequest.importEmail:type_name -> google.protobuf.BoolValue
+	148, // 37: nakama.api.AuthenticateGoogleRequest.import_email:type_name -> google.protobuf.BoolValue
 	17,  // 38: nakama.api.AuthenticateRequest.account:type_name -> nakama.api.AccountProvider
 	148, // 39: nakama.api.AuthenticateRequest.create:type_name -> google.protobuf.BoolValue
 	18,  // 40: nakama.api.AuthenticateSteamRequest.account:type_name -> nakama.api.AccountSteam
@@ -10216,14 +10216,14 @@ var file_api_proto_depIdxs = []int32{
 	146, // 71: nakama.api.LeaderboardRecord.expiry_time:type_name -> google.protobuf.Timestamp
 	61,  // 72: nakama.api.LeaderboardRecordList.records:type_name -> nakama.api.LeaderboardRecord
 	61,  // 73: nakama.api.LeaderboardRecordList.owner_records:type_name -> nakama.api.LeaderboardRecord
-	12,  // 74: nakama.api.LinkAppleRequest.account:type_name -> nakama.api.AccountFacebook
+	8,   // 74: nakama.api.LinkAppleRequest.account:type_name -> nakama.api.AccountApple
 	148, // 75: nakama.api.LinkAppleRequest.sync:type_name -> google.protobuf.BoolValue
-	148, // 76: nakama.api.LinkAppleRequest.importEmail:type_name -> google.protobuf.BoolValue
+	148, // 76: nakama.api.LinkAppleRequest.import_email:type_name -> google.protobuf.BoolValue
 	12,  // 77: nakama.api.LinkFacebookRequest.account:type_name -> nakama.api.AccountFacebook
 	148, // 78: nakama.api.LinkFacebookRequest.sync:type_name -> google.protobuf.BoolValue
-	148, // 79: nakama.api.LinkFacebookRequest.importEmail:type_name -> google.protobuf.BoolValue
+	148, // 79: nakama.api.LinkFacebookRequest.import_email:type_name -> google.protobuf.BoolValue
 	15,  // 80: nakama.api.LinkGoogleRequest.account:type_name -> nakama.api.AccountGoogle
-	148, // 81: nakama.api.LinkGoogleRequest.importEmail:type_name -> google.protobuf.BoolValue
+	148, // 81: nakama.api.LinkGoogleRequest.import_email:type_name -> google.protobuf.BoolValue
 	18,  // 82: nakama.api.LinkSteamRequest.account:type_name -> nakama.api.AccountSteam
 	148, // 83: nakama.api.LinkSteamRequest.sync:type_name -> google.protobuf.BoolValue
 	149, // 84: nakama.api.ListChannelMessagesRequest.limit:type_name -> google.protobuf.Int32Value

@@ -6,6 +6,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Changed
 - Change the Fleet Manager Init interface to receive the namespace of the instance being registered.
+- Change Authenticate/Link{Apple,Facebook,Google} APIs to optionally opt-out from importing the email address from the provider.  
 
 ## [1.48.0] - 2026-09-18
 ### Added

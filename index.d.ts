@@ -3312,8 +3312,6 @@ declare namespace nkruntime {
 
     export type ValidatedPurchaseStore = "APPLE_APP_STORE" | "GOOGLE_PLAY_STORE" | "HUAWEI_APP_GALLERY" | "FACEBOOK_INSTANT_STORE" | "SAMSUNG_GALAXY_STORE"
 
-    export type ValidatedPurchaseSource = "STORE" | "PLUGIN"
-
     export type ValidatedPurchaseEnvironment = "UNKNOWN" | "SANDBOX" | "PRODUCTION"
 
     export interface ValidatedPurchase {
@@ -3329,7 +3327,6 @@ declare namespace nkruntime {
         environment: ValidatedPurchaseEnvironment
         seenBefore: boolean
         provider?: string
-        source: ValidatedPurchaseSource
     }
 
     export interface ValidatedSubscription {
@@ -3347,7 +3344,6 @@ declare namespace nkruntime {
         providerResponse: string
         providerNotification: string
         provider?: string
-        source: ValidatedPurchaseSource
     }
 
     export interface ValidatedPurchaseList {

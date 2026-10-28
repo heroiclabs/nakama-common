@@ -341,9 +341,9 @@ type Initializer interface {
 	RegisterAuthenticateProvider(name string, provider AuthenticateProvider) error
 
 	/*
-		RegisterPurchaseProvider registers a purchase provider under its name. This name is used by server code through NakamaModule.PurchaseValidate and by clients through the generic purchase validation request to select the provider.
+		RegisterIAPProvider registers a purchase provider under its name. This name is used by server code through NakamaModule.PurchaseValidate and by clients through the generic purchase validation request to select the provider.
 	*/
-	RegisterPurchaseProvider(provider PurchaseProvider) error
+	RegisterIAPProvider(provider IAPProvider) error
 
 	/*
 		RegisterBeforeRt registers a function with for a message. Any function may be registered to intercept a message received from a client and operate on it (or reject it) based on custom logic.
@@ -1173,31 +1173,18 @@ func (d *DefaultAuthenticateProviderResult) GetMetadata() map[string]any {
 }
 
 /*
-PurchaseProvider is a named purchase backend registered through Initializer.RegisterPurchaseProvider.
+IAPProvider is a named purchase backend registered through Initializer.RegisterIAPProvider.
 */
-type PurchaseProvider interface {
+type IAPProvider interface {
 	// Name selects the provider in validation requests and notification URLs.
 	Name() string
 	// Code identifies the provider's purchases in storage.
 	Code() int
 	// ValidatePurchase verifies the caller's payload, using any server-side overrides, and returns the purchases for Nakama to store.
 	ValidatePurchase(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, payload map[string]any, overrides map[string]any) ([]*ProviderPurchase, error)
-}
-
-/*
-SubscriptionProvider is optionally implemented by a PurchaseProvider to validate subscriptions.
-*/
-type SubscriptionProvider interface {
 	// ValidateSubscription verifies the caller's payload, using any server-side overrides, and returns the subscriptions for Nakama to store. The first one is returned to the caller.
 	ValidateSubscription(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, payload map[string]any, overrides map[string]any) ([]*ProviderSubscription, error)
-}
-
-/*
-NotificationHandler is optionally implemented by a PurchaseProvider to receive store notifications at
-/v2/console/<name>/notifications.
-*/
-type NotificationHandler interface {
-	// HandleNotification authenticates a notification and returns the updates it carries, in order, or none to acknowledge and ignore it.
+	// HandleNotification receives the store's notifications. It authenticates a notification and returns the updates it carries, in order, or none to acknowledge and ignore it.
 	HandleNotification(ctx context.Context, logger Logger, db *sql.DB, nk NakamaModule, body []byte, headers, query map[string][]string) ([]*ProviderNotification, error)
 }
 

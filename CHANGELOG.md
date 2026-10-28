@@ -6,6 +6,7 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Added
 - Interface and function definitions for purchase provider registration and generic purchase validation.
+- Interface and function definitions for generic subscription validation and provider subscription notifications.
 
 ### Changed
 - Change the Fleet Manager Init interface to receive the namespace of the instance being registered.

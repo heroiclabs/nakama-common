@@ -3336,7 +3336,7 @@ declare namespace nkruntime {
         userId: string
         productId: string
         originalTransactionId: string
-        store: ValidatedPurchaseStore
+        store: ValidatedPurchaseStore | `${number}`
         purchaseTime: number
         createTime: number
         updateTime: number
@@ -3346,6 +3346,8 @@ declare namespace nkruntime {
         active: boolean
         providerResponse: string
         providerNotification: string
+        provider?: string
+        source: ValidatedPurchaseSource
     }
 
     export interface ValidatedPurchaseList {

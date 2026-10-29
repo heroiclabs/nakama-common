@@ -329,6 +329,138 @@ declare namespace nkruntime {
     }
 
     /**
+     * IAP Purchase Notification function definition.
+     */
+    export interface IAPPurchaseNotificationFunction {
+        /**
+         * A hook run when an IAP provider notification changes a stored purchase.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param purchase - The notification purchase.
+         * @param providerPayload - The raw payload of the provider notification.
+         * @param notificationType - The type of notification received.
+         * @param provider - The name of the IAP provider that handled the notification.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, purchase: ValidatedPurchase, providerPayload: string, notificationType: IAPNotificationType, provider: string): void;
+    }
+
+    /**
+     * IAP Subscription Notification function definition.
+     */
+    export interface IAPSubscriptionNotificationFunction {
+        /**
+         * A hook run when an IAP provider notification changes a stored subscription.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param subscription - The notification subscription.
+         * @param providerPayload - The raw payload of the provider notification.
+         * @param notificationType - The type of notification received.
+         * @param provider - The name of the IAP provider that handled the notification.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, subscription: ValidatedSubscription, providerPayload: string, notificationType: IAPNotificationType, provider: string): void;
+    }
+
+    /**
+     * A purchase returned by an IAP provider. Times are in seconds since the epoch.
+     */
+    export interface IAPProviderPurchase {
+        transactionId: string
+        productId: string
+        purchaseTime?: number
+        refundTime?: number
+        environment?: ValidatedPurchaseEnvironment
+        rawResponse?: string
+    }
+
+    /**
+     * A subscription returned by an IAP provider. Times are in seconds since the epoch.
+     */
+    export interface IAPProviderSubscription {
+        originalTransactionId: string
+        productId: string
+        purchaseTime?: number
+        expiryTime?: number
+        refundTime?: number
+        environment?: ValidatedPurchaseEnvironment
+        rawResponse?: string
+    }
+
+    /**
+     * A change reported by an IAP provider notification. The purchase or subscription is attributed to userId, otherwise to its stored owner.
+     */
+    export interface IAPProviderNotification {
+        type?: IAPNotificationType
+        userId?: string
+        purchase?: IAPProviderPurchase
+        subscription?: IAPProviderSubscription
+    }
+
+    /**
+     * IAP Provider purchase validation function definition.
+     */
+    export interface IAPProviderValidatePurchaseFunction {
+        /**
+         * Validate a purchase with the store.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param payload - The payload the client or runtime passed to the validation.
+         * @param overrides - Opt. Values the runtime passed to override the provider's configuration.
+         * @returns The validated purchases. Throw an error with a message and code to reject the receipt.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, payload: {[key: string]: any}, overrides: {[key: string]: any} | null): IAPProviderPurchase[];
+    }
+
+    /**
+     * IAP Provider subscription validation function definition.
+     */
+    export interface IAPProviderValidateSubscriptionFunction {
+        /**
+         * Validate a subscription with the store.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param payload - The payload the client or runtime passed to the validation.
+         * @param overrides - Opt. Values the runtime passed to override the provider's configuration.
+         * @returns The validated subscriptions. Throw an error with a message and code to reject the receipt.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, payload: {[key: string]: any}, overrides: {[key: string]: any} | null): IAPProviderSubscription[];
+    }
+
+    /**
+     * IAP Provider notification handler function definition.
+     */
+    export interface IAPProviderHandleNotificationFunction {
+        /**
+         * Verify and translate a store notification received at the provider's notification endpoint.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param body - The raw notification body.
+         * @param headers - The notification request headers.
+         * @param query - The notification request query parameters.
+         * @returns The changes to apply, or null to acknowledge the notification without changes. Throw an error to make the store retry.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, body: string, headers: {[key: string]: string[]}, query: {[key: string]: string[]}): IAPProviderNotification[] | null;
+    }
+
+    /**
+     * The functions implementing an IAP provider.
+     */
+    export interface IAPProvider {
+        validatePurchase: IAPProviderValidatePurchaseFunction
+        validateSubscription: IAPProviderValidateSubscriptionFunction
+        handleNotification?: IAPProviderHandleNotificationFunction
+    }
+
+    /**
      * Storage Index Filter function definition.
      */
     export interface StorageIndexFilterFunction {
@@ -2386,6 +2518,38 @@ declare namespace nkruntime {
          registerAfterValidatePurchaseSamsung(fn: AfterHookFunction<ValidatePurchaseResponse, ValidatePurchaseSamsungRequest>): void;
 
         /**
+         * Register before Hook for RPC ValidatePurchase function, the validation through a registered IAP provider.
+         *
+         * @param fn - The function to execute before ValidatePurchase.
+         * @throws {TypeError}
+         */
+        registerBeforeValidatePurchase(fn: BeforeHookFunction<ValidateIAPPurchaseRequest>): void;
+
+        /**
+         * Register after Hook for RPC ValidatePurchase function, the validation through a registered IAP provider.
+         *
+         * @param fn - The function to execute after ValidatePurchase.
+         * @throws {TypeError}
+         */
+        registerAfterValidatePurchase(fn: AfterHookFunction<ValidateIAPPurchaseResponse, ValidateIAPPurchaseRequest>): void;
+
+        /**
+         * Register before Hook for RPC ValidateSubscription function, the validation through a registered IAP provider.
+         *
+         * @param fn - The function to execute before ValidateSubscription.
+         * @throws {TypeError}
+         */
+        registerBeforeValidateSubscription(fn: BeforeHookFunction<ValidateIAPSubscriptionRequest>): void;
+
+        /**
+         * Register after Hook for RPC ValidateSubscription function, the validation through a registered IAP provider.
+         *
+         * @param fn - The function to execute after ValidateSubscription.
+         * @throws {TypeError}
+         */
+        registerAfterValidateSubscription(fn: AfterHookFunction<ValidateIAPSubscriptionResponse, ValidateIAPSubscriptionRequest>): void;
+
+        /**
          * Register before Hook for RPC ListParties function.
          *
          * @param fn - The function to execute before ListParties.
@@ -2488,6 +2652,35 @@ declare namespace nkruntime {
          * @param fn - The function to execute after a Google IAP Notification is received.
          */
         registerSubscriptionNotificationGoogle(fn: SubscriptionNotificationGoogleFunction): void;
+
+        /**
+         * Register an IAP provider. Clients validate through it with the ValidatePurchase and ValidateSubscription APIs,
+         * and runtime code with purchaseValidate and subscriptionValidate. When handleNotification is set, store notifications
+         * are received at /v2/console/<name>/notifications, or /v2/console/<name>/notifications/<notificationEndpointId> when one is given, on the console port.
+         *
+         * @param name - The provider name, 1-128 characters of [a-zA-Z0-9_-]. Built-in store names are reserved.
+         * @param handlers - The functions implementing the provider, declared as named functions.
+         * @param code - The store code stored with the provider's purchases and subscriptions. Must fit in 16 bits and not be a built-in store code (0-4).
+         * @param notificationEndpointId - Opt. The last path segment of the provider's notification endpoint, 1-128 characters of [a-zA-Z0-9_-].
+         * @throws {TypeError}
+         */
+        registerIapProvider(name: string, handlers: IAPProvider, code: number, notificationEndpointId?: string): void;
+
+        /**
+         * Register a hook run when an IAP provider notification changes a stored purchase.
+         *
+         * @param fn - The function to execute.
+         * @throws {TypeError}
+         */
+        registerIapPurchaseNotification(fn: IAPPurchaseNotificationFunction): void;
+
+        /**
+         * Register a hook run when an IAP provider notification changes a stored subscription.
+         *
+         * @param fn - The function to execute.
+         * @throws {TypeError}
+         */
+        registerIapSubscriptionNotification(fn: IAPSubscriptionNotificationFunction): void;
 
         /**
          * List entries from an existing configured storage index.
@@ -3304,6 +3497,26 @@ declare namespace nkruntime {
 
     export interface ValidatePurchaseResponse {
         validatedPurchases?: ValidatedPurchase[]
+    }
+
+    export interface ValidateIAPPurchaseRequest {
+        provider: string
+        payload: {[key: string]: any}
+        persist?: boolean
+    }
+
+    export interface ValidateIAPSubscriptionRequest {
+        provider: string
+        payload: {[key: string]: any}
+        persist?: boolean
+    }
+
+    export interface ValidateIAPPurchaseResponse {
+        purchase: ValidatedPurchase[]
+    }
+
+    export interface ValidateIAPSubscriptionResponse {
+        subscription: ValidatedSubscription
     }
 
     export interface ValidateSubscriptionResponse {
@@ -5196,6 +5409,19 @@ declare namespace nkruntime {
         purchaseValidateSamsung(userID: string, purchaseId: string, persist?: boolean): ValidatePurchaseResponse
 
         /**
+         * Validate a purchase through a registered IAP provider.
+         *
+         * @param userID - User ID.
+         * @param provider - The name of the IAP provider, registered from any runtime.
+         * @param payload - The payload passed to the provider.
+         * @param persist - Opt. Whether to persist the validated purchases. Defaults to true.
+         * @param overrides - Opt. Values passed to the provider to override its configuration.
+         * @returns The validated purchases. Previously validated purchases are returned with seenBefore set.
+         * @throws {TypeError, GoError}
+         */
+        purchaseValidate(userID: string, provider: string, payload: {[key: string]: any}, persist?: boolean, overrides?: {[key: string]: any}): ValidateIAPPurchaseResponse
+
+        /**
          * Get a validated purchase data by transaction ID.
          *
          * @param transactionID - Transaction ID. For Google/Huawei this is the purchaseToken value of the purchase data.
@@ -5239,6 +5465,19 @@ declare namespace nkruntime {
          * @throws {TypeError, GoError}
          */
         subscriptionValidateGoogle(userID: string, subscription: string, persist?: boolean, clientEmailOverride?: string, privateKeyOverride?: string): ValidateSubscriptionResponse
+
+        /**
+         * Validate a subscription through a registered IAP provider.
+         *
+         * @param userID - User ID.
+         * @param provider - The name of the IAP provider, registered from any runtime.
+         * @param payload - The payload passed to the provider.
+         * @param persist - Opt. Whether to persist the validated subscription. Defaults to true.
+         * @param overrides - Opt. Values passed to the provider to override its configuration.
+         * @returns The validated subscription.
+         * @throws {TypeError, GoError}
+         */
+        subscriptionValidate(userID: string, provider: string, payload: {[key: string]: any}, persist?: boolean, overrides?: {[key: string]: any}): ValidateIAPSubscriptionResponse
 
         /**
          * Get a validated subscription data by product ID.

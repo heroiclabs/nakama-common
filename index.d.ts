@@ -461,6 +461,44 @@ declare namespace nkruntime {
     }
 
     /**
+     * The identity an authentication provider resolved from the payload.
+     */
+    export interface AuthenticateProviderResult {
+        /**
+         * The user's ID at the provider. Required.
+         */
+        providerUserId: string
+        /**
+         * Opt. The username to give an account created by this authentication.
+         */
+        username?: string
+        /**
+         * Opt. Extra information bundled in the session token.
+         */
+        vars?: {[key: string]: string}
+        /**
+         * Opt. Internal information for the rest of the provider flow, for example to get friends from the provider later.
+         */
+        metadata?: {[key: string]: any}
+    }
+
+    /**
+     * Authentication Provider function definition.
+     */
+    export interface AuthenticateProviderFunction {
+        /**
+         * Validate the payload with the provider and resolve the user's identity.
+         *
+         * @param ctx - The context for the execution.
+         * @param logger - The server logger.
+         * @param nk - The Nakama server APIs.
+         * @param payload - The payload the client or runtime passed to the authentication.
+         * @returns The identity at the provider. Throw an error with a message and code to reject the authentication.
+         */
+        (ctx: Context, logger: Logger, nk: Nakama, payload: {[key: string]: any}): AuthenticateProviderResult;
+    }
+
+    /**
      * Storage Index Filter function definition.
      */
     export interface StorageIndexFilterFunction {
@@ -564,7 +602,7 @@ declare namespace nkruntime {
 
     export interface AccountProvider {
         provider?: string
-        payload?: string
+        payload?: {[key: string]: any}
         vars?: SessionVars
     }
 
@@ -1348,20 +1386,20 @@ declare namespace nkruntime {
         registerAfterAuthenticateCustom(fn: AfterHookFunction<Session, AuthenticateCustomRequest>): void;
 
         /**
-         * Register before Hook for RPC AuthenticateProvider function.
+         * Register before Hook for RPC Authenticate function, the authentication through a registered provider.
          *
-         * @param fn - The function to execute before AuthenticateProvider.
+         * @param fn - The function to execute before Authenticate.
          * @throws {TypeError}
          */
-        registerBeforeAuthenticateProvider(fn: BeforeHookFunction<AuthenticateProviderRequest>): void;
+        registerBeforeAuthenticate(fn: BeforeHookFunction<AuthenticateProviderRequest>): void;
 
         /**
-         * Register after Hook for RPC AuthenticateProvider function.
+         * Register after Hook for RPC Authenticate function, the authentication through a registered provider.
          *
-         * @param fn - The function to execute after AuthenticateProvider.
+         * @param fn - The function to execute after Authenticate.
          * @throws {TypeError}
          */
-        registerAfterAuthenticateProvider(fn: AfterHookFunction<Session, AuthenticateProviderRequest>): void;
+        registerAfterAuthenticate(fn: AfterHookFunction<Session, AuthenticateProviderRequest>): void;
 
         /**
          * Register before Hook for RPC AuthenticateDevice function.
@@ -2652,6 +2690,16 @@ declare namespace nkruntime {
          * @param fn - The function to execute after a Google IAP Notification is received.
          */
         registerSubscriptionNotificationGoogle(fn: SubscriptionNotificationGoogleFunction): void;
+
+        /**
+         * Register an authentication provider. Clients authenticate, link and unlink through it with the Authenticate,
+         * Link and Unlink APIs, and runtime code with authenticate, link and unlink.
+         *
+         * @param name - The provider name, 1-128 characters of [a-zA-Z0-9_-].
+         * @param fn - The function resolving the user's identity, declared as a named function.
+         * @throws {TypeError}
+         */
+        registerAuthenticateProvider(name: string, fn: AuthenticateProviderFunction): void;
 
         /**
          * Register an IAP provider. Clients validate through it with the ValidatePurchase and ValidateSubscription APIs,

@@ -702,24 +702,13 @@ declare namespace nkruntime {
         vars?: SessionVars
     }
 
-    export interface AccountAppleVarsEntry {
-        key?: string
-        value?: string
-    }
-
     export interface AccountCustom {
         id?: string
         vars?: SessionVars
     }
 
-    export interface AccountCustomVarsEntry {
-        key?: string
-        value?: string
-    }
-
     export interface LinkAppleRequest {
-        account?: AccountFacebook
-        sync?: boolean
+        account?: AccountApple
         importEmail?: boolean
     }
 
@@ -3816,7 +3805,7 @@ declare namespace nkruntime {
          * @param token - Apple token.
          * @param username - username. If not provided a random username will be generated.
          * @param create - create user if not exists, defaults to true
-         * @param importEmail - import email from Apple account, defaults to false
+         * @param importEmail - Opt. Import email from Apple account if present and user has no email set, defaults to true.
          * @returns Object with authenticated user data.
          * @throws {TypeError, GoError}
          */

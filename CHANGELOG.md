@@ -4,6 +4,10 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Added
+- Interface and function definitions for IAP provider registration and generic purchase validation.
+- Interface and function definitions for generic subscription validation and IAP provider notifications.
+
 ### Changed
 - Change the Fleet Manager Init interface to receive the namespace of the instance being registered.
 

@@ -684,10 +684,8 @@ message LeaveGroupRequest {
 message LinkAppleRequest {
   // The Apple account details.
   AccountApple account = 1;
-  // Import Apple friends for the user.
-  google.protobuf.BoolValue sync = 2;
   // Import an email coming from the provider, if available, and if no other email is already set.
-  google.protobuf.BoolValue import_email = 3;
+  google.protobuf.BoolValue import_email = 2;
 }
 
 // Link Facebook to the current user's account.

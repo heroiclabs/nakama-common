@@ -4,13 +4,21 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+
+## [1.49.0] - 2026-11-03
 ### Added
 - Interface and function definitions for IAP provider registration and generic purchase validation.
 - Interface and function definitions for generic subscription validation and IAP provider notifications.
 
 ### Changed
 - Change the Fleet Manager Init interface to receive the namespace of the instance being registered.
-- Change Authenticate/Link{Apple,Facebook,Google} APIs to optionally opt-out from importing the email address from the provider.  
+- Change AuthenticateApple to optionally opt-out from importing the email address from the provider.
+- Change AuthenticateFacebook to optionally opt-out from importing the email address from the provider.
+- Change AuthenticateGoogle to optionally opt-out from importing the email address from the provider.
+- Change LinkApple to optionally opt-out from importing the email address from the provider.
+- Change LinkFacebook to optionally opt-out from importing the email address from the provider.
+- Change LinkGoogle to optionally opt-out from importing the email address from the provider.
+- Update to Go toolchain 1.27.3.
 
 ## [1.48.0] - 2026-09-18
 ### Added

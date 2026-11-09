@@ -4,6 +4,8 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Changed
+- Use buf to generate protocol buffer sources, replacing protoc and go generate.
 
 ## [1.49.0] - 2026-11-03
 ### Added

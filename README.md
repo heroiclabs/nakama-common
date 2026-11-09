@@ -13,25 +13,17 @@ The code is broken up into packages for different parts of the runtime framework
 
 ### Contribute
 
-The codebase uses Protocol Buffers. The protoc toolchain is used to generate source files which are committed to the repository to simplify builds for contributors.
+The codebase uses Protocol Buffers. The [buf](https://buf.build) toolchain is used to generate source files which are committed to the repository to simplify builds for contributors.
 
 To build the codebase and generate all sources use these steps.
 
-1. Install the Go toolchain and protoc toolchain.
+1. Install the Go toolchain and the [buf CLI](https://buf.build/docs/cli/installation/).
 
-2. Intall the protoc-gen-go plugin to generate Go code.
-
-   ```shell
-   go install "google.golang.org/protobuf/cmd/protoc-gen-go"
-   ```
-
-3. Use the Go generate command to generate all Go stubs.
+2. Generate all Go stubs.
 
    ```shell
-   env PATH="$HOME/go/bin:$PATH" go generate -x ./...
+   buf generate
    ```
-
-These steps have been tested with the Go 1.14 toolchain. Earlier Go toolchain versions may work though YMMV.
 
 ### Using this Go package
 

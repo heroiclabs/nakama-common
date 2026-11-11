@@ -6,6 +6,8 @@ The format is based on [keep a changelog](http://keepachangelog.com) and this pr
 ## [Unreleased]
 ### Fixed
 - Support multiple subscriptions in the IAP provider subscription validation reply.
+### Changed
+- Use buf to generate protocol buffer sources, replacing protoc and go generate.
 
 ## [1.49.0] - 2026-11-03
 ### Added

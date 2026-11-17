@@ -258,7 +258,7 @@ declare namespace nkruntime {
         (ctx: Context, logger: Logger, nk: Nakama): void;
     }
 
-    type IAPNotificationType = "SUBSCRIBED" | "RENEWED" | "EXPIRED" | "CANCELLED" | "REFUNDED"
+    type IAPNotificationType = "SUBSCRIBED" | "RENEWED" | "EXPIRED" | "CANCELLED" | "REFUNDED" | "IN_GRACE_PERIOD" | "ON_HOLD"
 
     /**
      * Purchase Notification Apple function definition.

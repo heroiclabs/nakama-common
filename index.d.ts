@@ -5172,7 +5172,7 @@ declare namespace nkruntime {
          * Get local cache data by key.
          *
          * @param key - local cache key.
-         * @param defaultValue - defaultValue if it cannot find.
+         * @param defaultValue - default value returned if entry for key is not found.
          * @throws {TypeError, GoError}
          * @returns local cache object.
          */

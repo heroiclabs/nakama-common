@@ -271,13 +271,48 @@ func (e *Error) Error() string {
 	return e.Message
 }
 
+type ErrCode int
+
+const (
+	// GRPC Error Codes.
+	ErrCodeGrpcCancelled          = 1
+	ErrCodeGrpcUnknown            = 2
+	ErrCodeGrpcInvalidArgument    = 3
+	ErrCodeGrpcDeadlineExceeded   = 4
+	ErrCodeGrpcNotFound           = 5
+	ErrCodeGrpcAlreadyExists      = 6
+	ErrCodeGrpcPermissionDenied   = 7
+	ErrCodeGrpcResourceExhausted  = 8
+	ErrCodeGrpcFailedPrecondition = 9
+	ErrCodeGrpcAborted            = 10
+	ErrCodeGrpcOutOfRange         = 11
+	ErrCodeGrpcUnimplemented      = 12
+	ErrCodeGrpcInternal           = 13
+	ErrCodeGrpcUnavailable        = 14
+	ErrCodeGrpcDataLoss           = 15
+	ErrCodeGrpcUnauthenticated    = 16
+
+	// HTTP Error Codes.
+	ErrCodeHttpClientClosedRequest = 1 // Http Status 499
+	ErrCodeHttpInternalServerError = 2 // Http Status 500
+	ErrCodeHttpBadRequest          = 3 // Http Status 400
+	ErrCodeHttpGatewayTimeout      = 4 // Http Status 504
+	ErrCodeHttpNotFound            = 5 // Http Status 404
+	ErrCodeHttpConflict            = 6 // Http Status 409
+	ErrCodeHttpForbidden           = 7 // Http Status 403
+	ErrCodeHttpTooManyRequests     = 8 // Http Status 429
+	ErrCodeHttpNotImplemented      = 12 // Http Status 501
+	ErrCodeHttpServiceUnavailable  = 14 // Http Status 503
+	ErrCodeHttpUnauthorized        = 16 // Http Status 401
+)
+
 /*
 NewError returns a new error. The message and code are sent directly to the client. The code field is also optionally translated to gRPC/HTTP code.
 
 	runtime.NewError("Server unavailable", 14) // 14 = Unavailable = 503 HTTP status code
 */
-func NewError(message string, code int) *Error {
-	return &Error{Message: message, Code: code}
+func NewError(message string, code ErrCode) *Error {
+	return &Error{Message: message, Code: int(code)}
 }
 
 /*

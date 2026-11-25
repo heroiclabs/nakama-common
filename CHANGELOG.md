@@ -4,8 +4,12 @@ All notable changes to this project are documented below.
 The format is based on [keep a changelog](http://keepachangelog.com) and this project uses [semantic versioning](http://semver.org).
 
 ## [Unreleased]
+### Added
+- Add `IAPNotificationInGracePeriod` and `IAPNotificationOnHold` subscription notification types.
+
 ### Fixed
 - Support multiple subscriptions in the IAP provider subscription validation reply.
+- Fix the `GoogleSubscriptionRecovered` string value to return `RECOVERED`.
 ### Changed
 - Use buf to generate protocol buffer sources, replacing protoc and go generate.
 
